@@ -7,6 +7,8 @@ var mongoose = require('mongoose');                     // mongoose for mongodb
 var morgan = require('morgan');             // log requests to the console (express4)
 var bodyParser = require('body-parser');    // pull information from HTML POST (express4)
 var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
+var http = require('http');
+var fs = require('fs');
 
 // configuration =================
 
@@ -84,12 +86,23 @@ app.delete('/api/todos/:todo_id', function(req, res) {
 
 
 // application -------------------------------------------------------------
-app.get('*', function(req, res) {
-        res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+//app.get('*', function(req, res) {
+	//        res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+	//    });
+
+var port = 8081;
+
+fs.readFile('./public/src/views/test.html', function (err, html) {
+	if (err) {
+	    throw err; 
+	}       
+	http.createServer(function(request, response) {  
+		response.writeHeader(200, {"Content-Type": "text/html"});  
+		response.write(html);  
+		response.end();  
+	    }).listen(port);
     });
 
-// listen (start app with node server.js) ======================================
-var port = 8081;
-app.listen(port);
+// app.listen(port);
 console.log("App listening on port " + port.toString());
 
