@@ -35,6 +35,16 @@
     "karma-phantomjs-launcher": "~0.2.1",
     "angular": "~1.4.4",
     "bootstrap": "~3.3.5",
-    "angular-mocks": "~1.4.4"
+    "angular-mocks": "~1.4.4",
+    "angular-touch": "~1.4.4",
+    "angular-animate": "~1.4.4",
+    "angular-route": "~1.4.4",
+    "angular-sanitize": "~1.4.4",
+    "angular-i18n": "~1.4.4",
+    "connect": "~3.4.0",
+    "nodemon": "~1.4.1",
+    "gulp-livereload": "~3.8.0",
+    "reload": "~0.4.0",
+    "error-handler": "~1.0.0"
   }
 }
