@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'proangularjs/css')));
 
 // The following is the lander page:
 app.get('/', function(req, res) {
-  res.sendFile(path.join(publicDir, 'listing_13.html'));
+  res.sendFile(path.join(publicDir, 'listing_12.html'));
 });
  
 var server = http.createServer(app);
