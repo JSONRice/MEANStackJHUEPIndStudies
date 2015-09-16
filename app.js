@@ -1,39 +1,73 @@
-//app.js
-var express = require('express')
-  , http = require('http')
-  , path = require('path')
-  , reload = require('reload')
-  , bodyParser = require('body-parser')
-  , logger = require('morgan');
+// app.js
 
- 
+// libraries -
+var express = require('express');
+var http = require('http');
+var https = require('https');
+var path = require('path');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+ver session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+var debug = require('debug')('node:server');
+var fs = require('fs');
+var reload = require('reload');
+var bodyParser = require('body-parser');
+
+// app object
 var app = express();
-var port = 8081;
+
+// Setup dependency injection and list paths with ElectrolyteJS (Inversion of Control)
+var ioc = require('electrolyte');
+ioc.loader(ioc.node('models'));
+ioc.loader(ioc.node('services'));
+ioc.loader(ioc.node('controllers'));
+ioc.loader(ioc.node('utils'));
+ioc.loader(ioc.node_modules());
+
+// create objects from IoC here:
+var database = ioc.create('database');
+var ssl = ioc.create('ssl');
+
+// connect to the database:
+database.connect(function(err) {
+	if (err) {
+	    console.log("Unable to connect to the database!");
+	    console.log(err);
+	    process.exit(-1);
+	}
+});
  
-var publicDir = path.join(__dirname, 'proangularjs/chapter02/');
+// setup routing api:
+var routes = {
+    index: require('./routes'),
+    api: require('./routes/api')
+};
 
-console.log("Serving from path: " + publicDir);
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
-app.set('port', port);
+// TODO: drop favicon.ico in ./public/images
+app.use(favicon(path.join(__dirname, 'public/images', 'favicon.ico')));
+
 app.use(logger('dev'));
-app.use(bodyParser.json()); //parses json, multi-part (file), url-encoded  
 
-// List of files to serve up statically:
-app.use(express.static(path.join(__dirname, 'proangularjs/')));
-app.use(express.static(path.join(__dirname, 'proangularjs/js')));
-app.use(express.static(path.join(__dirname, 'proangularjs/css')));
+app.use(session({
+  store: new MongoStore({
+    mongooseConnection: database.getConnection(),
+    // time to live:
+    ttl: 3360 
+  }),
+  secret: 'Change This'
+  resave: true,
+  saveUnitialized: true	      
+})));
 
-// The following is the lander page:
-app.get('/', function(req, res) {
-  res.sendFile(path.join(publicDir, 'listing_12.html'));
-});
- 
-var server = http.createServer(app);
- 
-// reload code here 
-// optional server delay argument can be given to reload, refer to API below 
-reload(server, app);
- 
-server.listen(app.get('port'), function(){
-  console.log("Web server listening on port " + app.get('port'));
-});
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(cookieParser());
+
+
+app.use(express.static(path.join(__dirname, 'public')));
