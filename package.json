@@ -42,6 +42,7 @@
     "debug": "~2.2.0",
     "gulp-angular-templatecache": "~1.7.0",
     "gulp-karma": "0.0.4",
-    "istanbul": "~0.3.20"
+    "istanbul": "~0.3.20",
+    "ejs": "~2.3.4"
   }
 }

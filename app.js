@@ -28,24 +28,27 @@ ioc.loader(ioc.node('utils'));
 ioc.loader(ioc.node_modules());
 
 // create objects from IoC here:
-/*
 var database = ioc.create('database');
-var ssl = ioc.create('ssl');
+
+//var ssl = ioc.create('ssl');
 
 // connect to the database:
-database.connect(function(err) {
-	if (err) {
-	    console.log("Unable to connect to the database!");
-	    console.log(err);
-	    process.exit(-1);
-	}
+
+database.connect(function (err) {
+  if (err) {
+    console.log("Unable to connect to the database!");
+    console.log(err);
+    process.exit(-1);
+  }
+  else {
+    console.log("Connected to database");
+  }
 });
- 
+
 // setup routing api:
 var routes = {
-    // TODO: add routes to root
-    index: require('./routes'),
-    api: require('./routes/api')
+  index: require('./routes'),
+  api: require('./routes/api')
 };
 
 // view engine setup
@@ -56,18 +59,16 @@ app.set('view engine', 'ejs');
 app.use(favicon(path.join(__dirname, 'public/images', 'favicon.ico')));
 
 app.use(logger('dev'));
-
 app.use(session({
   store: new MongoStore({
     mongooseConnection: database.getConnection(),
     // time to live:
-    ttl: 3360 
+    ttl: 3360
   }),
   secret: 'Change This',
   resave: true,
-  saveUnitialized: true	      
+  saveUninitialized: true
 }));
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
@@ -76,10 +77,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes.index);
+// TODO: resolve
 app.use('/api', routes.api);
 
 // catch 404 and forward on to error handler:
-app.use(function(res, req, next) {
+app.use(function (res, req, next) {
   var err = new Error("Not Found");
   err.status = 404;
   next(err);
@@ -91,55 +93,62 @@ app.use(function(res, req, next) {
 var port = normalizePort(process.env.PORT || '3443');
 app.set('port', port);
 
-// Create HTTP server:
-var server = https.createServer({
-	rejectUnauthorized: false // handled by express filter (graceful)
-});
+// Create HTTP server. When web site is visited load app object.
+var server = http.createServer(app);
 
 // listen on provided port, on all network interfaces.
 
-server.listen(port);
+server.listen(port, function () {
+  // callback:
+  console.log("Server listening on: http://localhost:%s", port);
+});
 server.on('error', onError);
 server.on('listening', onListening);
-*/
+
+console.log('node (express) listening on port: ' + port);
+
+
 // normalize a port into a number, string, or false:
 function normalizePort(val) {
-    var port = parseInt(val, 10);
-    if (isNaN(port)) {
-	return val;
-    }
-    if (port >= 0) {
-	return port;
-    }
-    return false;
-};
+  var port = parseInt(val, 10);
+  if (isNaN(port)) {
+    return val;
+  }
+  if (port >= 0) {
+    return port;
+  }
+  return false;
+}
+;
 
 // error handler function
 function onError(error) {
-    if (error.syscall !== 'listen') {
-	throw error;
-    }
-    var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
-    
-    // handle specific listen errors with friendly messages
-    switch(error.code) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
     case 'EACCES':
-	console.error(bind + ' requires elevated privileges.');
-	process.exit(1);
-	break;
+      console.error(bind + ' requires elevated privileges.');
+      process.exit(1);
+      break;
     case 'EADDRINUSE':
-	console.error(bind + ' is already in use');
-	process.exit(1);
-	break;
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
     default:
-	throw error;
-    }
-};
+      throw error;
+  }
+}
+;
 
 // event listeners for HTTP server "listening" event
 
 function onListening() {
-    var addr = server.address();
-    var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-    debug('Listening on ' + bind);
-};
+  var addr = server.address();
+  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
+;
