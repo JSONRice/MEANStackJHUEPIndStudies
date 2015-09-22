@@ -1,4 +1,4 @@
-angular.module('cleaningschedule').service('homeservice', [
+angular.module('cleaningschedule').service('homeService', [
   '$http',
   function($http) {
    var homeDropVisible = true;
