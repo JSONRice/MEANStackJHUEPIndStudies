@@ -1,10 +1,9 @@
 angular.module('cleaningschedule').controller('HomeController', [
   '$scope',
-  '$state',
   '$modal',
   'homeService',
   'lodash',
-  function($scope, $state, $modal, homeService, _) {
+  function($scope, $modal, homeService, _) {
     $scope.status = {};
     $scope.status.isOpen = false;
     $scope.input = {};

@@ -1,3 +1,8 @@
+/***
+ * OPTIONAL: reference additional vendor packages imported into index.ejs below
+ * ui.view could be added here but currently ng-view is being used.
+ */
+
 var cleaningschedule = angular.module('cleaningschedule', [
   'ngRoute', 'ngSanitize', 'ngResource', 'ui.bootstrap',
   'ui.select', 'ui.keypress', 'nvd3', 'ngLodash', 'angularSpinner'
