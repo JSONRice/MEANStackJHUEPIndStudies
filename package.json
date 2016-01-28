@@ -70,6 +70,11 @@
     "angular-spinner": "~0.7.0",
     "angular-selectize": "0.0.1",
     "selectize": "~0.12.1",
-    "angular-route": "~1.5.0-beta.0"
+    "angular-route": "~1.5.0-beta.0",
+    "morgan": "~1.6.1",
+    "body-parser": "~1.14.2",
+    "mongo-store": "~0.0.2",
+    "mongoose": "~4.3.7",
+    "reload": "~0.7.0"
   }
 }
