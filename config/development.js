@@ -1,6 +1,6 @@
 module.exports = {
     database: {
-	uri: 'mongodb://localhost/cleaningschedule',
+	uri: 'mongodb://localhost/meanstacktutorials',
 	options: {
 	    server: {
 		socketOptions: {

@@ -32,8 +32,8 @@ gulp.task('less', function () {
 
 // Convert Angular templates into a cache file
 gulp.task('templates', function () {
-  return gulp.src('./public/templates/**/*.html')
-          .pipe(templateCache('templates.js', {module: 'cleaningschedule'}))
+  return gulp.src('./public/templates/*.html')
+          .pipe(templateCache('templates.js', {module: 'meanstacktutorials'}))
           .pipe(gulp.dest('./public/javascript/dist'));
 });
 

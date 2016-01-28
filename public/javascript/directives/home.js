@@ -1,4 +1,4 @@
-cleaningschedule.directive('home', function() {
+meanstacktutorials.directive('home', function() {
   return {
       restrict: 'AE',
       replace: 'true',

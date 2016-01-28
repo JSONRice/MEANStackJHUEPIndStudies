@@ -100,7 +100,7 @@ if (app.get('env') === 'development') {
 // TODO: error handlers:
 
 // Get port from environment and store in Express:
-var port = normalizePort(process.env.PORT || '3443');
+var port = normalizePort(process.env.PORT || '8000');
 app.set('port', port);
 
 // Create HTTP server. When web site is visited load app object.
@@ -128,8 +128,7 @@ function normalizePort(val) {
     return port;
   }
   return false;
-}
-;
+};
 
 // error handler function
 function onError(error) {
@@ -151,14 +150,26 @@ function onError(error) {
     default:
       throw error;
   }
+};
+
+function loadDefaultPage(socket) {
+    fs.readFile('./public/templates/index.html', function (err, html) {
+	if (err) {
+	    throw err; 
+	}       
+	http.createServer(function(request, response) {  
+		response.writeHeader(200, {"Content-Type": "text/html"});  
+		response.write(html);  
+		response.end();  
+	    }).listen(socket);
+    });
 }
-;
 
 // event listeners for HTTP server "listening" event
 
 function onListening() {
   var addr = server.address();
   var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-  debug('Listening on ' + bind);
-}
-;
+  loadDefaultPage(bind);
+  console.log('Server is now listening for connections to socket: ' + bind);
+};

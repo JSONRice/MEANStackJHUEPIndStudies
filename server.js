@@ -12,7 +12,7 @@ var fs = require('fs');
 
 // configuration =================
 
-mongoose.connect('mongodb://localhost/cleaningschedule');
+mongoose.connect('mongodb://localhost/meanstacktutorials');
 
 app.use(express.static(__dirname + '/public'));                 // set the static files location /public/img will be /img for users
 app.use(morgan('dev'));                                         // log every request to the console
@@ -92,7 +92,7 @@ app.delete('/api/todos/:todo_id', function(req, res) {
 
 var port = 8081;
 
-fs.readFile('./public/src/views/test.html', function (err, html) {
+fs.readFile('./public/templates/index.html', function (err, html) {
 	if (err) {
 	    throw err; 
 	}       

@@ -1,4 +1,4 @@
-angular.module('cleaningschedule').controller('CalendarController', [
+angular.module('meanstacktutorials').controller('CalendarController', [
   'ui.calendar',
   'ui.bootstrap',
   '$scope',

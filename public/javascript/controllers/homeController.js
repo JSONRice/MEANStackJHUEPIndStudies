@@ -1,4 +1,4 @@
-angular.module('cleaningschedule').controller('HomeController', [
+angular.module('meanstacktutorials').controller('HomeController', [
   '$scope',
   '$modal',
   'homeService',
@@ -13,7 +13,7 @@ angular.module('cleaningschedule').controller('HomeController', [
     $scope.input.states = [];
     $scope.input.disciplineStates = [];
     $scope.homeSort = {};
-    console.log('loaded cleaningschedule.HomeController');    
+    console.log('loaded meanstacktutorials.HomeController');    
     // TODO: add more functionality
   }
 ]);
