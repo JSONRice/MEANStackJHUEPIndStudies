@@ -9,10 +9,11 @@ var bodyParser = require('body-parser');    // pull information from HTML POST (
 var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
 var http = require('http');
 var fs = require('fs');
+var dbName = 'meanstacktutorials';
 
 // configuration =================
 
-mongoose.connect('mongodb://localhost/meanstacktutorials');
+mongoose.connect('mongodb://localhost/' + dbName);
 
 app.use(express.static(__dirname + '/public'));                 // set the static files location /public/img will be /img for users
 app.use(morgan('dev'));                                         // log every request to the console
@@ -69,7 +70,7 @@ app.post('/api/todos', function(req, res) {
 
 // delete a todo
 app.delete('/api/todos/:todo_id', function(req, res) {
-        Todo.remove({
+	Todo.remove({
 		_id : req.params.todo_id
 		    }, function(err, todo) {
 		if (err)

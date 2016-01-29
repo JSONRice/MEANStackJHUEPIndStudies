@@ -117,7 +117,6 @@ server.on('listening', onListening);
 
 console.log('node (express) listening on port: ' + port);
 
-
 // normalize a port into a number, string, or false:
 function normalizePort(val) {
   var port = parseInt(val, 10);
