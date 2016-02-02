@@ -1,0 +1,50 @@
+Last Modified: 2/2/16 @ 5:00 PM EST
+
+Windows Notes:
+
+Download "Git for Windows" and make sure to select the bash shell and to add
+the executables to the PATH by default.
+
+Download Python (for node-gyp) make sure during setup to add to PATH
+
+Open up a command prompt, make a new git directory, and cd to it:
+
+mkdir git && cd git
+
+Using "Git CMD" (search in Windows search bar) and clone the project:
+
+git clone <target>
+
+Kerberos may required g++ (provide installation instructions)
+
+Specifications (64 bit) -
+Target IDE: Netbeans 8 (requires Java 8 SDK)
+Target OS: Windows 7
+Browser: Google Chrome
+
+NodeJS (NPM) Installation:
+Google search "NodeJS Windows" The first hit should be a link to nodejs.org Navigate to that link and download the Windows Installer (msi) file. NodeJS contains npm.
+
+
+Mongo Installation:
+Next navigate to www.mongodb.com and download the latest Windows Server msi (Microsoft Installation) file. If you want to know the version of Windows you have open up Powershell (click start enter 'Powershell') and type the following:
+
+wmic os get osarchitecture
+
+Create the db (database) directory under your C drive:
+
+Open Powershell or other terminal (e.g. Cygwin) and type:
+
+md \data\db 
+
+This will create a db directory under C:
+
+You should see the 'db' directory in C:\data by running:
+
+ls C:\data
+
+Now navigate to your "MongoDB" installation directory. Should be under "Program Files" under C: Could also be in "Program Files (x86)" Double click on the "MongoDB" directory and then follow this path of directories until you see "bin" For me it was "MongoDB" -> "Server" -> "3.2" -> "bin" Then double click on "mongod" The daemon will start mongo up at "C:/data/db" This will not work if the "C:/data/db" has not been setup properly.
+
+Now Mongo is running in its own terminal. Do not close this terminal. To verify Mongo is running open up the same "bin" folder you previously navigated to and double click on "mongo" The Mongo shell will appear. Type "show dbs" to show the databases. You should have no databases and be presented with an empty local db.
+
+
