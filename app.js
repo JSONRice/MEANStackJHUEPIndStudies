@@ -115,7 +115,6 @@ server.listen(port, function () {
 server.on('error', onError);
 server.on('listening', onListening);
 
-console.log('node (express) listening on port: ' + port);
 
 // normalize a port into a number, string, or false:
 function normalizePort(val) {
@@ -156,11 +155,6 @@ function loadDefaultPage(socket) {
 	if (err) {
 	    throw err; 
 	}       
-	http.createServer(function(request, response) {  
-		response.writeHeader(200, {"Content-Type": "text/html"});  
-		response.write(html);  
-		response.end();  
-	    }).listen(socket);
     });
 }
 

@@ -93,8 +93,8 @@ gulp.task('jasmine', ['templates'], function () {
                         .pipe(istanbul.writeReports())
                         .pipe(istanbul.enforceThresholds({thresholds: {global: 90}})) // code coverage of 90%
                         .on('end', cb);
-                    });
-        });
+            });
+});
 
 
 // Watch Files For Changes
@@ -104,11 +104,11 @@ gulp.task('watch', function () {
     gulp.watch('./public/stylesheets/less/**/*.less', ['less']);
 });
 
-// Used for development
+// Used for development 'gulp dev'
 gulp.task('dev', ['less', 'concat']);
 
 // Runs unit tests
 gulp.task('test', ['karma', 'jasmine']);
 
-// Used for production
-gulp.task('default', ['lint', 'less', 'minify']);
+// Used for production 'gulp'
+gulp.task('default', ['lint', 'less', 'minify', 'test']);
