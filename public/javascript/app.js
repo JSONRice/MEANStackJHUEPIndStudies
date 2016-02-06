@@ -26,6 +26,9 @@ meanstacktutorials.config(['$routeProvider', function ($routeProvider) {
 
     // note: chain on additional routes with .when(...)
     $routeProvider.when('/', {
+      templateUrl: 'index.html',
+      controller: 'IndexController'
+    }).when('/home', {
       templateUrl: 'home.html',
       controller: 'HomeController'
     }).otherwise({redirectTo: '/'});

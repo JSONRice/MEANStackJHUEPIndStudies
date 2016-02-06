@@ -1,4 +1,4 @@
-angular.module('cleaningschedule').service('homeService', [
+angular.module('meanstacktutorials').service('homeService', [
   '$http',
   function($http) {
    var homeDropVisible = true;

@@ -1,6 +1,6 @@
 // app.js
 
-// libraries -
+// API's -
 var express = require('express');
 var http = require('http');
 var https = require('https');
@@ -9,12 +9,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
+var MongoConnector = require('connect-mongo')(session);
 var debug = require('debug')('node:server');
 var fs = require('fs');
 var bodyParser = require('body-parser');
 
-// app object
+// app object handle
 var app = express();
 
 // Setup dependency injection and list paths with ElectrolyteJS (Inversion of Control)
@@ -28,10 +28,9 @@ ioc.loader(ioc.node_modules());
 // create objects from IoC here:
 var database = ioc.create('database');
 
-//var ssl = ioc.create('ssl');
+// var ssl = ioc.create('ssl');
 
 // connect to the database:
-
 database.connect(function (err) {
   if (err) {
     console.log("Unable to connect to the database!");
@@ -43,7 +42,7 @@ database.connect(function (err) {
   }
 });
 
-// setup routing api:
+// set routes:
 var routes = {
   index: require('./routes'),
   api: require('./routes/api')
@@ -52,13 +51,12 @@ var routes = {
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
-// TODO: put a favicon.ico in ./public/images
 app.use(favicon(path.join(__dirname, 'public/images', 'favicon.ico')));
-
 app.use(logger('dev'));
+
+// database settings for app
 app.use(session({
-  store: new MongoStore({
+  store: new MongoConnector({
     mongooseConnection: database.getConnection(),
     // time to live:
     ttl: 3360
@@ -75,7 +73,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes.index);
-// TODO: resolve
+// TODO: this isn't working yet fix it
 app.use('/api', routes.api);
 
 // catch 404 and forward on to error handler:
@@ -96,8 +94,6 @@ if (app.get('env') === 'development') {
     });
   });
 }
-
-// TODO: error handlers:
 
 // Get port from environment and store in Express:
 var port = normalizePort(process.env.PORT || '8000');

@@ -8,8 +8,10 @@ var rename = require('gulp-rename');
 var karma = require('gulp-karma');
 var jasmine = require('gulp-jasmine');
 var istanbul = require('gulp-istanbul');
+var Server = require('karma').Server;
 
-// Lint (JSHint) Task
+// Lint (JSHint) Task -
+// JSHint is a tool that helps to detect errors and potential problems in your JavaScript code
 gulp.task('lint', function () {
     return gulp.src([
         './controllers/**/*.js',
@@ -22,7 +24,7 @@ gulp.task('lint', function () {
     ]).pipe(jshint()).pipe(jshint.reporter('default'));
 });
 
-// Compile Less
+// Compile Less (CSS)
 gulp.task('less', function () {
     return gulp.src(['./public/stylesheets/less/*.less',
         './public/stylesheets/less/**/*.less'])
@@ -30,14 +32,14 @@ gulp.task('less', function () {
             .pipe(gulp.dest('./public/stylesheets/dist'));
 });
 
-// Convert Angular templates into a cache file
+// Convert all (html) Angular templates into templates.js cache file
 gulp.task('templates', function () {
     return gulp.src('./public/templates/*.html')
             .pipe(templateCache('templates.js', {module: 'meanstacktutorials'}))
             .pipe(gulp.dest('./public/javascript/dist'));
 });
 
-// Concatenate JavaScripts
+// Concatenate (combine) js then run the templates task
 gulp.task('concat', ['templates'], function () {
     return gulp.src([
         './app.js',
@@ -65,11 +67,17 @@ gulp.task('minify', ['concat'], function () {
 
 // Karma
 gulp.task('karma', ['templates'], function () {
-    return gulp.src([])
+    return gulp.src(["public/javascript/**/*.js"])
             .pipe(karma({
-                configFile: 'karma.conf.js',
+                configFile: __dirname + '/karma.conf.js',
                 action: 'run'
             }))
+            .pipe(istanbul({includeUntested: true})) // Covering files            
+            .pipe(istanbul.hookRequire()) // Force 'require' to return covered files
+                        .pipe(jasmine())
+                        .pipe(istanbul.writeReports())
+                        .pipe(istanbul.enforceThresholds({thresholds: {global: 90}})) // code coverage of 90%
+    
             .on('error', function (err) {
                 throw err;
             });
@@ -86,22 +94,34 @@ gulp.task('jasmine', ['templates'], function () {
         './app.js'
     ])
             .pipe(istanbul({includeUntested: true})) // Covering files
-            .pipe(istanbul.hookRequire()) // Force 'require' to return covered filed
+            .pipe(istanbul.hookRequire()) // Force 'require' to return covered files
             .on('finish', function () {
                 gulp.src(['./tests/backend/**/*Spec.js'])
                         .pipe(jasmine())
                         .pipe(istanbul.writeReports())
                         .pipe(istanbul.enforceThresholds({thresholds: {global: 90}})) // code coverage of 90%
-                        .on('end', cb);
+                        .on('end');
             });
 });
 
 
-// Watch Files For Changes
+// watch files for changes and recompile if any are detected
 gulp.task('watch', function () {
-    gulp.watch('./public/javascript/**/*.js', ['concat']);
-    gulp.watch('./public/templates/**/*.html', ['concat']);
+    // css
     gulp.watch('./public/stylesheets/less/**/*.less', ['less']);
+
+    // Note: ./routes/*.js is not recompiled as this is loaded in app.js
+    var watchList = [
+        './public/javascript/**/*.js',
+        './public/templates/**/*.html',
+        './views/*.ejs',
+        './utils/*.js'
+    ];
+
+    // Concate (combine) js and html
+    for (var i = 0; i < watchList.length; i++) {
+        gulp.watch(watchList[i], ['concat'], ['lint']);
+    }
 });
 
 // Used for development 'gulp dev'
@@ -111,4 +131,4 @@ gulp.task('dev', ['less', 'concat']);
 gulp.task('test', ['karma', 'jasmine']);
 
 // Used for production 'gulp'
-gulp.task('default', ['lint', 'less', 'minify', 'test']);
+gulp.task('default', ['lint', 'less', 'minify']);

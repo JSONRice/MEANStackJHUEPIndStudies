@@ -1,9 +1,9 @@
-angular.module('meanstacktutorials').controller('HomeController', [
+angular.module('meanstacktutorials').controller('IndexController', [
   '$scope',
   '$modal',
-  'homeService',
+  'indexService',
   'lodash',
-  function($scope, $modal, homeService, _) {
+  function($scope, $modal, indexService, _) {
     $scope.status = {};
     $scope.status.isOpen = false;
     $scope.input = {};

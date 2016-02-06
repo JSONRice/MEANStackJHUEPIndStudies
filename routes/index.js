@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page (index.ejs): */
+/* GET main page (index.ejs combining index.html): */
 router.get('/', function (req, res, next) {
-  res.render('index', {title: 'Home Page'});
+  res.render('index', {title: 'MEAN Stack Tutorials Etc.'});
 });
 
 module.exports = router;

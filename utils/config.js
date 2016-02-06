@@ -1,5 +1,5 @@
-/*
- * This is the router for the controllers / APIs
+/***
+ * Configurations loader service
  */
 exports = module.exports = function() {
   var config;
