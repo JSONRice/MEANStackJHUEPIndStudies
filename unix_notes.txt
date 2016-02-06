@@ -2,14 +2,33 @@ Last Modified: 2/2/16 @ 5:00 PM
 
 Unix Notes:
 
+If on Linux make sure to update your packages and add dev tools:
 
-Kerberos is required and needs g++:
+sudo yum -y update
+sudo yum -y "Development Tools"
 
-sudo yum install gcc-c++
-sudo yum install python
+Kerberos is required and needs g++ and Python:
+
+sudo yum -y install gcc-c++ python
+
+Then install the Kerberos libraries:
 
 # or Debian is: sudo apt-get install libkrb5-dev libkrb5-server
 sudo yum install krb5-devel krb5-server
+
+Also to ensure kerberos and node-gyp install correctly run the following on Linux:
+
+sudo npm install -g node-gyp
+
+Any dependency that you want added to your global path must be installed globally:
+
+sudo npm install -g gulp
+sudo npm install -g karma
+sudo npm install -g phantomjs-prebuilt
+
+Google Chrome was discontinued for RHEL/CentOS 6.x on up but a work around is here:
+
+http://www.tecmint.com/install-google-chrome-on-redhat-centos-fedora-linux/
 
 Specifications (64 bit) -
 IDE: Netbeans 8 (requires Java 8 SDK)
@@ -28,6 +47,7 @@ Navigate to the newly cloned project:
 cd MEANStackJHUEPIndStudies
 
 Now since NodeJS is installed download the dependencies contained in package.json
+All the developer dependencies are also in here.
 
 npm install
 

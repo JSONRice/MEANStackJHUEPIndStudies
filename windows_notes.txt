@@ -13,7 +13,16 @@ mkdir git && cd git
 
 Using "Git CMD" (search in Windows search bar) and clone the project:
 
-git clone <target>
+git clone https://github.com/jasonwr/MEANStackJHUEPIndStudies.git
+
+Navigate to the newly cloned project:
+
+cd MEANStackJHUEPIndStudies
+
+Now since NodeJS is installed download the dependencies contained in package.json
+All the developer dependencies are also in here.
+
+npm install
 
 Kerberos may required g++ (provide installation instructions)
 
