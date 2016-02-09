@@ -8,6 +8,7 @@ var rename = require('gulp-rename');
 var karma = require('gulp-karma');
 var jasmine = require('gulp-jasmine');
 var istanbul = require('gulp-istanbul');
+var server = require('karma').Server;
 
 // Lint (JSHint) Task
 gulp.task('lint', function () {
@@ -75,8 +76,9 @@ gulp.task('karma', ['templates'], function () {
             });
 });
 
-// Jasmine
-gulp.task('jasmine', ['templates'], function () {
+// Code coverage
+gulp.task('istanbul', ['templates'], function (cb) {
+    // All source files that should be included in the code coverage report
     return gulp.src([
         './controllers/**/*.js',
         './models/**/*.js',
@@ -88,13 +90,12 @@ gulp.task('jasmine', ['templates'], function () {
             .pipe(istanbul({includeUntested: true})) // Covering files
             .pipe(istanbul.hookRequire()) // Force 'require' to return covered filed
             .on('finish', function () {
-                gulp.src(['./tests/backend/**/*Spec.js'])
+                // Source to test
+                gulp.src(['./tests/frontend/**/*Spec.js'])
                         .pipe(jasmine())
                         .pipe(istanbul.writeReports())
                         .pipe(istanbul.enforceThresholds({thresholds: {global: 90}})) // code coverage of 90%
-                        .on('end', function () {
-                            console.log("Tests complete.");
-                        });
+                        .on('end', cb);
             });
 });
 
@@ -139,7 +140,7 @@ gulp.task('watch', function () {
 gulp.task('dev', ['less', 'concat']);
 
 // Runs unit tests
-gulp.task('test', ['karma', 'jasmine']);
+gulp.task('test', ['karma', 'istanbul']);
 
 // Used for production 'gulp'
 gulp.task('default', ['lint', 'less', 'minify']);

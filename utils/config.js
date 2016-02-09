@@ -4,6 +4,8 @@
 exports = module.exports = function() {
   var config;
   switch (process.env.NODE_ENV || 'development') {
+      // Add additional files when needed
+      /*
     case 'production':
       config = require('../config/production');
       break;
@@ -13,6 +15,7 @@ exports = module.exports = function() {
     case 'staging':
       config = require('../config/staging');
       break;
+      */
     case 'development':
     default:      
       config = require('../config/development');

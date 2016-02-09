@@ -26,6 +26,16 @@ npm install
 
 Kerberos may required g++ (provide installation instructions)
 
+Also to ensure kerberos and node-gyp install correctly run the following on Linux:
+
+sudo npm install -g node-gyp
+
+Any dependency that you want added to your global path must be installed globally:
+
+sudo npm install -g gulp
+sudo npm install -g karma
+sudo npm install -g phantomjs-prebuilt
+
 Specifications (64 bit) -
 Target IDE: Netbeans 8 (requires Java 8 SDK)
 Target OS: Windows 7

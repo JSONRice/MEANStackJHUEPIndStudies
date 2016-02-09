@@ -4,3 +4,4 @@ dist
 all.js
 all.css
 port*
+coverage
