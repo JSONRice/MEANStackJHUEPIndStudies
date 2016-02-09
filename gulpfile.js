@@ -5,10 +5,9 @@ var templateCache = require('gulp-angular-templatecache');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
-var karma = require('gulp-karma');
 var jasmine = require('gulp-jasmine');
 var istanbul = require('gulp-istanbul');
-var server = require('karma').Server;
+var Server = require('karma').Server;
 
 // Lint (JSHint) Task
 gulp.task('lint', function () {
@@ -65,15 +64,11 @@ gulp.task('minify', ['concat'], function () {
 });
 
 // Karma
-gulp.task('karma', ['templates'], function () {
-    return gulp.src([])
-            .pipe(karma({
-                configFile: 'karma.conf.js',
-                action: 'run'
-            }))
-            .on('error', function (err) {
-                throw err;
-            });
+gulp.task('karma', function (done) {
+    new Server({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: true
+    }, done).start();
 });
 
 // Code coverage
