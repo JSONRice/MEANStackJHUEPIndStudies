@@ -28,7 +28,7 @@ module.exports = function (config) {
             'public/javascript/**/*.js',
             'app/components/**/*.js',
             'app/view*/**/*.js',
-            'tests/frontend/*.js',
+            'tests/frontend/*Spec.js',
             'tests/frontend/**/*Spec.js'
         ],
         // list of files to exclude
@@ -37,7 +37,7 @@ module.exports = function (config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            'public/javascript/**/*.js': 'coverage',
+	    'public/javascript/**/*.js': 'coverage',
             // browserify framework allows requires in the specs
             'tests/frontend/**/*Spec.js': 'browserify'
 

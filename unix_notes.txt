@@ -16,6 +16,20 @@ Then install the Kerberos libraries:
 # or Debian is: sudo apt-get install libkrb5-dev libkrb5-server
 sudo yum install krb5-devel krb5-server
 
+The following involves installing global node modules. Currently Mac OS X requires
+'sudo' when running the native terminal. The following is a work around to 'sudo'
+Running 'sudo' on Mac OS X is difficult and brings a myriad of troubles.
+
+Note: first install homebrew (brew command) with the following:
+
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+Then see: https://gist.github.com/DanHerbert/9520689
+
+Doing the above means you should never have to use 'sudo' when installing npm modules
+globally with the '-g' flag. The following instructions work for Linux but for Mac OS X
+omit the 'sudo'
+
 Also to ensure kerberos and node-gyp install correctly run the following on Linux:
 
 sudo npm install -g node-gyp
