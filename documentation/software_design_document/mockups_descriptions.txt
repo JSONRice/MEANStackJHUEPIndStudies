@@ -1,0 +1,32 @@
+Mockups Overview:
+	Mockups are subject to change and free for public use under the MIT license. Mockups generated with Ninja Mock Inc. for non-commercial (FOSS). Please refer to mockups_illustrations.pdf for pages. This document is setup to describe each of the mockup pages and is subject to change at any time to reflect current design as necessary to meet project requirements.
+
+Sources:
+	www.ninjamock.com
+
+Page 1:
+     Login page over a secure socket (HTTPS). Users must have a valid user name (email) and password to sign in. Need to design a method for logging in. There are a few scenarios for first time usage; first time users are directed to a new user registration form, new users may login as guest, or first time users must send an email to a web admin to receive a unique password. 
+
+Page 2:
+     Table of Contents is setup as a tree hierarchy view with multiple tiers. Branch level tiers reveal either additional branches (vertices) or nodes (edges). The nodes are represented as links with text that when clicked navigate to a new web page. As this is a MEAN application the navigation of one page to another is discouraged and the SPA (Single Page Application) paradigm is encouraged, however the Table of Contents is an exception as each of the follow on pages typically have at least one page of content and requesting a single page of content or more through AJAX is just as expensive, and possibly more, as a new page request dispatch.
+
+Page 3:
+     Section 1.1 Example MEAN Overview & SPA's. This page displays what a typical information focused page will look like. There may be description text, code, illustration, or diagrams but generally the majority of the page is text. These pages should be informative yet brief and generally should not go over one page of text.
+
+Page 4:
+     Section 1.1 Example Continued. This page is an extension of the Section 1.1 information page and should not invoke a redirect but rather utilize AngularJS and AJAX to serve up the dynamic diagram or image content and hide the previous text. The goal here is to provide illustrative input to help readers understand the previous text description.
+
+Page 5:
+     Section 2.2.2 Inversion of Control and ElectrolyteJS. This page is an example of a description with companion source code. Source code should be clear and well formated with options for changing the background and font colors. There should be additional options in the source code viewer such as a copy and paste button.
+
+Page 6:
+     Section 3.2.3.1 AngularJS Widget Examples: Calendar is part of the AngularJS widget suite and is a live demonstration of a Calendar AngularJS directive. Some of these widgets will be based on Angular-UI Bootstrap widgets and others may be more custom based widgets from the MEAN stack application. Each widget should provide a toggle for additional views. For example the Calendar will have a menu for selecting a German (language), Julian, or Lunar calendar. Upon click the event is carried out by AngularJS and fulfilled.
+
+Page 7:
+     Section 4.3 Regression Testing & Code Coverage is similar to the AngularJS widget suite (section 3.2.3) but does not contain any UI elements. This page is a command line interface (CLI) dialogue of the Gulp code coverage task. When a user navigates to this page, they should see the command typed out slowly on the screen and then issued. This will invoke a run on the server side with instant feedback to the UI. A feature may be added to prevent a future run so that users can see the command output. This page is similar to Section 5.1 but may also contain description text to describe how code coverage and regression testing practices are implemented into the MEAN stack along with additional options for accomplishing these goals.
+
+Pages 8-10:
+     Section 5.1 Task Management with Gulp is an overview of the basic Gulp tasks (goals) within the MEAN stack web application, with the Gulp Tasks overview and an example Gulp file displayed by default. There is a navigation group on the left that when clicked morphs the content through AJAX to display an overview and source code for a specific task. This should pull directly from the Gulp source file and when the "Run" button is clicked the Gulp task is ran on the server and the output is displayed back to the user. Note that this step may be cached and additional measures taken to ensure that the server isn't bogged down with multiple, concurrent tasks. Other security measures will need to be implemented to prevent a DDOS (Direct Denial of Service) task by limiting the Gulp task runs.
+
+
+     

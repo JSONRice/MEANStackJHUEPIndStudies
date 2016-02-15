@@ -17,9 +17,13 @@ gulp.task('lint', function () {
         './routes/**/*.js',
         './services/**/*.js',
         './utils/**/*.js',
-        './app.js',
-        './public/javascript/**/*.js'
-    ]).pipe(jshint()).pipe(jshint.reporter('default'));
+	'./app.js',
+        './public/javascript/**/*.js',
+	// don't lint packaged or minified code
+	// 9 out of 10 times this is optimized (e.g. no semicolons)
+	'!./public/javascript/dist/*'
+    ])
+	.pipe(jshint()).pipe(jshint.reporter('default'));
 });
 
 // Compile Less
