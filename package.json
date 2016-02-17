@@ -82,6 +82,9 @@
     "shelljs": "~0.2.6",
     "uglify-js": "~2.6.1",
     "ui-select": "~0.11.2",
-    "watchify": "^3.7.0"
+    "watchify": "^3.7.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.0.0"    
   }
 }

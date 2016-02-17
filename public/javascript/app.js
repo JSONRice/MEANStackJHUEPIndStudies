@@ -23,14 +23,23 @@ console.log('dependencies pre-loaded in public/javascript/app.js');
 
 meanstacktutorials.config(['$routeProvider', function ($routeProvider) {
     console.log('meanstacktutorials.config > routing');
-
+    
     // note: chain on additional routes with .when(...)
+    // The default page loads from the root '/' and is index.html
     $routeProvider.when('/', {
       templateUrl: 'index.html',
       controller: 'IndexController'
     }).when('/home', {
-      templateUrl: 'home.html',
+      templateUrl: '../templates/home.html',
       controller: 'HomeController'
+    }).when('/login', {
+      templateUrl: '../templates/login.html', 
+      controller: 'LoginController'
+    }).when('/logout', {
+      controller: 'LogoutController'
+    }).when('/register', {
+      templateUrl: '../templates/register.html', 
+      controller: 'RegisterController'
     }).otherwise({redirectTo: '/'});
   }]);
 

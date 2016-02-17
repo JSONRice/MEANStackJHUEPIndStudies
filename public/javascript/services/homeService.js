@@ -1,4 +1,4 @@
-angular.module('meanstacktutorials').service('homeService', [
+angular.module('meanstacktutorials').service('HomeService', [
   '$http',
   function($http) {
    var homeDropVisible = true;
