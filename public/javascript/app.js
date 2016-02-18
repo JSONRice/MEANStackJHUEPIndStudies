@@ -34,15 +34,13 @@ console.log('dependencies pre-loaded in public/javascript/app.js');
 meanstacktutorials.config(['$routeProvider', function ($routeProvider) {
     console.log('meanstacktutorials.config > routing');
     
-    // note: chain on additional routes with .when(...)
-    // The default page loads from the root '/' and is index.html
+    // note: chain on additional route configs with .when(...)
+    // The otherwise() (default) page loads from '/' and is the login page
+    // All other pages should be restricted access besides the registration,
+    // logout, and login pages.
     $routeProvider.when('/', {
       templateUrl: '../templates/login.html',
       controller: 'LoginController',
-      access: {restricted: false}      
-    }).when('/home', {
-      templateUrl: '../templates/home.html',
-      controller: 'LogoutController',
       access: {restricted: false}      
     }).when('/login', {
       templateUrl: '../templates/login.html', 
@@ -54,7 +52,15 @@ meanstacktutorials.config(['$routeProvider', function ($routeProvider) {
       templateUrl: '../templates/register.html', 
       controller: 'RegisterController',
       access: {restricted: false}      
-    }).otherwise({
+    })
+      // NOTICE: The following route controller configurations are all restricted access
+      // If you add a new config then make sure it's access is restricted!
+      .when('/home', {
+      templateUrl: '../templates/home.html',
+      controller: 'LogoutController',
+      access: {restricted: true}      
+    })    
+      .otherwise({
       redirectTo: '/login'
     });
   }]);
