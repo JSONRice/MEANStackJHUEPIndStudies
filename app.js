@@ -13,6 +13,9 @@ var MongoConnector = require('connect-mongo')(session);
 var debug = require('debug')('node:server');
 var fs = require('fs');
 var bodyParser = require('body-parser');
+var passport = require('passport');
+var localStrategy = require('passport-local' ).Strategy;
+
 
 // app object handle
 var app = express();
@@ -44,11 +47,27 @@ database.connect(function (err) {
         console.log("Connected to Mongo database.");
     }
 });
+
+// Schemas
+var user = require('./models/user.js');
+
+// security
+app.use(require('express-session')({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(user.authenticate()));
+passport.serializeUser(user.serializeUser());
+passport.deserializeUser(user.deserializeUser());
+
  
 // set routes up:
 var routes = {
-    index: require('./routes'),
-    api: require('./routes/api')
+    index: require('./routes/index.js'),
+    api: require('./routes/api.js')
 };
 
 // view engine setup
@@ -75,9 +94,10 @@ app.use(cookieParser());
 // register the public directory with express.static for quick access from anywhere:
 app.use(express.static(path.join(__dirname, 'public')));
 
+// ExpressJS routing:
 app.use('/', routes.index);
-// TODO: this isn't working yet fix it
 app.use('/api', routes.api);
+app.use('/user/', routes.api);
 
 // catch 404 and forward on to error handler:
 app.use(function (res, req, next) {
@@ -148,8 +168,7 @@ function onError(error) {
         default:
             throw error;
     }
-}
-;
+};
 
 function loadDefaultPage(socket) {
     fs.readFile('./public/templates/index.html', function (err, html) {
@@ -160,7 +179,6 @@ function loadDefaultPage(socket) {
 }
 
 // event listeners for HTTP server "listening" event
-
 function onListening() {
     var addr = server.address();
     // unix (file) pipe (IPC) or network port:

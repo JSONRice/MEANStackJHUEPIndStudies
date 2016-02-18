@@ -1,98 +1,105 @@
-angular.module('meanstacktutorials').service('AuthenticationService', [
+angular.module('meanstacktutorials').factory('AuthenticationService', [
+  '$q', 
+  '$timeout', 
   '$http',
-  '$q',
-  '$timeout',
-  function ($http, $q, $timeout) {
+  function ($q, $timeout, $http) {
+
+    // create user variable
     var user = null;
 
-
-
+    // return available functions for use in controllers
     return ({
-      isLoggedIn: function () {
-        if (user) {
+      isLoggedIn: isLoggedIn,
+      getUserStatus: getUserStatus,
+      login: login,
+      logout: logout,
+      register: register
+    });
+
+    function isLoggedIn() {
+        if(user) {
           return true;
         } else {
           return false;
         }
-      },
-      getUserStatus: function () {
-        return user;
-      },
-      login: function (username,
-              firstName, lastName, password,
-              age, registrationDate, isAdmin) {
-        // create a new deferred (promise) instance
-        var deferred = $q.defer();
-        // Send POST to api.js (route file)
-        $http.post('/login', {
-          username: username,
-          password: password
+    }
+
+    function getUserStatus() {
+      return user;
+    }
+
+    function login(username, password) {
+
+      // create a new instance of deferred
+      var deferred = $q.defer();
+
+      // send a post request to the server
+      $http.post('/user/login', {username: username, password: password})
+        // handle success
+        .success(function (data, status) {
+          if(status === 200 && data.status){
+            user = true;
+            deferred.resolve();
+          } else {
+            user = false;
+            deferred.reject();
+          }
         })
-                .success(function (data, status) {
-                  if (status === 200 && data.status) {
-                    user = true;
-                    deferred.resolve();
-                  } else {
-                    user = false;
-                    deferred.reject();
-                  }
-                })
-                .error(function (data) {
-                  user = false;
-                  deferred.reject();
-                });
+        // handle error
+        .error(function (data) {
+          user = false;
+          deferred.reject();
+        });
 
-        // return promise JSON
-        return deferred.promise;
-      },
-      logout: function () {
-        // create a new deferred (promise) instance
-        var deferred = $q.defer();
+      // return promise object
+      return deferred.promise;
 
-        // Send GET to api.js (route file)
-        $http.get('/logout')
-                .success(function (data) {
-                  user = false;
-                  deferred.resolve();
-                })
-                .error(function (data) {
-                  user = false;
-                  deferred.reject();
-                });
+    }
 
-        return deferred.promise;
-      },
-      registration: function (emailUsername,
-              firstName, lastName, password,
-              age, registrationDate) {
-        // create a new deferred (promise) instance
-        var deferred = $q.defer();
+    function logout() {
 
-        // Send POST to api.js (route file):
-        $http.post('/register', {
-          username: emailUsername,
-          firstName: firstName,
-          lastName: lastName,
-          password: password,
-          age: age,
-          registrationDate: registrationDate
+      // create a new instance of deferred
+      var deferred = $q.defer();
+
+      // send a get request to the server
+      $http.get('/user/logout')
+        // handle success
+        .success(function (data) {
+          user = false;
+          deferred.resolve();
         })
-                .success(function (data, status) {
-                  if (status === 200 && data.status) {
-                    deferred.resolve();
-                  } else {
-                    deferred.reject();
-                  }
+        // handle error
+        .error(function (data) {
+          user = false;
+          deferred.reject();
+        });
 
-                })
-                .error(function (data) {
-                  deferred.reject();
-                });
+      // return promise object
+      return deferred.promise;
 
-        return deferred.promise;
+    }
 
-      }
-    });
+    function register(username, password) {
+      // create a new instance of deferred
+      var deferred = $q.defer();
 
-  }
-]);
+      // send a post request to the server
+      
+      $http.post('/user/register', {username: username, password: password})
+        // handle success
+        .success(function (data, status) {
+          if(status === 200 && data.status){
+            deferred.resolve();
+          } else {
+            deferred.reject();
+          }
+        })
+        // handle error
+        .error(function (data) {
+          deferred.reject();
+        });
+
+      // return promise object
+      return deferred.promise;
+    }
+}]);

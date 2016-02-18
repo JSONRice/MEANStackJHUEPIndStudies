@@ -134,7 +134,7 @@ gulp.task('test-server', function () {
 });
 
 // Watch Files For Changes
-gulp.task('watch', function () {
+gulp.task('watch', ['dev'], function () {
     gulp.watch('./public/javascript/**/*.js', ['concat']);
     gulp.watch('./public/templates/**/*.html', ['concat']);
     gulp.watch('./public/stylesheets/less/**/*.less', ['less']);
