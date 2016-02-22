@@ -4,24 +4,38 @@ angular.module('meanstacktutorials').factory('AuthenticationService', [
   '$http',
   function ($q, $timeout, $http) {
 
-    // create user variable
+    // user was successfully logged in ~ used for user status
     var user = null;
+    
+    // place all data to share between controllers in here
+    var data = {username: ""};
 
-    // return available functions for use in controllers
+    // return available functions and data for use in controllers
+    // note this is a method for sharing data between controllers and
+    // data in here is persisted (doesn't get cleared)
     return ({
+      setUsername: setUsername,
+      getUsername: getUsername,
       isLoggedIn: isLoggedIn,
       getUserStatus: getUserStatus,
       login: login,
       logout: logout,
-      register: register
+      register: register,
+      data: data
     });
+    
+    function setUsername(username) {
+      this.data.username = username;
+      console.debug('AuthenticationService->setUsername = ' + this.data.username);
+    }
+    
+    function getUsername() {
+      console.debug('AuthenticationService->getUsername = ' + this.data.username);
+      return this.data.username;
+    }
 
     function isLoggedIn() {
-        if(user) {
-          return true;
-        } else {
-          return false;
-        }
+      return (user) ? user : false;
     }
 
     function getUserStatus() {
@@ -34,7 +48,10 @@ angular.module('meanstacktutorials').factory('AuthenticationService', [
       var deferred = $q.defer();
 
       // send a post request to the server
-      $http.post('/user/login', {username: username, password: password})
+      $http.post('/api/login', {
+        username: username, 
+        password: password
+      })
         // handle success
         .success(function (data, status) {
           if(status === 200 && data.status){
@@ -62,7 +79,7 @@ angular.module('meanstacktutorials').factory('AuthenticationService', [
       var deferred = $q.defer();
 
       // send a get request to the server
-      $http.get('/user/logout')
+      $http.get('/api/logout')
         // handle success
         .success(function (data) {
           user = false;
@@ -79,13 +96,19 @@ angular.module('meanstacktutorials').factory('AuthenticationService', [
 
     }
 
-    function register(username, password) {
+    // register new user in Mongo
+    function register(username, firstname, lastname, password) {
       // create a new instance of deferred
       var deferred = $q.defer();
 
       // send a post request to the server
       
-      $http.post('/user/register', {username: username, password: password})
+      $http.post('/api/register', {
+        username: username,
+        firstname: firstname,
+        lastname: lastname,
+        password: password
+      })
         // handle success
         .success(function (data, status) {
           if(status === 200 && data.status){

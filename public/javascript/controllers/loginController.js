@@ -3,21 +3,20 @@ angular.module('meanstacktutorials').controller('LoginController', [
   '$location',
   'AuthenticationService',
   function ($scope, $location, AuthenticationService) {
-
-    console.log(AuthenticationService.getUserStatus());
-
-    // This function is called via ng-submit or any other ng in the html
+   
     $scope.login = function () {
       // initial values
       $scope.error = false;
       $scope.disabled = true;
 
-      // invoke the login function from service
-      AuthenticationService.login($scope.loginForm.username, $scope.loginForm.password)
+      AuthenticationService.login(
+              $scope.loginForm.username,
+              $scope.loginForm.password)
               // handle success
-              .then(function () {
-                $location.path('/home');
+              .then(function () {                
                 $scope.disabled = false;
+                AuthenticationService.setUsername($scope.loginForm.username);
+                $location.path('/home');
                 $scope.loginForm = {};
               })
               // handle error
@@ -34,7 +33,7 @@ angular.module('meanstacktutorials').controller('LoginController', [
       // initial values
       $scope.error = false;
       $scope.disabled = true;
-      
+
       console.log('Routing to registration');
       $location.path('/register');
       $scope.disabled = false;

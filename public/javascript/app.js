@@ -8,7 +8,8 @@ var meanstacktutorials = angular.module('meanstacktutorials', [
   'ui.select', 'ui.keypress', 'nvd3', 'ngLodash', 'angularSpinner'
 ]);
 
-// calls the services to force pre-load:
+// calls the services to force pre-load
+// this is good for calling services (REST data fetches) prior to page loads
 /*
 meanstacktutorials.run([
   'homeService',
@@ -54,10 +55,10 @@ meanstacktutorials.config(['$routeProvider', function ($routeProvider) {
       access: {restricted: false}      
     })
       // NOTICE: The following route controller configurations are all restricted access
-      // If you add a new config then make sure it's access is restricted!
+      // If you add a new config then make sure it's access is restricted.
       .when('/home', {
       templateUrl: '../templates/home.html',
-      controller: 'LogoutController',
+      controller: 'HomeController',
       access: {restricted: true}      
     })    
       .otherwise({

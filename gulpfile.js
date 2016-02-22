@@ -151,6 +151,7 @@ gulp.task('test-server', function () {
 gulp.task('watch', ['dev'], function () {
   gulp.watch('./public/javascript/**/*.js', ['concat']);
   gulp.watch('./public/templates/**/*.html', ['concat']);
+  gulp.watch('./models/*.js', ['concat']);
   gulp.watch('./public/stylesheets/less/**/*.less', ['less']);
   gulp.watch('./public/stylesheets/less/*.less', ['less']);
   gulp.watch('./public/stylesheets/css/**/*.css', ['less']);

@@ -6,7 +6,7 @@ var passport = require('passport');
 var user = require('../models/user.js');
 
 // To test route run: 
-// curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"username": "test@test.com", "password": "test"}' http://localhost:8000/user/register
+// curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"username": "test@test.com", "password": "test"}' http://localhost:8000/api/register
 // Note if test fails ensure port is the startup port from the NodeJS config file (app.js)
 router.post('/register', function(req, res) {
   user.register(new user({ username: req.body.username }), req.body.password, function(err, account) {
@@ -20,7 +20,7 @@ router.post('/register', function(req, res) {
 });
 
 // To test route:
-// curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"username": "test@test.com", "password": "test"}' http://localhost:3000/user/login
+// curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"username": "test@test.com", "password": "test"}' http://localhost:8000/api/login
 // Note if test fails ensure port is the startup port from the NodeJS config file (app.js)
 router.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
@@ -40,11 +40,45 @@ router.post('/login', function(req, res, next) {
 });
 
 // To test route:
-// curl -H "Accept: application/json" -H "Content-type: application/json" -X GET http://localhost:3000/user/logout
+// curl -H "Accept: application/json" -H "Content-type: application/json" -X GET http://localhost:8000/api/logout
 // Note if test fails ensure port is the startup port from the NodeJS config file (app.js)
 router.get('/logout', function(req, res) {
   req.logout();
   res.status(200).json({status: 'Bye!'});
+});
+
+////
+// Retrieve a single user (doc) from the Mongo user collection
+// To test on command line:
+// curl -H "Accept: application/json" -H "Content-type: application/json" -X GET http://localhost:8000/api/users
+//
+// To test in browser:
+// http://localhost:8000/api/users
+////
+router.get('/users', function (req, res) {
+  user.find(function (err, user) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(user);
+  });
+});
+
+////
+// Retrieve a single user (doc) from the Mongo user collection
+// To test on command line:
+// curl -H "Accept: application/json" -H "Content-type: application/json" -X GET http://localhost:8000/api/findUser/test@test.com
+//
+// To test in browser:
+// http://localhost:8000/api/findUser/test@test.com
+////
+router.get('/findUser/:username', function (req, res) {
+  user.findOne({username: req.params.username}, function (err, user) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(user);
+  });
 });
 
 module.exports = router;
