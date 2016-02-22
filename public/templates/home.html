@@ -1,14 +1,16 @@
 <div>
-    <h3>Welcome to the home template.</h3>
-    <div ng-show="loggedIn" class="alert">Welcome back, {{userdata.firstname}} {{userdata.lastname}}</div>    
-    <div>
-        <a ng-click="logout()" class="btn btn-default">Logout</a>
-    </div>
+    <page-banner></page-banner>
+    <div class="logo"></div>        
+    
+    <div ng-show="loggedIn" class="alert"><a ng-click="logout()" class="btn btn-default">Logout</a> Welcome back, {{userdata.firstname}} {{userdata.lastname}}</div>    
+    
+    <!--
     <ul class="list-group">
         <li class="list-group-item" ng-repeat="user in users">
             <b>{{user.username}}</b>
             <div class="text-muted">{{user.lastname}}, {{user.firstname}}</div>
         </li>
-    </ul>    
+    </ul>
+    -->
     <!-- <calendar></calendar> -->
 </div>

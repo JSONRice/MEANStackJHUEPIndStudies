@@ -149,8 +149,9 @@ gulp.task('test-server', function () {
 
 // Watch Files For Changes
 gulp.task('watch', ['dev'], function () {
-  gulp.watch('./public/javascript/**/*.js', ['concat']);
+  // Let the html templates compile first that way there aren't any load conflicts with the JS
   gulp.watch('./public/templates/**/*.html', ['concat']);
+  gulp.watch('./public/javascript/**/*.js', ['concat']);
   gulp.watch('./models/*.js', ['concat']);
   gulp.watch('./public/stylesheets/less/**/*.less', ['less']);
   gulp.watch('./public/stylesheets/less/*.less', ['less']);
