@@ -75,7 +75,7 @@
     "mongoose": "~4.3.7",
     "morgan": "~1.6.1",
     "node-gyp-install": "~2.2.0",
-    "nodemon": "~1.8.1",
+    "nodemon": "~1.9.0",
     "nvd3": "~1.8.1",
     "phantomjs-prebuilt": "^2.1.4",
     "protractor": "^2.1.0",
