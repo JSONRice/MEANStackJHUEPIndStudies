@@ -4,7 +4,7 @@
  */
 
 var meanstacktutorials = angular.module('meanstacktutorials', [
-  'ngRoute', 'ngSanitize', 'ngResource', 'ui.bootstrap',
+  'ngRoute', 'ngSanitize', 'ngResource', 'ngAnimate', 'ui.bootstrap',
   'ui.select', 'ui.keypress', 'nvd3', 'ngLodash', 'angularSpinner'
 ]);
 

@@ -1,5 +1,9 @@
+@white-smoke: #f5f5f5;
+
+@cornflower-blue: #6495ED;
+
 body {
-    background-color: #f5f5f5;
+    background: @white-smoke;
 }
 
 .form-signin {
@@ -25,4 +29,16 @@ body {
     height: auto;
     margin-bottom: 15px;
     padding: 7px 9px;
+}
+
+// Mock the navbar > a tag
+.mock-a {
+    color: @white-smoke !important;
+    padding-top:15px;
+    line-height:20px;
+    cursor:default;    
+}
+
+.logout-li > a {
+    color: @cornflower-blue !important;    
 }

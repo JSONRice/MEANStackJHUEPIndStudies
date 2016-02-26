@@ -17,6 +17,9 @@ exports = module.exports = function() {
       break;
       */
     case 'development':
+      // added this to keep JSLint (Hint) happy:
+      config = require('../config/development');
+      break;
     default:      
       config = require('../config/development');
       break;

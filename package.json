@@ -21,14 +21,15 @@
     "update-index-async": "node -e \"require('shelljs/global'); sed('-i', /\\/\\/@@NG_LOADER_START@@[\\s\\S]*\\/\\/@@NG_LOADER_END@@/, '//@@NG_LOADER_START@@\\n' + sed(/sourceMappingURL=angular-loader.min.js.map/,'sourceMappingURL=bower_components/angular-loader/angular-loader.min.js.map','app/bower_components/angular-loader/angular-loader.min.js') + '\\n//@@NG_LOADER_END@@', 'app/index-async.html');\""
   },
   "dependencies": {
-    "angular": "~1.5.0-beta.0",
+    "angular": "~1.5.0",
     "angular-nvd3": "~1.0.2",
+    "angular-animate": "^1.5.0",
     "angular-resource": "~1.5.0-beta.0",
     "angular-route": "~1.5.0-beta.0",
     "angular-sanitize": "~1.5.0-beta.0",
     "angular-selectize": "0.0.1",
     "angular-spinner": "~0.7.0",
-    "angular-ui-bootstrap": "~0.13.4",
+    "angular-ui-bootstrap": "~1.1.2",
     "angular-ui-router": "~0.2.15",
     "angular-ui-select": "~0.12.100",
     "angular-ui-utils": "~0.1.1",

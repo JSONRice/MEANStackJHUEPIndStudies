@@ -65,7 +65,8 @@ gulp.task('concat', ['templates'], function () {
     './directives/**/*.js',
     './filters/**/*.js',
     './models/**/*.js',
-    './services/**/*.js'
+    './services/**/*.js',
+    './public/javascript/**/*.js'    
   ], {
     cwd: './public/javascript'
   })

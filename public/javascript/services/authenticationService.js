@@ -44,7 +44,7 @@ angular.module('meanstacktutorials').factory('AuthenticationService', [
 
     function login(username, password) {
 
-      // create a new instance of deferred
+      // create a new instance of deferred (promise)
       var deferred = $q.defer();
 
       // send a post request to the server
