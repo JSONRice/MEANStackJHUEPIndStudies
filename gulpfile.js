@@ -28,19 +28,19 @@ gulp.task('lint', function () {
           .pipe(jshint()).pipe(jshint.reporter('default'));
 });
 
-// Compile Less
-gulp.task('less', function () {
+// Compile Stylesheets
+gulp.task('style', function () {
   var lessStream = gulp.src(['./public/stylesheets/less/*.less',
     './public/stylesheets/less/**/*.less'])
           .pipe(less())
-          .pipe(concat('styles-less.less'));
+          .pipe(concat('styles.less'));
 
   var cssStream = gulp.src(['./public/stylesheets/css/*.css',
     './public/stylesheets/css/**/*.css'])
-          .pipe(concat('styles-css.less'));
+          .pipe(concat('styles.css'));
 
   // Combine all style sheet files into one styles.css
-  var mergedStream = merge(lessStream)
+  var mergedStream = merge(lessStream, cssStream)
           .pipe(concat('styles.css'))
           .pipe(minifyCSS())
           .pipe(gulp.dest('./public/stylesheets/dist'));
@@ -154,17 +154,17 @@ gulp.task('watch', ['dev'], function () {
   gulp.watch('./public/templates/**/*.html', ['concat']);
   gulp.watch('./public/javascript/**/*.js', ['concat']);
   gulp.watch('./models/*.js', ['concat']);
-  gulp.watch('./public/stylesheets/less/**/*.less', ['less']);
-  gulp.watch('./public/stylesheets/less/*.less', ['less']);
-  gulp.watch('./public/stylesheets/css/**/*.css', ['less']);
-  gulp.watch('./public/stylesheets/css/*.css', ['less']);
+  gulp.watch('./public/stylesheets/less/**/*.less', ['style']);
+  gulp.watch('./public/stylesheets/less/*.less', ['style']);
+  gulp.watch('./public/stylesheets/css/**/*.css', ['style']);
+  gulp.watch('./public/stylesheets/css/*.css', ['style']);
 });
 
 // Used for development 'gulp dev'
-gulp.task('dev', ['less', 'concat']);
+gulp.task('dev', ['style', 'concat']);
 
 // Runs unit tests
 gulp.task('test', ['karma', 'coverage']);
 
 // Used for production 'gulp'
-gulp.task('default', ['lint', 'less', 'minify']);
+gulp.task('default', ['lint', 'style', 'minify']);

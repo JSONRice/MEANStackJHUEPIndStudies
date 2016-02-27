@@ -53,6 +53,10 @@ meanstacktutorials.config(['$routeProvider', function ($routeProvider) {
       templateUrl: '../templates/register.html', 
       controller: 'RegisterController',
       access: {restricted: false}      
+    }).when('/treeTest', {
+      templateUrl: '../templates/treeTest.html', 
+      controller: 'TreeController',
+      access: {restricted: false}      
     })
       // NOTICE: The following route controller configurations are all restricted access
       // If you add a new config then make sure it's access is restricted.

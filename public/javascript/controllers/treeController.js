@@ -1,33 +1,10 @@
-angular.module('meanstacktutorials').controller('HomeController', [
+/**
+ * Sources: https://github.com/nickperkinslondon/angular-bootstrap-nav-tree
+ */
+angular.module('meanstacktutorials').controller('TreeController', [
   '$scope',
-  '$location',
-  'AuthenticationService',
-  'DatabaseService',
   '$timeout',
-  function ($scope, $location, AuthenticationService, DatabaseService, timeout) {
-    console.log('homeController loaded!') // TODO: remove
-    $scope.username = AuthenticationService.getUsername() || "";
-    $scope.loggedIn = AuthenticationService.isLoggedIn();
-
-    $scope.userdata = {};
-    DatabaseService.getUser($scope.username)
-            .then(function (userdata) {
-              // now that we have the JSON of users go ahead and grab just the user we want
-              $scope.userdata = userdata;
-            }, function (error) {
-              console.error(error);
-            });
-
-    $scope.logout = function () {
-      console.log(AuthenticationService.getUserStatus());
-
-      AuthenticationService.logout()
-              .then(function () {
-                console.log('Logging out...');
-                $location.path('/');
-              });
-    };
-    
+  function ($scope, $timeout) {
     var apple_selected;
     var tree;
     var treedata_avm;
@@ -150,7 +127,7 @@ angular.module('meanstacktutorials').controller('HomeController', [
         ]
       }
     ];
-    $scope.my_data = treedata_geography;
+    $scope.my_data = treedata_avm;
     $scope.try_changing_the_tree_data = function () {
       if ($scope.my_data === treedata_avm) {
         return $scope.my_data = treedata_geography;
@@ -182,7 +159,6 @@ angular.module('meanstacktutorials').controller('HomeController', [
           "else": 43
         }
       });
-    };    
-    
+    };
   }
 ]);
