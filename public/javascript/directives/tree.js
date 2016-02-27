@@ -8,7 +8,7 @@ meanstacktutorials.directive('tree', [
   function ($timeout) {
     return {
       restrict: 'E',
-      template: "{html}",
+      templateUrl: "../../templates/widgets/tree.html",
       replace: true,
       scope: {
         treeData: '=',

@@ -58,7 +58,7 @@
                         <td style="vertical-align:top">
                             <div style="width:250px;margin-left:100px;background:whitesmoke;border:1px solid lightgray;border-radius:5px;">
                                 <span ng-if="doing_async">...loading...</span>
-                                <tree tree-data="my_data"></tree>
+                                <tree tree-data="my_data" tree-control="my_tree" on-select="my_tree_handler(branch)" expand-level="2" initial-selection="Granny Smith"></tree>                                
                             </div>
                         </td>
                         <td style="padding:20px;vertical-align:top;">
