@@ -82,7 +82,6 @@ Angular 1.2.0 Animation
 ul.abn-tree {
     overflow-x:scroll;
     overflow-y:hidden;
-    padding: 0 15px; 
     white-space:nowrap;    
 }
 

@@ -1,10 +1,9 @@
-@white-smoke: #f5f5f5;
 
-@cornflower-blue: #6495ED;
+/* 
+ Only use the following colors as these conform to the color schema:
+*/
 
-body {
-    background: @white-smoke;
-}
+@import 'colors';
 
 .form-signin {
     max-width: 400px;
@@ -31,14 +30,13 @@ body {
     padding: 7px 9px;
 }
 
-// Mock the navbar > a tag
-.mock-a {
-    color: @white-smoke !important;
+.loggedIn {
+    color: @cornflower-blue;
     padding-top:15px;
     line-height:20px;
     cursor:default;    
 }
 
 .logout-li > a {
-    color: @cornflower-blue !important;    
+    color: @cornflower-blue;    
 }

@@ -92,7 +92,7 @@ angular.module('meanstacktutorials').controller('TreeController', [
                 },
                 children: [
                   {
-                    label: 'ElectrolyteJS and IoC (DI)',
+                    label: 'ElectrolyteJS',
                     data: {
                       description: "TODO"
                     }

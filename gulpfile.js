@@ -42,7 +42,6 @@ gulp.task('style', function () {
   // Combine all style sheet files into one styles.css
   var mergedStream = merge(lessStream, cssStream)
           .pipe(concat('styles.css'))
-          .pipe(minifyCSS())
           .pipe(gulp.dest('./public/stylesheets/dist'));
 
   return mergedStream;
