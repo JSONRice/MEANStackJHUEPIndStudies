@@ -1,0 +1,17 @@
+<div class="modal-body" ng-controller="FeedbackController">
+    <div class="modal-dialog"> 
+        <div class="modal-content"> 
+            <div class="modal-header"> 
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{{title}}</h4> 
+            </div>
+            <div class="modal-body" ng-transclude>
+                <div class="row cs-spt-1 cs-irow-1">
+                    <div class="test-right">
+                        <button type="button" class="btn cs-cb-create-btn" ng-click="ok()">Submit Feedback</button>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>

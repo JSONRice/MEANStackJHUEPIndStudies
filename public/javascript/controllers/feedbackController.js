@@ -1,12 +1,18 @@
 angular.module('meanstacktutorials').controller('FeedbackController', [
   '$scope',
-  '$modalInstance',
-  function ($scope, $modalInstance) {
+  '$uibModalInstance',
+  function ($scope, $uibModalInstance) {
+    console.log('feedback controller loaded');
     /***
      * DIALOG FUNCTIONS:
      */
     $scope.ok = function() {
-      $modalInstance.close();
+      // Note pass any data you wish to close here.
+      $uibModalInstance.close();
+    };
+    
+    $scope.cancel = function() {
+      $uibModalInstance.dismiss('cancel');
     };
     
     /***
@@ -16,5 +22,6 @@ angular.module('meanstacktutorials').controller('FeedbackController', [
     /**
      * MUTATORS: 
      */
+    
   }
 ]);

@@ -11,12 +11,12 @@ angular.module('meanstacktutorials').controller('PageBannerController', [
     $scope.username = AuthenticationService.getUsername() || "";
     $scope.loggedIn = AuthenticationService.isLoggedIn();
 
-    $scope.open = function (size) {
-
+    $scope.openFAQ = function (size) {
+      console.log('opening up faq modal');
       var modalInstance = $uibModal.open({
         animation: true,
-        templateUrl: '../../templates/faqModal.html',
-        controller: 'ModalInstanceController',
+        templateUrl: '../../templates/modals/faq.html',
+        controller: 'FeedbackController',
         size: size,
         // pass any data to modal controller here:
         resolve: {

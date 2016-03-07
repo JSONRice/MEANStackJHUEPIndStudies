@@ -5,6 +5,10 @@
 
 @import 'colors';
 
+.panel {
+    cursor: default;
+}
+
 .form-signin {
     max-width: 400px;
     padding: 19px 29px 29px;
@@ -30,6 +34,26 @@
     padding: 7px 9px;
 }
 
+.modal-dialog{
+    overflow-y: initial !important
+}
+
+.modal-body{
+    overflow: scroll;
+}
+
+@media (min-height: 500px) {
+    .modal-body { 
+        height: 400px; 
+    }
+}
+
+@media (min-height: 800px) {
+    .modal-body { 
+        height: 600px; 
+    }
+}
+
 .loggedIn {
     color: @cornflower-blue;
     padding-top:15px;
@@ -39,4 +63,8 @@
 
 .logout-li > a {
     color: @cornflower-blue;    
+}
+
+a.informative {
+    color: @cornflower-blue;
 }

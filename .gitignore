@@ -5,3 +5,4 @@ all.js
 all.css
 port*
 coverage
+.DS_Store
