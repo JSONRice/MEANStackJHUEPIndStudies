@@ -1,17 +1,29 @@
-<div class="modal-body" ng-controller="FeedbackController">
-    <div class="modal-dialog"> 
-        <div class="modal-content"> 
-            <div class="modal-header"> 
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">{{title}}</h4> 
+<div id="feedbackmodal">
+    <div class="modal-header">
+        <h3 class="modal-title">Submit Feedback</h3>
+    </div>
+    <div class="modal-body">
+
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                Table of Contents
             </div>
-            <div class="modal-body" ng-transclude>
-                <div class="row cs-spt-1 cs-irow-1">
-                    <div class="test-right">
-                        <button type="button" class="btn cs-cb-create-btn" ng-click="ok()">Submit Feedback</button>
-                    </div>
-                </div>
-            </div>
-        </div> 
+            <div class="panel-footer">The Table of Contents is always accessible from each page once a user is logged in and is always located at the lower left side of the screen.</div>
+        </div>        
+
+        <!--
+        <dl class="dl-horizontal">
+            <dt>User Agent</dt>
+            <dd>An HTML user agent is any device that interprets HTML documents.</dd>
+            <dt>Client-side Scripting</dt>
+            <dd>Client-side scripting generally refers to the category of computer programs on the web that are executed client-side i.e. by the user's web browser.</dd>
+            <dt>Document Tree</dt>
+            <dd>The tree of elements encoded in the source document.</dd>
+        </dl>
+        -->
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
     </div>
 </div>

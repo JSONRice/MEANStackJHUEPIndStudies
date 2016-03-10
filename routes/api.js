@@ -4,6 +4,7 @@ var ioc = require('electrolyte');
 var router = ioc.create('router');
 var passport = require('passport');
 var user = require('../models/user.js');
+var version = require('../models/version.js');
 
 // To test route run: 
 // curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"username": "test@test.com", "password": "test"}' http://localhost:8000/api/register
@@ -48,7 +49,7 @@ router.get('/logout', function(req, res) {
 });
 
 ////
-// Retrieve a single user (doc) from the Mongo user collection
+// Retrieve users from the Mongo user collection
 // To test on command line:
 // curl -H "Accept: application/json" -H "Content-type: application/json" -X GET http://localhost:8000/api/users
 //
@@ -74,6 +75,23 @@ router.get('/users', function (req, res) {
 ////
 router.get('/findUser/:username', function (req, res) {
   user.findOne({username: req.params.username}, function (err, user) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(user);
+  });
+});
+
+////
+// Retrieve versions from the Mongo user collection
+// To test on command line:
+// curl -H "Accept: application/json" -H "Content-type: application/json" -X GET http://localhost:8000/api/versions
+//
+// To test in browser:
+// http://localhost:8000/api/users
+////
+router.get('/versions', function (req, res) {
+  version.find(function (err, user) {
     if (err) {
       res.send(err);
     }

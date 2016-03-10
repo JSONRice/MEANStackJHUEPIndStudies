@@ -1,7 +1,7 @@
 meanstacktutorials.directive('modal', function () {
   return {
     restrict: 'AE',
-    templateUrl: '../../templates/modals/faqModal.html',
+    templateUrl: '../../templates/modals/feedbackModal.html',
     transclude: true,
     replace: true,
     scope: true,

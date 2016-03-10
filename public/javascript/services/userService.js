@@ -1,4 +1,7 @@
-angular.module('meanstacktutorials').factory('DatabaseService', [
+/**
+ * User service for /api/users (Mongoose)
+ */
+angular.module('meanstacktutorials').factory('UserService', [
   '$q',
   '$http',
   function ($q, $http) {

@@ -1,0 +1,29 @@
+<div id="feedbackmodal">
+    <div class="modal-header">
+        <h3 class="modal-title">Project Version History</h3>
+    </div>
+    <div class="modal-body">
+        <div class="history-subtitle"> Scroll through the version view to track project iteration details.</div>
+        <div class="panel panel-primary" ng-repeat="version in versiondata">
+            <div class="panel-body">
+                Version '{{version.version}}':
+            </div>
+            <div class="panel-footer">
+                Github Link: <a href="{{version.githubInfo.url}}">{{version.githubInfo.title}}</a>
+                <br/>
+                <br/>
+                Author(s):
+                <ul ng-repeat="author in version.authors">
+                    <li>
+                        {{author}}
+                    </li>
+                </ul>
+                Background: {{version.background}}
+            </div>
+        </div>        
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</div>

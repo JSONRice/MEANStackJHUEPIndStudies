@@ -2,14 +2,14 @@ angular.module('meanstacktutorials').controller('HomeController', [
   '$scope',
   '$location',
   'AuthenticationService',
-  'DatabaseService',
+  'UserService',
   '$timeout',
-  function ($scope, $location, AuthenticationService, DatabaseService, timeout) {
+  function ($scope, $location, AuthenticationService, UserService, timeout) {
     $scope.username = AuthenticationService.getUsername() || "";
     $scope.loggedIn = AuthenticationService.isLoggedIn();
 
     $scope.userdata = {};
-    DatabaseService.getUser($scope.username)
+    UserService.getUser($scope.username)
             .then(function (userdata) {
               // now that we have the JSON of users go ahead and grab just the user we want
               $scope.userdata = userdata;
