@@ -11,7 +11,7 @@
             <div class="panel-footer">
                 Author: {{branch.commit.author.login}}
                 <br/>
-                Commit Date: {{branch.commit.commit.author.date | date : 'dd/MM/yyyy'}}
+                Commit Date & Time: {{branch.commit.commit.author.date | defaultDateTimeFormat}}
                 <br/>
                 Commit Message: {{branch.commit.commit.message}}
                 <br/>
