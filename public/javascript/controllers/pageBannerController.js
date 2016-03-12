@@ -4,29 +4,58 @@ angular.module('meanstacktutorials').controller('PageBannerController', [
   '$uibModal',
   '$log',
   'UserService',
-  'VersionService',
+  'GithubService',
   'AuthenticationService',
   function ($scope, $location, $uibModal, $log,
-          UserService, VersionService, AuthenticationService) {
-    $scope.items = ['item1', 'item2', 'item3'];
+          UserService, GithubService, AuthenticationService) {
+    // $scope is global to all modals and elements associated with the page banner view:
 
     $scope.username = AuthenticationService.getUsername() || "";
     $scope.loggedIn = AuthenticationService.isLoggedIn();
 
-    // common variables for use throughout the banner pages:
-    $scope.mostRecentVersion = "";
-    $scope.githubUrl = "foo";
-    $scope.githubAuthor = "foo";
-    $scope.githubTitle = "foo";
+    GithubService.getGitData().then(function (data) {
+      $scope.gitdata = data || {};
+    });
 
-    $scope.versiondata = {};
-    VersionService.getVersionData()
-            .then(function (versiondata) {
-              $scope.versiondata = versiondata;
-            }, function (error) {
-              console.error(error);
-            });
+    /**
+     * Fetch the branch url labeled as commit.url then use this to request another
+     * HTTP GET to fecth specific branch info. Then push the result onto the branch data.
+     * @data {Object}
+     */
+    GithubService.getGitBranchData().then(function (data) {
+      // Preserve scope for later usage
+      var _this = this;
 
+      // Preserve the generic branch data in scope for next AJAX request.
+      // This tactic gets around some inner scoping issues with new object instances of 'this'
+      _this.branches = angular.copy(data);
+      _this.branchData = [];
+      _this.offset = 0;
+      // var url;
+      _this.url = GithubService.getGithubUrl();
+      for (var i = 0; i < _this.branches.length; i++) {
+        console.log('Preparing to call: ' + _this.url + '/branches/' + _this.branches[i].name);
+        _this.branchurl = _this.url + '/branches/' + _this.branches[i].name;
+
+        GithubService.httpGitGET(_this.branchurl)
+                .then(function (specificBranchData) {
+                  _this.branchData.push(specificBranchData);
+                });
+
+        /*
+         GithubService.httpGitGET(_this.copy[i].commit.url)
+         .then(function (specificBranchData) {
+         _this.branchData.push(specificBranchData);
+         // console.log('_this.offset = ' + _this.offset);
+         _this.offset = _this.branchData.length - 1;
+         _this.branchData[_this.offset].name = _this.copy[_this.offset].name;
+         // console.log('['+_this.offset+'] =>' + branchData[_this.offset].name); 
+         console.log('['+_this.offset+']'+'sha: ' + _this.branchData[_this.offset].sha);
+         });
+         */
+      }
+      $scope.gitspecificbranchdata = _this.branchData || {};
+    });
 
     $scope.openFeedback = function (size) {
       modalInstance('../../templates/modals/feedback.html',
