@@ -110,7 +110,7 @@ angular.module('meanstacktutorials').factory('AuthenticationService', [
         // handle success
         .success(function (data, status) {
           if(status === 200 && data.status){
-            deferred.resolve(data);
+            deferred.resolve();
           } else {
             deferred.reject();
           }

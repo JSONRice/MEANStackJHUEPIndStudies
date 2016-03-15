@@ -11,7 +11,6 @@ angular.module('meanstacktutorials').service('GithubService', [
     var self = this;
     
     function getGithubUrl() {
-      console.log('getGithubUrl: ' + url);
       return url;
     }
 
@@ -57,14 +56,7 @@ angular.module('meanstacktutorials').service('GithubService', [
         return httpGitBranchGET(url + '/branches');
       },
       httpGitGET: function (url) {
-        var deferred = $q.defer();
-        $http.get(url).success(function (response) {
-          self.gitData = angular.copy(response);
-          deferred.resolve(self.gitData);
-        }).error(function (response) {
-          deferred.resolve(response);
-        });
-        return deferred.promise;
+        return httpGitGET(url);
       },
       getGithubUrl: getGithubUrl
     });
