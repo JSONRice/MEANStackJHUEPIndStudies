@@ -10,7 +10,7 @@ var version = require('../models/version.js');
 // curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"username": "test@test.com", "password": "test"}' http://localhost:8000/api/register
 // Note if test fails ensure port is the startup port from the NodeJS config file (app.js)
 router.post('/register', function(req, res) {
-  user.register(new user({ username: req.body.username }), req.body.password, function(err, account) {
+  user.register(new user({ username: req.body.username, firstname: req.body.firstname, lastname: req.body.lastname}), req.body.password, function(err, account) {
     if (err) {
       return res.status(500).json({err: err});
     }

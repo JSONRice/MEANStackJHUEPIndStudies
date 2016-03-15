@@ -99,7 +99,7 @@ angular.module('meanstacktutorials').factory('AuthenticationService', [
       // create a new instance of deferred
       var deferred = $q.defer();
 
-      // send a post request to the server
+      // send an HTTP POST request to the server (Mongoose)
       
       $http.post('/api/register', {
         username: username,
@@ -110,7 +110,7 @@ angular.module('meanstacktutorials').factory('AuthenticationService', [
         // handle success
         .success(function (data, status) {
           if(status === 200 && data.status){
-            deferred.resolve();
+            deferred.resolve(data);
           } else {
             deferred.reject();
           }

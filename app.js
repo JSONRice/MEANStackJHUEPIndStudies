@@ -22,10 +22,10 @@ var app = express();
 
 // Setup dependency injection and list paths with ElectrolyteJS (Inversion of Control)
 var ioc = require('electrolyte');
-ioc.use(ioc.node('models'));
-ioc.use(ioc.node('services'));
-ioc.use(ioc.node('controllers'));
-ioc.use(ioc.node('utils'));
+ioc.use(ioc.node('./server/models'));
+ioc.use(ioc.node('./server/services'));
+ioc.use(ioc.node('./server/controllers'));
+ioc.use(ioc.node('./server/utils'));
 ioc.use(ioc.node_modules());
 
 // create objects from IoC here:
@@ -49,7 +49,7 @@ database.connect(function (err) {
 });
 
 // Schemas
-var user = require('./models/user.js');
+var user = require('./server/models/user.js');
 
 // security
 app.use(require('express-session')({
@@ -66,14 +66,14 @@ passport.deserializeUser(user.deserializeUser());
  
 // set routes up:
 var routes = {
-    index: require('./routes/index.js'),
-    api: require('./routes/api.js')
+    index: require('./server/routes/index.js'),
+    api: require('./server/routes/api.js')
 };
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, './server/views'));
 app.set('view engine', 'ejs');
-app.use(favicon(path.join(__dirname, 'public/images', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, './client/images', 'favicon.ico')));
 app.use(logger('dev'));
 
 // database settings for app
@@ -87,12 +87,13 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
-// register the public directory with express.static for quick access from anywhere:
-app.use(express.static(path.join(__dirname, 'public')));
+// register the client directory with express.static for quick access from anywhere:
+app.use(express.static(path.join(__dirname, './client')));
 
 // ExpressJS routing:
 app.use('/', routes.index);
@@ -169,8 +170,8 @@ function onError(error) {
     }
 };
 
-function loadDefaultPage(socket) {
-    fs.readFile('./public/templates/index.html', function (err, html) {
+function loadDefaultPage(defaultPage) {
+    fs.readFile(defaultPage, function (err, html) {
         if (err) {
             throw err;
         }
@@ -182,6 +183,6 @@ function onListening() {
     var addr = server.address();
     // unix (file) pipe (IPC) or network port:
     var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-    loadDefaultPage(bind);
+    loadDefaultPage('./client/templates/index.html');
     console.log("NOTE: if you haven't already done so restart the web app with 'nodemon' instead of using 'node' and any code changes will cause NodeJS to restart.");
 };

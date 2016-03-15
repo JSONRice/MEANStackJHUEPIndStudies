@@ -12,15 +12,14 @@ var user = new schema({
   },
   firstname: {
     type: String,
-    default: ""
+    required: true    
   },
   lastname: {
     type: String,
-    default: ""
+    required: true    
   },
-  // Notice: do not make password required or unique. Let the UI ensure that
-  // a password is provided. For some odd reason making this required is causing
-  // a server side exception. See api.js for test curl command.
+  // UI is responsible for ensuring that there's a valid password. This is left off
+  // so that passport-local-mongoose can hide the password as a hash in the document per user.
   password: String,
   registrationDate: {
     type: Date,

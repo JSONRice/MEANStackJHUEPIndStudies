@@ -23,7 +23,7 @@ angular.module('meanstacktutorials').controller('PageBannerController', [
      * @data {Object}
      */
     GithubService.getGitBranchData().then(function (data) {
-      // Preserve scope for later usage
+      // Preserve scope for additional AJAX calls further down:
       var _this = this;
 
       // Preserve the generic branch data in scope for next AJAX request.
@@ -101,7 +101,6 @@ angular.module('meanstacktutorials').controller('PageBannerController', [
     $scope.userdata = {};
     UserService.getUser($scope.username)
             .then(function (userdata) {
-              // now that we have the JSON of users go ahead and grab just the user we want
               $scope.userdata = userdata;
             }, function (error) {
               console.error(error);
