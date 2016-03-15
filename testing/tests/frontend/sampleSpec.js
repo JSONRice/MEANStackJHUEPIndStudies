@@ -1,5 +1,5 @@
 describe('Example', function() {
-    var config = require('../../utils/config')();
+    var config = require('../../../server/utils/config')();
     describe('Test', function() {
         it('TestA', function() {
            expect(config.random).toEqual(undefined);

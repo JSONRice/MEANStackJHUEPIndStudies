@@ -14,44 +14,43 @@ var merge = require('merge-stream');
 // Lint (JSHint) Task
 gulp.task('lint', function () {
   return gulp.src([
-    './controllers/**/*.js',
-    './models/**/*.js',
-    './routes/**/*.js',
-    './services/**/*.js',
-    './utils/**/*.js',
+    './server/controllers/**/*.js',
+    './server/models/**/*.js',
+    './server/routes/**/*.js',
+    './server/services/**/*.js',
+    './server/utils/**/*.js',
     './app.js',
-    './public/javascript/**/*.js',
+    './client/javascript/**/*.js',
     // don't lint packaged or minified code
     // 9 out of 10 times this is optimized (e.g. no semicolons)
-    '!./public/javascript/dist/*'
-  ])
-          .pipe(jshint()).pipe(jshint.reporter('default'));
+    '!./client/javascript/dist/*'
+  ]).pipe(jshint()).pipe(jshint.reporter('default'));
 });
 
 // Compile Stylesheets
 gulp.task('style', function () {
-  var lessStream = gulp.src(['./public/stylesheets/less/*.less',
-    './public/stylesheets/less/**/*.less'])
+  var lessStream = gulp.src(['./client/stylesheets/less/*.less',
+    './client/stylesheets/less/**/*.less'])
           .pipe(less())
           .pipe(concat('styles.less'));
 
-  var cssStream = gulp.src(['./public/stylesheets/css/*.css',
-    './public/stylesheets/css/**/*.css'])
+  var cssStream = gulp.src(['./client/stylesheets/css/*.css',
+    './client/stylesheets/css/**/*.css'])
           .pipe(concat('styles.css'));
 
   // Combine all style sheet files into one styles.css
   var mergedStream = merge(lessStream, cssStream)
           .pipe(concat('styles.css'))
-          .pipe(gulp.dest('./public/stylesheets/dist'));
+          .pipe(gulp.dest('./client/stylesheets/dist'));
 
   return mergedStream;
 });
 
 // Convert Angular templates into a cache file
 gulp.task('templates', function () {
-  return gulp.src('./public/templates/*.html')
+  return gulp.src('./client/templates/*.html')
           .pipe(templateCache('templates.js', {module: 'meanstacktutorials'}))
-          .pipe(gulp.dest('./public/javascript/dist'));
+          .pipe(gulp.dest('./client/javascript/dist'));
 });
 
 // Concatenate JavaScripts
@@ -64,41 +63,40 @@ gulp.task('concat', ['templates'], function () {
     './directives/**/*.js',
     './filters/**/*.js',
     './models/**/*.js',
-    './services/**/*.js',
-    './public/javascript/**/*.js'    
+    './services/**/*.js'
   ], {
-    cwd: './public/javascript'
+    cwd: './client/javascript'
   })
           .pipe(concat('all.js'))
-          .pipe(gulp.dest('./public/javascript/dist'));
+          .pipe(gulp.dest('./client/javascript/dist'));
 });
 
 // Minify JavaScripts
 gulp.task('minify', ['concat'], function () {
-  return gulp.src('./dist/all.js', {cwd: './public/javascript'})
+  return gulp.src('./dist/all.js', {cwd: './client/javascript'})
           .pipe(rename('all.min.js'))
           .pipe(uglify())
-          .pipe(gulp.dest('./public/javascript/dist'));
+          .pipe(gulp.dest('./client/javascript/dist'));
 });
 
 // Karma
 gulp.task('karma', function (done) {
   new Server({
-    configFile: __dirname + '/karma.conf.js',
+    configFile: __dirname + '/testing/karma.conf.js',
     singleRun: true
   }, done).start();
 });
 
-// Unit tests with Jasmin and code coverage
-gulp.task('jasmine', ['templates'], function (cb) {
+// Unit tests with Jasmine and code coverage
+gulp.task('coverage', ['templates'], function (cb) {
   // All source files that should be included in the code coverage report
   return gulp.src([
-    './controllers/**/*.js',
-    './models/**/*.js',
-    './routes/**/*.js',
-    './services/**/*.js',
-    './utils/**/*.js',
-    './app.js'
+    './server/controllers/**/*.js',
+    './server/models/**/*.js',
+    './server/routes/**/*.js',
+    './server/services/**/*.js',
+    './server/utils/**/*.js',
+    './client/javascript/**/*.js',
   ])
           .pipe(istanbul({includeUntested: true})) // Covering files
           .pipe(istanbul.hookRequire()) // Force 'require' to return covered filed
@@ -120,16 +118,16 @@ gulp.task('jasmine', ['templates'], function (cb) {
 // Run Node.js tests and create LCOV-format reports with Istanbul
 gulp.task('test-server', function () {
   return gulp.src([
-    './controllers/**/*.js',
-    './models/**/*.js',
-    './routes/**/*.js',
-    './services/**/*.js',
-    './utils/**/*.js',
+    './server/controllers/**/*.js',
+    './server/models/**/*.js',
+    './server/routes/**/*.js',
+    './server/services/**/*.js',
+    './server/utils/**/*.js',
     './app.js'
   ])
 
           .pipe(karma({
-            configFile: __dirname + '/karma.conf.js',
+            configFile: __dirname + '/testing/karma.conf.js',
             action: 'run'
           }))
 
@@ -138,7 +136,7 @@ gulp.task('test-server', function () {
 
           .pipe(istanbul()) // Node.js source coverage
           .on('end', function () {
-            gulp.src(['./tests/frontend/**/*Spec.js'])
+            gulp.src(['./testing/tests/frontend/**/*Spec.js'])
                     .pipe(jasmine())
                     .on('error', function (err) {
                       throw err;
@@ -150,13 +148,13 @@ gulp.task('test-server', function () {
 // Watch Files For Changes
 gulp.task('watch', ['dev'], function () {
   // Let the html templates compile first that way there aren't any load conflicts with the JS
-  gulp.watch('./public/templates/**/*.html', ['concat']);
-  gulp.watch('./public/javascript/**/*.js', ['concat']);
+  gulp.watch('./client/templates/**/*.html', ['concat']);
+  gulp.watch('./client/javascript/**/*.js', ['concat']);
   gulp.watch('./models/*.js', ['concat']);
-  gulp.watch('./public/stylesheets/less/**/*.less', ['style']);
-  gulp.watch('./public/stylesheets/less/*.less', ['style']);
-  gulp.watch('./public/stylesheets/css/**/*.css', ['style']);
-  gulp.watch('./public/stylesheets/css/*.css', ['style']);
+  gulp.watch('./client/stylesheets/less/**/*.less', ['style']);
+  gulp.watch('./client/stylesheets/less/*.less', ['style']);
+  gulp.watch('./client/stylesheets/css/**/*.css', ['style']);
+  gulp.watch('./client/stylesheets/css/*.css', ['style']);
 });
 
 // Used for development 'gulp dev'

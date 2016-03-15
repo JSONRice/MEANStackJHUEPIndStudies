@@ -17,15 +17,15 @@ module.exports = function (config) {
         ],
         // list of files / patterns to load in the browser
         files: [
-            'public/vendor/jquery/jquery.js',
-            'public/vendor/angular/angular.js',
-            'public/vendor/angular-sanitize/angular-sanitize.js',
-            'public/vendor/angular-resource/angular-resource.js',
-            'public/vendor/angular-ui-router/angular-ui-router.js',
+            './client/vendor/jquery/jquery.js',
+            './client/vendor/angular/angular.js',
+            './client/vendor/angular-sanitize/angular-sanitize.js',
+            './client/vendor/angular-resource/angular-resource.js',
+            './client/vendor/angular-ui-router/angular-ui-router.js',
             'bower_components/angular-route/angular-route.js',
             'bower_components/angular-mocks/angular-mocks.js',
-            'public/javascript/app.js',
-            'public/javascript/**/*.js',
+            './client/javascript/app.js',
+            './client/javascript/**/*.js',
             'app/components/**/*.js',
             'app/view*/**/*.js',
             'tests/frontend/*Spec.js',
@@ -37,7 +37,7 @@ module.exports = function (config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-	    'public/javascript/**/*.js': 'coverage',
+	    './client/javascript/**/*.js': 'coverage',
             // browserify framework allows requires in the specs
             'tests/frontend/**/*Spec.js': 'browserify'
 
