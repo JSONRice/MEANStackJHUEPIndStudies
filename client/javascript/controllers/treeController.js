@@ -18,14 +18,15 @@ angular.module('meanstacktutorials').controller('TreeController', [
         if (branch.data.url) {
           ajax.templateToString(branch.data.url).then(function (templateStr) {
             $scope.output += templateStr;
+            console.log('treeController caught url data: ' + $scope.output);          
           }, function () {
             console.error('Failed to find template at:' + branch.data.url);
           });
-          console.log('treeController caught url data: ' + $scope.output);
         }
       }
       return $scope.output;
     };
+    
     apple_selected = function (branch) {
       return $scope.output = "An Apple was selected! : " + branch.label;
     };
@@ -56,13 +57,13 @@ angular.module('meanstacktutorials').controller('TreeController', [
               {
                 label: 'AngularJS',
                 data: {
-                  description: "AngularJS (commonly referred to as \"Angular\" or \"Angular.js\") is an open-source web application framework mainly maintained by Google and by a community of individuals and corporations to address many of the challenges encountered in developing single-page applications. It aims to simplify both the development and the testing of such applications by providing a framework for client-side model–view–controller (MVC) and model–view–viewmodel (MVVM) architectures, along with components commonly used in rich Internet applications."
+                  url: 'templates/tutorials/toc/meanIntro/angular.html'
                 }
               }, 
               {
                 label: 'NodeJS',
                 data: {
-                  description: "Node.js is an open-source, cross-platform runtime environment for developing server-side Web applications. Although Node.js is not a JavaScript framework,[3] many of its basic modules are written in JavaScript, and developers can write new modules in JavaScript. The runtime environment interprets JavaScript using Google's V8 JavaScript engine."
+                  url: 'templates/tutorials/toc/meanIntro/node.html'
                 }
               }
             ]
@@ -70,7 +71,7 @@ angular.module('meanstacktutorials').controller('TreeController', [
           {
             label: 'Server Side Overview',
             data: {
-              description: "This tutorial will cover the server side processes of a MEAN stack web application.<br/>The server side integrates a minimal web framework referred to as ExpressJS along with tools such ElectrolyteJS to ensure Inversion of Control and Dependency Injection. NodeJS is the main web server framework that processes the main JavaScript file that leverages ExpressJS, ElectrolyteJS, MongooseJS (for MongoDB) and other tools to establish server side communications that are able to asynchronously communicate with the front end user interface modules."
+              description: 'templates/tutorials/toc/serverSideOverview/serverSideOverview.html'
             },
             children: [
               {
