@@ -1,7 +1,8 @@
 angular.module('meanstacktutorials').service('GithubService', [
   '$q',
   '$http',
-  function ($q, $http) {
+  'AjaxService',
+  function ($q, $http, ajax) {
 
     var url = 'https://api.github.com/repos/jasonwr/MEANStackJHUEPIndStudies';
     var gitBranchData;
@@ -41,22 +42,19 @@ angular.module('meanstacktutorials').service('GithubService', [
         }
         deferred.resolve(self.gitBranchData);
       }).error(function (response) {
+        console.error('Failed to retrieve data from: ' + url);
         deferred.resolve(response);
       });
       return deferred.promise;
     };
 
     return({
-      getGitData: function () {
-        var data = httpGitGET(url);
-        return data;
-      },
       getGitBranchData: function () {
         // Return just the deferred promise so the calling module can use .then
         return httpGitBranchGET(url + '/branches');
       },
       httpGitGET: function (url) {
-        return httpGitGET(url);
+        return ajax.httpGET(url);
       },
       getGithubUrl: getGithubUrl
     });

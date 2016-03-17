@@ -150,7 +150,8 @@ gulp.task('watch', ['dev'], function () {
   // Let the html templates compile first that way there aren't any load conflicts with the JS
   gulp.watch('./client/templates/**/*.html', ['concat']);
   gulp.watch('./client/javascript/**/*.js', ['concat']);
-  gulp.watch('./models/*.js', ['concat']);
+  gulp.watch('./server/models/*.js', ['concat']);
+  gulp.watch('./server/**/*.js', ['concat']);
   gulp.watch('./client/stylesheets/less/**/*.less', ['style']);
   gulp.watch('./client/stylesheets/less/*.less', ['style']);
   gulp.watch('./client/stylesheets/css/**/*.css', ['style']);

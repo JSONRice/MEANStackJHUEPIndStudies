@@ -11,6 +11,7 @@ var meanstacktutorials = angular.module('meanstacktutorials', [
 // Custom filter to take string and trust as html
 meanstacktutorials.filter('htmlify', function ($sce) {
   return function (val) {
+    console.log('trusting: ' + val);
     return $sce.trustAsHtml(val);
   };
 });

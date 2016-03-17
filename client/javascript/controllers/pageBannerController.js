@@ -10,11 +10,7 @@ angular.module('meanstacktutorials').controller('PageBannerController', [
           UserService, GithubService, AuthenticationService) {
     $scope.username = AuthenticationService.getUsername() || "";
     $scope.loggedIn = AuthenticationService.isLoggedIn();
-
-    GithubService.getGitData().then(function (data) {
-      $scope.gitdata = data || {};
-    });
-
+    
     /**
      * Fetch the branch url labeled as commit.url then use this to request another
      * HTTP GET to fecth specific branch info. Then push the result onto the branch data.
