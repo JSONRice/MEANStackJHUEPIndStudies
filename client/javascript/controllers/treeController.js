@@ -71,25 +71,25 @@ angular.module('meanstacktutorials').controller('TreeController', [
           {
             label: 'Server Side Overview',
             data: {
-              description: 'templates/tutorials/toc/serverSideOverview/serverSideOverview.html'
+              url: 'templates/tutorials/toc/serverSideOverview/serverSideOverview.html'
             },
             children: [
               {
                 label: 'NodeJS Setup',
                 data: {
-                  description: "TODO"
+                  url: "templates/tutorials/toc/serverSideOverview/nodeSetup.html"
                 }
               },
               {
                 label: 'ExpressJS Setup',
                 data: {
-                  description: "TODO"
+                  url: "templates/tutorials/toc/serverSideOverview/expressSetup/expressSetup.html"
                 },
                 children: [
                   {
                     label: 'ElectrolyteJS',
                     data: {
-                      description: "TODO"
+                      url: "templates/tutorials/toc/serverSideOverview/expressSetup/electrolyte.html"
                     }
                   }
                 ]
@@ -97,7 +97,7 @@ angular.module('meanstacktutorials').controller('TreeController', [
               {
                 label: 'Mongoose Setup',
                 data: {
-                  description: "TODO"
+                  url: "templates/tutorials/toc/serverSideOverview/mongooseSetup.html"
                 }
               }
             ]
