@@ -2,14 +2,22 @@
   <section>
     <p>This tutorial will cover the server side processes of a MEAN stack web application. The server side integrates a minimal web framework referred to as ExpressJS along with tools such ElectrolyteJS to ensure Inversion of Control and Dependency Injection. NodeJS is the main web server that processes the main JavaScript file (app.js) that leverages ExpressJS, ElectrolyteJS, MongooseJS (for MongoDB) and other tools to establish server side communications that are able to asynchronously communicate with the front end user interface modules. The following is a typically folder hierarchy setup:</p>
   </section>
+  <h4>Hover over the links (underlined) for more info:</h4>
+    <div ng-controller="TestController">
+      <a href="" tooltip-placement="right" 
+         uib-tooltip-html="text">Bound to TestController</a>
+    </div>
+    <a href="" tooltip-placement="right" 
+       uib-tooltip="text">Unbound to TestController</a>     
+  
   <pre>
 rice-MacBook-Pro:MEANStackJHUEPIndStudies jsnrice$ ls -lR server/
 total 0
-drwxr-xr-x  3 jsnrice  staff  102 Mar 18 14:53 config
-drwxr-xr-x  4 jsnrice  staff  136 Mar 18 14:53 models
-drwxr-xr-x  4 jsnrice  staff  136 Mar 18 14:53 routes
-drwxr-xr-x  5 jsnrice  staff  170 Mar 18 14:53 utils
-drwxr-xr-x  4 jsnrice  staff  136 Mar 18 14:53 views
+drwxr-xr-x  3 jsnrice  staff  102 Mar 18 14:53 <a href="" class="atooltip" tooltip-placement="right" uib-tooltip="Contains common configurations for development, testing, and production properties.">config</a>
+drwxr-xr-x  4 jsnrice  staff  136 Mar 18 14:53 <a href="" class="atooltip" tooltip-placement="right" uib-tooltip="Contains the Mongoose models for Mongo object mappings.">models</a>
+drwxr-xr-x  4 jsnrice  staff  136 Mar 18 14:53 <a href="" class="atooltip" tooltip-placement="right" uib-tooltip="Contains the API routes that are used in conjunction with Mongoose to perform database CRUD (create, read, update, delete) operations.">routes</a>
+drwxr-xr-x  5 jsnrice  staff  170 Mar 18 14:53 <a href="" class="atooltip" tooltip-placement="right" uib-tooltip="Contains ExpressJS singletons that setup the web environment (e.g. production, testing, development), database settings, and routing rules. Utils mainly pertains to the loading through ExpressJS of these various rules (utilities).">utils</a>
+drwxr-xr-x  4 jsnrice  staff  136 Mar 18 14:53 <a href="" class="atooltip" tooltip-placement="right" uib-tooltip="Contains the common base views for the entire web application. By default the index.ejs is invoked for HTTP 200 (server OK) and the HTTP 500's trigger the loading of the error.ejs The ejs stands for Embedded JavaScript and allows JS to be placed in between <% %> and <%= %> much the same way the J2EE (Java) based web apps allow in JSP (Java Servlet Pages).">views</a>
 
 server/config:
 -rw-r--r--  1 jsnrice  staff  217 Mar 18 14:53 development.js
