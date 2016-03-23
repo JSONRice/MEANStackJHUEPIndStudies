@@ -6,7 +6,7 @@ angular.module('ui.bootstrap.demo').controller('PaginationDemoCtrl', function ($
     $scope.currentPage = pageNo;
   };
 
-  $scope.pageChanged = function() {
+  $scope.pageChanged = function () {
     $log.log('Page changed to: ' + $scope.currentPage);
   };
 

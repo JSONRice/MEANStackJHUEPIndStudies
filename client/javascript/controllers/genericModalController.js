@@ -6,7 +6,7 @@
 angular.module('meanstacktutorials').controller('GenericModalController', [
   '$scope',
   '$uibModalInstance',
-  function ($scope, $uibModalInstance) {    
+  function ($scope, $uibModalInstance) {
     /***
      * DIALOG FUNCTIONS:
      */

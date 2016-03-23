@@ -10,7 +10,7 @@ angular.module('meanstacktutorials').service('GithubService', [
     var gitBranchSpecificData;
     var gitData;
     var self = this;
-    
+
     function getGithubUrl() {
       return url;
     }
@@ -46,7 +46,8 @@ angular.module('meanstacktutorials').service('GithubService', [
         deferred.resolve(response);
       });
       return deferred.promise;
-    };
+    }
+    ;
 
     return({
       getGitBranchData: function () {

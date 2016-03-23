@@ -8,20 +8,20 @@ angular.module('meanstacktutorials').factory('VersionService', [
     return({
       getVersionData: getVersionData
     });
-    
+
     // Fetch version data from Mongo version collection:
     function getVersionData() {
-        var deferred = $q.defer();
-        var httpPromise = $http.get('/api/versions');
- 
-        httpPromise.success(function (versions) {
-          deferred.resolve(versions);
-          // TODO: sort versions (optional)
-        })
-          .error(function (error) {
-            console.error('Error: ' + error);
-          });
-        return deferred.promise;      
-    }    
+      var deferred = $q.defer();
+      var httpPromise = $http.get('/api/versions');
+
+      httpPromise.success(function (versions) {
+        deferred.resolve(versions);
+        // TODO: sort versions (optional)
+      })
+              .error(function (error) {
+                console.error('Error: ' + error);
+              });
+      return deferred.promise;
+    }
   }
 ]);

@@ -4,7 +4,7 @@ angular.module('meanstacktutorials').controller('RegisterController', [
   'AuthenticationService',
   function ($scope, $location, AuthenticationService) {
 
-    $scope.register = function(){
+    $scope.register = function () {
       // initial values
       $scope.error = false;
       $scope.disabled = true;

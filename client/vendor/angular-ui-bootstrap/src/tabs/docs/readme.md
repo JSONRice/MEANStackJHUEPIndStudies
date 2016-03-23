@@ -2,10 +2,19 @@ AngularJS version of the tabs directive.
 
 ### uib-tabset settings
 
+* `active`
+  <i class="glyphicon glyphicon-eye-open"></i>
+  _(Default: `Index of first tab`)_ -
+  Active index of tab. Setting this to an existing tab index will make that tab active.
+
 * `justified`
   <small class="badge">$</small>
   _(Default: `false`)_ -
   Whether tabs fill the container and have a consistent width.
+
+  * `template-url`
+  _(Default: `uib/template/tabs/tabset.html`)_ -
+  A URL representing the location of a template to use for the main component.
 
 * `type`
   _(Defaults: `tabs`)_ -
@@ -18,15 +27,13 @@ AngularJS version of the tabs directive.
 
 ### uib-tab settings
 
-* `active`
-  <small class="badge">$</small>
-  <i class="glyphicon glyphicon-eye-open"></i>
-  _(Default: `false`)_ -
-  Whether tab is currently selected.
+* `classes`
+  <small class="badge">$</small> -
+   An optional string of space-separated CSS classes.
 
 * `deselect()`
   <small class="badge">$</small> -
-  An optional expression called when tab is deactivated.
+  An optional expression called when tab is deactivated. Supports $event in template for expression.
 
 * `disable`
   <small class="badge">$</small>
@@ -37,9 +44,16 @@ AngularJS version of the tabs directive.
 * `heading` -
   Heading text.
 
+* `index` -
+  Tab index. Must be unique.
+
 * `select()`
   <small class="badge">$</small> -
-  An optional expression called when tab is activated.
+  An optional expression called when tab is activated. Supports $event in template for expression.
+
+* `template-url`
+  _(Default: `uib/template/tabs/tab.html`)_ -
+  A URL representing the location of a template to use for the tab heading.
 
 ### Tabset heading
 

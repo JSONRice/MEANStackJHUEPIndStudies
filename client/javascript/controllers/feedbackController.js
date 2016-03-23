@@ -8,16 +8,16 @@ angular.module('meanstacktutorials').controller('FeedbackController', [
      * DIALOG FUNCTIONS:
      */
     $scope.ok = GenericModalController.$scope.ok();
-    
+
     $scope.cancel = GenericModalController.$scope.cancel();
-    
+
     /***
      * HELPERS:
      */
-    
+
     /**
      * MUTATORS: 
      */
-    
+
   }
 ]);

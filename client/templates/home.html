@@ -1,24 +1,24 @@
 <div>
-    <page-banner></page-banner>
-    <div ng-controller="TreeController" id="treeView">
-        <table>
-            <tr>
-                <td style="vertical-align:top;">
-                    <div class="home-tree">
-                        <tree tree-data="my_data" 
-                              tree-control="my_tree" 
-                              on-select="my_tree_handler(branch)" 
-                              initial-selection="MEAN Stack Introduction"></tree>                                
-                    </div>
-                </td>
-                <td style="padding:20px;vertical-align:top;">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-s-12 col-xs-12">
-                            <div class="alert alert-info" ng-bind-html="output | htmlify"></div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </div>
+  <page-banner></page-banner>
+  <div ng-controller="TreeController" id="treeView">
+    <table>
+      <tr>
+        <td style="vertical-align:top;">
+          <div class="home-tree">
+            <tree tree-data="my_data" 
+                  tree-control="my_tree" 
+                  on-select="my_tree_handler(branch)" 
+                  initial-selection="MEAN Stack Introduction"></tree>                                
+          </div>                    
+        </td>
+        <td style="padding:20px;vertical-align:top;">
+          <div class="row">                                                
+            <div class="col-lg-12 col-md-12 col-s-12 col-xs-12">                            
+              <div class="alert alert-info" bind-html-compile="output"></div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>

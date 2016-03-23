@@ -12,11 +12,11 @@ var user = new schema({
   },
   firstname: {
     type: String,
-    required: true    
+    required: true
   },
   lastname: {
     type: String,
-    required: true    
+    required: true
   },
   // UI is responsible for ensuring that there's a valid password. This is left off
   // so that passport-local-mongoose can hide the password as a hash in the document per user.

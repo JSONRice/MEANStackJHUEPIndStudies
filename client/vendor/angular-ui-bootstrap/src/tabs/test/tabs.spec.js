@@ -1,4 +1,4 @@
-describe('tabs', function() {
+describe('tabs', function () {
   var elm, scope;
 
   beforeEach(module('ui.bootstrap.tabs'));
@@ -15,7 +15,7 @@ describe('tabs', function() {
   function expectTitles(titlesArray) {
     var t = titles();
     expect(t.length).toEqual(titlesArray.length);
-    for (var i=0; i<t.length; i++) {
+    for (var i = 0; i < t.length; i++) {
       expect(t.eq(i).text().trim()).toEqual(titlesArray[i]);
     }
   }
@@ -23,27 +23,29 @@ describe('tabs', function() {
   function expectContents(contentsArray) {
     var c = contents();
     expect(c.length).toEqual(contentsArray.length);
-    for (var i=0; i<c.length; i++) {
+    for (var i = 0; i < c.length; i++) {
       expect(c.eq(i).text().trim()).toEqual(contentsArray[i]);
     }
   }
 
-  describe('basics', function() {
-    beforeEach(inject(function($compile, $rootScope) {
+  describe('basics', function () {
+    beforeEach(inject(function ($compile, $rootScope) {
       scope = $rootScope.$new();
       scope.first = '1';
       scope.second = '2';
-      scope.actives = {};
+      scope.active = 1;
+      scope.firstClass = 'first-class';
+      scope.secondClass = 'second-class-1 second-class-2';
       scope.selectFirst = jasmine.createSpy();
       scope.selectSecond = jasmine.createSpy();
       scope.deselectFirst = jasmine.createSpy();
       scope.deselectSecond = jasmine.createSpy();
       elm = $compile([
-        '<uib-tabset class="hello" data-pizza="pepperoni">',
-        '  <uib-tab heading="First Tab {{first}}" active="actives.one" select="selectFirst()" deselect="deselectFirst()">',
+        '<uib-tabset class="hello" data-pizza="pepperoni" active="active">',
+        '  <uib-tab index="1" heading="First Tab {{first}}" classes="{{firstClass}}" select="selectFirst($event)" deselect="deselectFirst($event)">',
         '    first content is {{first}}',
         '  </uib-tab>',
-        '  <uib-tab active="actives.two" select="selectSecond()" deselect="deselectSecond()">',
+        '  <uib-tab index="2" classes="{{secondClass}}" select="selectSecond($event)" deselect="deselectSecond($event)">',
         '    <uib-tab-heading><b>Second</b> Tab {{second}}</uib-tab-heading>',
         '    second content is {{second}}',
         '  </uib-tab>',
@@ -53,12 +55,15 @@ describe('tabs', function() {
       return elm;
     }));
 
-    it('should pass class and other attributes on to tab template', function() {
+    it('should pass class and other attributes on to tab template', function () {
       expect(elm).toHaveClass('hello');
       expect(elm.attr('data-pizza')).toBe('pepperoni');
+      //Ensure that we have bootstrap 4 link class so things are future proofed.
+      var link = $(elm.find('a')[0]);
+      expect(link).toHaveClass('nav-link');
     });
 
-    it('should create clickable titles', function() {
+    it('should create clickable titles', function () {
       var t = titles();
       expect(t.length).toBe(2);
       expect(t.find('> a').eq(0).text()).toBe('First Tab 1');
@@ -67,61 +72,76 @@ describe('tabs', function() {
       expect(t.find('> a').eq(1).children().html()).toBe('<b>Second</b> Tab 2');
     });
 
-    it('should bind tabs content and set first tab active', function() {
+    it('should bind tabs content and set first tab active', function () {
       expectContents(['first content is 1', 'second content is 2']);
       expect(titles().eq(0)).toHaveClass('active');
       expect(titles().eq(1)).not.toHaveClass('active');
-      expect(scope.actives.one).toBe(true);
-      expect(scope.actives.two).toBeFalsy();
+      expect(scope.active).toBe(1);
     });
 
-    it('should change active on click', function() {
+    it('should set optional classes on each tab', function () {
+      expect(titles().eq(0)).toHaveClass(scope.firstClass);
+
+      var secondClassArr = scope.secondClass.split(' ');
+      secondClassArr.forEach(function (clazz) {
+        expect(titles().eq(1)).toHaveClass(clazz);
+      });
+    });
+
+    it('should change active on click', function () {
       titles().eq(1).find('> a').click();
       expect(contents().eq(1)).toHaveClass('active');
       expect(titles().eq(0)).not.toHaveClass('active');
       expect(titles().eq(1)).toHaveClass('active');
-      expect(scope.actives.one).toBe(false);
-      expect(scope.actives.two).toBe(true);
+      expect(scope.active).toBe(2);
     });
 
-    it('should call select callback on select', function() {
+    it('should call select callback on select', function () {
+      expect(scope.selectFirst.calls.count()).toBe(1);
       titles().eq(1).find('> a').click();
       expect(scope.selectSecond).toHaveBeenCalled();
+      expect(scope.selectSecond.calls.argsFor(0)[0].target).toBe(titles().eq(1).find('> a')[0]);
       titles().eq(0).find('> a').click();
       expect(scope.selectFirst).toHaveBeenCalled();
+      expect(scope.selectFirst.calls.argsFor(1)[0].target).toBe(titles().eq(0).find('> a')[0]);
     });
 
-    it('should call deselect callback on deselect', function() {
-      titles().eq(1).find('> a').click();
-      titles().eq(0).find('> a').click();
-      expect(scope.deselectSecond).toHaveBeenCalled();
+    it('should call deselect callback on deselect', function () {
       titles().eq(1).find('> a').click();
       expect(scope.deselectFirst).toHaveBeenCalled();
+      expect(scope.deselectFirst.calls.argsFor(0)[0].target).toBe(titles().eq(1).find('> a')[0]);
+      titles().eq(0).find('> a').click();
+      expect(scope.deselectSecond).toHaveBeenCalled();
+      expect(scope.deselectSecond.calls.argsFor(0)[0].target).toBe(titles().eq(0).find('> a')[0]);
+      titles().eq(1).find('> a').click();
+      expect(scope.deselectFirst.calls.count()).toBe(2);
+      expect(scope.deselectFirst.calls.argsFor(1)[0].target).toBe(titles().eq(1).find('> a')[0]);
     });
   });
 
-  describe('basics with initial active tab', function() {
-    beforeEach(inject(function($compile, $rootScope) {
+  describe('basics with initial active tab', function () {
+    beforeEach(inject(function ($compile, $rootScope) {
       scope = $rootScope.$new();
 
-      function makeTab(active) {
+      function makeTab(index) {
         return {
-          active: !!active,
+          index: index,
           select: jasmine.createSpy()
         };
       }
       scope.tabs = [
-        makeTab(), makeTab(), makeTab(true), makeTab()
+        makeTab(1), makeTab(3), makeTab(5), makeTab(7)
       ];
+      scope.active = 5;
       elm = $compile([
-        '<uib-tabset>',
-        '  <uib-tab active="tabs[0].active" select="tabs[0].select()">',
+        '<uib-tabset active="active">',
+        '  <uib-tab index="1" select="tabs[0].select()">',
         '  </uib-tab>',
-        '  <uib-tab active="tabs[1].active" select="tabs[1].select()">',
+        '  <uib-tab index="3" select="tabs[1].select()">',
         '  </uib-tab>',
-        '  <uib-tab active="tabs[2].active" select="tabs[2].select()">',
+        '  <uib-tab index="5" select="tabs[2].select()">',
         '  </uib-tab>',
-        '  <uib-tab active="tabs[3].active" select="tabs[3].select()">',
+        '  <uib-tab index="7" select="tabs[3].select()">',
         '  </uib-tab>',
         '</uib-tabset>'
       ].join('\n'))(scope);
@@ -130,42 +150,76 @@ describe('tabs', function() {
 
     function expectTabActive(activeTab) {
       var _titles = titles();
-      angular.forEach(scope.tabs, function(tab, i) {
+      angular.forEach(scope.tabs, function (tab, i) {
         if (activeTab === tab) {
-          expect(tab.active).toBe(true);
+          expect(scope.active).toBe(tab.index);
           //It should only call select ONCE for each select
           expect(tab.select).toHaveBeenCalled();
           expect(_titles.eq(i)).toHaveClass('active');
           expect(contents().eq(i)).toHaveClass('active');
         } else {
-          expect(tab.active).toBe(false);
+          expect(scope.active).not.toBe(tab.index);
           expect(_titles.eq(i)).not.toHaveClass('active');
         }
       });
     }
 
-    it('should make tab titles and set active tab active', function() {
+    it('should make tab titles and set active tab active', function () {
       expect(titles().length).toBe(scope.tabs.length);
       expectTabActive(scope.tabs[2]);
     });
   });
 
-  describe('tab callback order', function() {
+  describe('without active binding and index attributes', function () {
+    beforeEach(inject(function ($compile, $rootScope) {
+      scope = $rootScope.$new();
+      scope.first = '1';
+      scope.second = '2';
+      elm = $compile([
+        '<uib-tabset>',
+        '  <uib-tab heading="First Tab {{first}}">',
+        '    first content is {{first}}',
+        '  </uib-tab>',
+        '  <uib-tab heading="Second Tab {{second}}">',
+        '    second content is {{second}}',
+        '  </uib-tab>',
+        '</uib-tabset>'
+      ].join('\n'))(scope);
+      scope.$apply();
+      return elm;
+    }));
+
+    it('should bind tabs content and set first tab active', function () {
+      expectContents(['first content is 1', 'second content is 2']);
+      expect(titles().eq(0)).toHaveClass('active');
+      expect(titles().eq(1)).not.toHaveClass('active');
+      expect(elm.controller('uibTabset').active).toBe(0);
+    });
+
+    it('should change active on click', function () {
+      titles().eq(1).find('> a').click();
+      expect(contents().eq(1)).toHaveClass('active');
+      expect(titles().eq(0)).not.toHaveClass('active');
+      expect(titles().eq(1)).toHaveClass('active');
+      expect(elm.controller('uibTabset').active).toBe(1);
+    });
+  });
+
+  describe('tab callback order', function () {
     var execOrder;
-    beforeEach(inject(function($compile, $rootScope) {
+    beforeEach(inject(function ($compile, $rootScope) {
       scope = $rootScope.$new();
       execOrder = [];
-      scope.actives = {};
 
-      scope.execute = function(id) {
+      scope.execute = function (id) {
         execOrder.push(id);
       };
 
       elm = $compile([
         '<div>',
-        '  <uib-tabset class="hello" data-pizza="pepperoni">',
-        '    <uib-tab heading="First Tab" active="actives.one" select="execute(\'select1\')" deselect="execute(\'deselect1\')"></uib-tab>',
-        '    <uib-tab select="execute(\'select2\')" deselect="execute(\'deselect2\')"></uib-tab>',
+        '  <uib-tabset class="hello" data-pizza="pepperoni" active="active">',
+        '    <uib-tab index="1" heading="First Tab" select="execute(\'select1\')" deselect="execute(\'deselect1\')"></uib-tab>',
+        '    <uib-tab index="2" select="execute(\'select2\')" deselect="execute(\'deselect2\')"></uib-tab>',
         '  </uib-tabset>',
         '</div>'
       ].join('\n'))(scope);
@@ -173,35 +227,53 @@ describe('tabs', function() {
       return elm;
     }));
 
-    it('should call select  for the first tab', function() {
-      expect(execOrder).toEqual([ 'select1' ]);
+    it('should call select  for the first tab', function () {
+      expect(execOrder).toEqual(['select1']);
     });
 
-    it('should call deselect, then select', function() {
+    it('should call deselect, then select', function () {
       execOrder = [];
 
       // Select second tab
       titles().eq(1).find('> a').click();
-      expect(execOrder).toEqual([ 'deselect1', 'select2' ]);
+      expect(execOrder).toEqual(['deselect1', 'select2']);
 
       execOrder = [];
 
       // Select again first tab
       titles().eq(0).find('> a').click();
-      expect(execOrder).toEqual([ 'deselect2', 'select1' ]);
+      expect(execOrder).toEqual(['deselect2', 'select1']);
     });
   });
 
-  describe('uib-tab', function() {
+  describe('custom template', function () {
     var $compile, $templateCache;
-
-    beforeEach(inject(function($rootScope, _$compile_, _$templateCache_) {
+    beforeEach(inject(function ($rootScope, _$compile_, _$templateCache_) {
       scope = $rootScope;
       $compile = _$compile_;
       $templateCache = _$templateCache_;
     }));
 
-    it('should expose the controller on the view', function() {
+    it('should support custom templates', function () {
+      $templateCache.put('foo/bar.html', '<div>baz</div>');
+
+      elm = $compile('<uib-tabset template-url="foo/bar.html"></uib-tabset>')(scope);
+      scope.$digest();
+
+      expect(elm.html()).toBe('baz');
+    });
+  });
+
+  describe('uib-tab', function () {
+    var $compile, $templateCache;
+
+    beforeEach(inject(function ($rootScope, _$compile_, _$templateCache_) {
+      scope = $rootScope;
+      $compile = _$compile_;
+      $templateCache = _$templateCache_;
+    }));
+
+    it('should expose the controller on the view', function () {
       $templateCache.put('uib/template/tabs/tab.html', '<li class="uib-tab">{{tab.text}}</li>');
 
       elm = $compile('<uib-tabset><uib-tab heading="Tab"></uib-tab></uib-tabset>')(scope);
@@ -217,21 +289,33 @@ describe('tabs', function() {
 
       expect(tab.text().trim()).toBe('foo');
     });
+
+    it('should support custom templates', function () {
+      $templateCache.put('foo/bar.html', '<li>baz</li>');
+
+      elm = $compile('<uib-tabset><uib-tab template-url="foo/bar.html"></uib-tab></uib-tabset>')(scope);
+      scope.$digest();
+
+      var tabTitle = titles().eq(0);
+
+      expect(tabTitle.html()).toBe('baz');
+    });
   });
 
-  describe('ng-repeat', function() {
+  describe('ng-repeat', function () {
     var $compile, $rootScope;
-    beforeEach(inject(function(_$compile_, _$rootScope_) {
+    beforeEach(inject(function (_$compile_, _$rootScope_) {
       $compile = _$compile_;
       $rootScope = _$rootScope_;
       scope = $rootScope.$new();
 
       scope.tabs = [
-        makeTab(), makeTab(), makeTab(true), makeTab()
+        makeTab(1), makeTab(3), makeTab(5), makeTab(7)
       ];
+      scope.active = 5;
       elm = $compile([
-        '<uib-tabset>',
-        '  <uib-tab ng-repeat="t in tabs" active="t.active" select="t.select()">',
+        '<uib-tabset active="active">',
+        '  <uib-tab index="t.index" ng-repeat="t in tabs" active="t.active" select="t.select()">',
         '    <uib-tab-heading><b>heading</b> {{index}}</uib-tab-heading>',
         '    content {{$index}}',
         '  </uib-tab>',
@@ -240,9 +324,9 @@ describe('tabs', function() {
       scope.$apply();
     }));
 
-    function makeTab(active) {
+    function makeTab(index) {
       return {
-        active: !!active,
+        index: index,
         select: jasmine.createSpy()
       };
     }
@@ -256,64 +340,64 @@ describe('tabs', function() {
 
     function expectTabActive(activeTab) {
       var _titles = titles();
-      angular.forEach(scope.tabs, function(tab, i) {
+      angular.forEach(scope.tabs, function (tab, i) {
         if (activeTab === tab) {
-          expect(tab.active).toBe(true);
+          expect(scope.active).toBe(tab.index);
           //It should only call select ONCE for each select
           expect(tab.select).toHaveBeenCalled();
           expect(_titles.eq(i)).toHaveClass('active');
           expect(contents().eq(i).text().trim()).toBe('content ' + i);
           expect(contents().eq(i)).toHaveClass('active');
         } else {
-          expect(tab.active).toBe(false);
+          expect(scope.active).not.toBe(tab.index);
           expect(_titles.eq(i)).not.toHaveClass('active');
         }
       });
     }
 
-    it('should make tab titles and set active tab active', function() {
+    it('should make tab titles and set active tab active', function () {
       expect(titles().length).toBe(scope.tabs.length);
       expectTabActive(scope.tabs[2]);
     });
 
-    it('should switch active when clicking', function() {
+    it('should switch active when clicking', function () {
       titles().eq(3).find('> a').click();
       expectTabActive(scope.tabs[3]);
     });
 
-    it('should switch active when setting active=true', function() {
-      scope.$apply('tabs[2].active = true');
+    it('should switch active when changing active index', function () {
+      scope.$apply('active = 5');
       expectTabActive(scope.tabs[2]);
     });
 
-    it('should deselect all when no tabs are active', function() {
-      angular.forEach(scope.tabs, function(t) { t.active = false; });
+    it('should deselect all when no tabs are active', function () {
+      scope.active = 101;
       scope.$apply();
       expectTabActive(null);
       expect(contents().filter('.active').length).toBe(0);
 
-      scope.tabs[2].active = true;
+      scope.active = 5;
       scope.$apply();
       expectTabActive(scope.tabs[2]);
     });
 
-    it('should not select twice', function() {
+    it('should not select twice', function () {
       elm.remove();
       elm = null;
       scope = $rootScope.$new();
 
       scope.tabs = [
-        makeTab(), makeTab(), makeTab(true), makeTab()
+        makeTab(2), makeTab(3), makeTab(5), makeTab(8)
       ];
-      scope.foo = {active: true};
+      scope.active = 13;
       scope.select = jasmine.createSpy();
       elm = $compile([
-        '<uib-tabset>',
-        '  <uib-tab ng-repeat="t in tabs" active="t.active" select="select()">',
+        '<uib-tabset active="active">',
+        '  <uib-tab index="t.index" ng-repeat="t in tabs" select="t.select()">',
         '    <uib-tab-heading><b>heading</b> {{index}}</uib-tab-heading>',
         '    content {{$index}}',
         '  </uib-tab>',
-        '  <uib-tab active="foo.active" select="select()">',
+        '  <uib-tab index="13" select="select()">',
         '    <uib-tab-heading><b>heading</b> foo</uib-tab-heading>',
         '    content foo',
         '  </uib-tab>',
@@ -325,19 +409,19 @@ describe('tabs', function() {
     });
   });
 
-  describe('advanced uib-tab-heading element', function() {
-    beforeEach(inject(function($compile, $rootScope, $sce) {
+  describe('advanced uib-tab-heading element', function () {
+    beforeEach(inject(function ($compile, $rootScope, $sce) {
       scope = $rootScope.$new();
       scope.myHtml = $sce.trustAsHtml('<b>hello</b>, there!');
       scope.value = true;
       elm = $compile([
-        '<uib-tabset>',
-        '  <uib-tab>',
+        '<uib-tabset active="active">',
+        '  <uib-tab index="0">',
         '    <uib-tab-heading ng-bind-html="myHtml" ng-show="value"></uib-tab-heading>',
         '  </uib-tab>',
-        '  <uib-tab><data-uib-tab-heading>1</data-uib-tab-heading></uib-tab>',
-        '  <uib-tab><div data-uib-tab-heading>2</div></uib-tab>',
-        '  <uib-tab><div uib-tab-heading>3</div></uib-tab>',
+        '  <uib-tab index="1"><data-uib-tab-heading>1</data-uib-tab-heading></uib-tab>',
+        '  <uib-tab index="2"><div data-uib-tab-heading>2</div></uib-tab>',
+        '  <uib-tab index="3"><div uib-tab-heading>3</div></uib-tab>',
         '</uib-tabset>'
       ].join('\n'))(scope);
       scope.$apply();
@@ -347,11 +431,11 @@ describe('tabs', function() {
       return elm.find('ul li > a').children();
     }
 
-    it('should create a heading bound to myHtml', function() {
+    it('should create a heading bound to myHtml', function () {
       expect(heading().eq(0).html()).toBe('<b>hello</b>, there!');
     });
 
-    it('should hide and show the heading depending on value', function() {
+    it('should hide and show the heading depending on value', function () {
       expect(heading().eq(0)).not.toBeHidden();
       scope.$apply('value = false');
       expect(heading().eq(0)).toBeHidden();
@@ -359,7 +443,7 @@ describe('tabs', function() {
       expect(heading().eq(0)).not.toBeHidden();
     });
 
-    it('should have a uib-tab-heading no matter what syntax was used', function() {
+    it('should have a uib-tab-heading no matter what syntax was used', function () {
       expect(heading().eq(1).text()).toBe('1');
       expect(heading().eq(2).text()).toBe('2');
       expect(heading().eq(3).text()).toBe('3');
@@ -368,43 +452,43 @@ describe('tabs', function() {
   });
 
   //Tests that http://git.io/lG6I9Q is fixed
-  describe('tab ordering', function() {
-    beforeEach(inject(function($compile, $rootScope) {
+  describe('tab ordering', function () {
+    beforeEach(inject(function ($compile, $rootScope) {
       scope = $rootScope.$new();
       scope.tabs = [
-        { title:'Title 1', available:true },
-        { title:'Title 2', available:true },
-        { title:'Title 3', available:true }
+        {title: 'Title 1', available: true},
+        {title: 'Title 2', available: true},
+        {title: 'Title 3', available: true}
       ];
       elm = $compile([
-        '<uib-tabset>',
+        '<uib-tabset active="active">',
         '  <!-- a comment -->',
         '  <div>div that makes troubles</div>',
-        '  <uib-tab heading="first">First Static</uib-tab>',
+        '  <uib-tab index="0" heading="first">First Static</uib-tab>',
         '  <div>another div that may do evil</div>',
-        '  <uib-tab ng-repeat="tab in tabs | filter:tabIsAvailable" active="tab.active" heading="{{tab.title}}">some content</uib-tab>',
+        '  <uib-tab index="$index + 1" ng-repeat="tab in tabs | filter:tabIsAvailable" active="tab.active" heading="{{tab.title}}">some content</uib-tab>',
         '  <!-- another comment -->',
         '  <uib-tab heading="mid">Mid Static</uib-tab>',
         '  a text node',
         '  <!-- another comment -->',
         '  <span>yet another span that may do evil</span>',
-        '  <uib-tab ng-repeat="tab in tabs | filter:tabIsAvailable" active="tab.active" heading="Second {{tab.title}}">some content</uib-tab>',
+        '  <uib-tab index="$index + 4" ng-repeat="tab in tabs | filter:tabIsAvailable" heading="Second {{tab.title}}">some content</uib-tab>',
         '  a text node',
         '  <span>yet another span that may do evil</span>',
         '  <!-- another comment -->',
-        '  <uib-tab heading="last">Last Static</uib-tab>',
+        '  <uib-tab index="7" heading="last">Last Static</uib-tab>',
         '  a text node',
         '  <span>yet another span that may do evil</span>',
         '  <!-- another comment -->',
         '</uib-tabset>'
       ].join('\n'))(scope);
 
-      scope.tabIsAvailable = function(tab) {
+      scope.tabIsAvailable = function (tab) {
         return tab.available;
       };
     }));
 
-    it('should preserve correct ordering', function() {
+    it('should preserve correct ordering', function () {
       function titles() {
         return elm.find('ul.nav-tabs li > a');
       }
@@ -438,107 +522,116 @@ describe('tabs', function() {
     });
   });
 
-  describe('uib-tabset controller', function() {
-    function mockTab(isActive) {
-      var _isActive;
-      if (isActive || isActive === false) {
-        _isActive = isActive;
-      }
-
+  describe('uib-tabset controller', function () {
+    function mockTab(index) {
       return {
-        active: _isActive,
-        onSelect : angular.noop,
-        onDeselect : angular.noop
+        index: index,
+        onSelect: angular.noop,
+        onDeselect: angular.noop
       };
     }
 
     var ctrl;
-    beforeEach(inject(function($controller, $rootScope) {
+    beforeEach(inject(function ($controller, $rootScope) {
       scope = $rootScope;
       //instantiate the controller stand-alone, without the directive
       ctrl = $controller('UibTabsetController', {$scope: scope});
     }));
 
-    describe('select', function() {
-      it('should mark given tab selected', function() {
-        var tab = mockTab();
+    describe('select', function () {
+      it('should mark given tab selected', function () {
+        ctrl.tabs = [
+          {
+            tab: mockTab(0),
+            index: 0
+          }
+        ];
 
-        ctrl.select(tab);
-        expect(tab.active).toBe(true);
+        ctrl.select(0);
+        expect(ctrl.active).toBe(0);
       });
 
 
-      it('should deselect other tabs', function() {
-        var tab1 = mockTab(), tab2 = mockTab(), tab3 = mockTab();
+      it('should deselect other tabs', function () {
+        var tab1 = mockTab(1), tab2 = mockTab(2), tab3 = mockTab(3);
 
         ctrl.addTab(tab1);
         ctrl.addTab(tab2);
         ctrl.addTab(tab3);
 
-        ctrl.select(tab1);
-        expect(tab1.active).toBe(true);
-        expect(tab2.active).toBe(false);
-        expect(tab3.active).toBe(false);
+        ctrl.select(0);
+        expect(ctrl.active).toBe(1);
 
-        ctrl.select(tab2);
-        expect(tab1.active).toBe(false);
-        expect(tab2.active).toBe(true);
-        expect(tab3.active).toBe(false);
+        ctrl.select(1);
+        expect(ctrl.active).toBe(2);
 
-        ctrl.select(tab3);
-        expect(tab1.active).toBe(false);
-        expect(tab2.active).toBe(false);
-        expect(tab3.active).toBe(true);
+        ctrl.select(2);
+        expect(ctrl.active).toBe(3);
       });
     });
 
 
-    describe('addTab', function() {
-      it('should append tab', function() {
-        var tab1 = mockTab(), tab2 = mockTab();
+    describe('addTab', function () {
+      it('should append tab', function () {
+        var tab1 = mockTab(1), tab2 = mockTab(2);
 
         expect(ctrl.tabs).toEqual([]);
 
         ctrl.addTab(tab1);
-        expect(ctrl.tabs).toEqual([tab1]);
+        expect(ctrl.tabs).toEqual([
+          {
+            tab: tab1,
+            index: 1
+          }
+        ]);
 
         ctrl.addTab(tab2);
-        expect(ctrl.tabs).toEqual([tab1, tab2]);
+        expect(ctrl.tabs).toEqual([
+          {
+            tab: tab1,
+            index: 1
+          },
+          {
+            tab: tab2,
+            index: 2
+          }
+        ]);
       });
 
-      it('should select the first one', function() {
-        var tab1 = mockTab(), tab2 = mockTab();
+      it('should select the first one', function () {
+        var tab1 = mockTab(1), tab2 = mockTab(2);
 
         ctrl.addTab(tab1);
-        expect(tab1.active).toBe(true);
+        expect(ctrl.active).toBe(1);
 
         ctrl.addTab(tab2);
-        expect(tab1.active).toBe(true);
+        expect(ctrl.active).toBe(1);
       });
 
-      it('should not select first active === false tab as selected', function() {
-        var tab = mockTab(false);
+      it('should not select first active === false tab as selected', function () {
+        var tab = mockTab(0);
+        ctrl.active = 1;
 
         ctrl.addTab(tab);
-        expect(tab.active).toBe(false);
+        expect(ctrl.active).toBe(1);
       });
 
-      it('should select a tab added that\'s already active', function() {
-        var tab1 = mockTab(), tab2 = mockTab(true);
+      it('should retain active state when adding tab of different index', function () {
+        var tab1 = mockTab(1), tab2 = mockTab(2);
+        ctrl.active = 2;
         ctrl.addTab(tab1);
-        expect(tab1.active).toBe(true);
+        expect(ctrl.active).toBe(2);
 
         ctrl.addTab(tab2);
-        expect(tab1.active).toBe(false);
-        expect(tab2.active).toBe(true);
+        expect(ctrl.active).toBe(2);
       });
     });
   });
 
-  describe('remove', function() {
-    it('should remove title tabs when elements are destroyed and change selection', inject(function($controller, $compile, $rootScope) {
+  describe('remove', function () {
+    it('should remove title tabs when elements are destroyed and change selection', inject(function ($controller, $compile, $rootScope) {
       scope = $rootScope.$new();
-      elm = $compile('<uib-tabset><uib-tab heading="1">Hello</uib-tab><uib-tab ng-repeat="i in list" heading="tab {{i}}">content {{i}}</uib-tab></uib-tabset>')(scope);
+      elm = $compile('<uib-tabset active="active"><uib-tab index="0" heading="1">Hello</uib-tab><uib-tab index="$index + 1" ng-repeat="i in list" heading="tab {{i}}">content {{i}}</uib-tab></uib-tabset>')(scope);
       scope.$apply();
 
       expectTitles(['1']);
@@ -577,29 +670,30 @@ describe('tabs', function() {
       expect(contents().eq(1)).toHaveClass('active');
     }));
 
-    it('should not select tabs when being destroyed', inject(function($controller, $compile, $rootScope) {
+    it('should not select tabs when being destroyed', inject(function ($controller, $compile, $rootScope) {
       var selectList = [],
-          deselectList = [],
-          getTab = function(active) {
-            return {
-              active: active,
-              select : function() {
-                selectList.push('select');
-              },
-              deselect : function() {
-                deselectList.push('deselect');
-              }
-            };
-          };
+              deselectList = [],
+              getTab = function (index) {
+                return {
+                  index: index,
+                  select: function () {
+                    selectList.push('select');
+                  },
+                  deselect: function () {
+                    deselectList.push('deselect');
+                  }
+                };
+              };
 
       scope = $rootScope.$new();
       scope.tabs = [
-        getTab(true),
-        getTab(false)
+        getTab(0),
+        getTab(1)
       ];
+      scope.active = 1;
       elm = $compile([
-        '<uib-tabset>',
-        '  <uib-tab ng-repeat="t in tabs" active="t.active" select="t.select()" deselect="t.deselect()">',
+        '<uib-tabset active="active">',
+        '  <uib-tab index="$index" ng-repeat="t in tabs" active="t.active" select="t.select()" deselect="t.deselect()">',
         '    <uib-tab-heading><b>heading</b> {{index}}</uib-tab-heading>',
         '    content {{$index}}',
         '  </uib-tab>',
@@ -617,23 +711,24 @@ describe('tabs', function() {
     }));
   });
 
-  describe('disable', function() {
-    beforeEach(inject(function($compile, $rootScope) {
+  describe('disable', function () {
+    beforeEach(inject(function ($compile, $rootScope) {
       scope = $rootScope.$new();
 
-      function makeTab(disable) {
+      function makeTab(disable, index) {
         return {
-          active: false,
+          index: index,
           select: jasmine.createSpy(),
           disable: disable
         };
       }
       scope.tabs = [
-        makeTab(false), makeTab(true), makeTab(false), makeTab(true)
+        makeTab(false, 0), makeTab(true, 1), makeTab(false, 2), makeTab(true, 3)
       ];
+      scope.active = 1;
       elm = $compile([
-        '<uib-tabset>',
-        '  <uib-tab ng-repeat="t in tabs" active="t.active" select="t.select()" disable="t.disable">',
+        '<uib-tabset active="active">',
+        '  <uib-tab index="$index" ng-repeat="t in tabs" select="t.select()" disable="t.disable">',
         '    <uib-tab-heading><b>heading</b> {{index}}</uib-tab-heading>',
         '    content {{$index}}',
         '  </uib-tab>',
@@ -644,21 +739,21 @@ describe('tabs', function() {
 
     function expectTabActive(activeTab) {
       var _titles = titles();
-      angular.forEach(scope.tabs, function(tab, i) {
+      angular.forEach(scope.tabs, function (tab, i) {
         if (activeTab === tab) {
-          expect(tab.active).toBe(true);
+          expect(scope.active).toBe(tab.index);
           expect(tab.select.calls.count()).toBe(tab.disable ? 0 : 1);
           expect(_titles.eq(i)).toHaveClass('active');
           expect(contents().eq(i).text().trim()).toBe('content ' + i);
           expect(contents().eq(i)).toHaveClass('active');
         } else {
-          expect(tab.active).toBe(false);
+          expect(scope.active).not.toBe(tab.index);
           expect(_titles.eq(i)).not.toHaveClass('active');
         }
       });
     }
 
-    it('should not switch active when clicking on title', function() {
+    it('should not switch active when clicking on title', function () {
       titles().eq(2).find('> a').click();
       expectTabActive(scope.tabs[2]);
 
@@ -666,7 +761,7 @@ describe('tabs', function() {
       expectTabActive(scope.tabs[2]);
     });
 
-    it('should toggle between states', function() {
+    it('should toggle between states', function () {
       expect(titles().eq(3)).toHaveClass('disabled');
       scope.$apply('tabs[3].disable = false');
       expect(titles().eq(3)).not.toHaveClass('disabled');
@@ -677,34 +772,34 @@ describe('tabs', function() {
     });
   });
 
-  describe('vertical', function() {
-    beforeEach(inject(function($compile, $rootScope) {
+  describe('vertical', function () {
+    beforeEach(inject(function ($compile, $rootScope) {
       scope = $rootScope.$new();
       scope.vertical = true;
       elm = $compile('<uib-tabset vertical="vertical"></uib-tabset>')(scope);
       scope.$apply();
     }));
 
-    it('to stack tabs', function() {
+    it('to stack tabs', function () {
       expect(elm.find('ul.nav-tabs')).toHaveClass('nav-stacked');
     });
   });
 
-  describe('justified', function() {
-      beforeEach(inject(function($compile, $rootScope) {
-          scope = $rootScope.$new();
-          scope.justified = true;
-          elm = $compile('<uib-tabset justified="justified"></uib-tabset>')(scope);
-          scope.$apply();
-      }));
+  describe('justified', function () {
+    beforeEach(inject(function ($compile, $rootScope) {
+      scope = $rootScope.$new();
+      scope.justified = true;
+      elm = $compile('<uib-tabset justified="justified"></uib-tabset>')(scope);
+      scope.$apply();
+    }));
 
-      it('to justify tabs', function() {
-          expect(elm.find('ul.nav-tabs')).toHaveClass('nav-justified');
-      });
+    it('to justify tabs', function () {
+      expect(elm.find('ul.nav-tabs')).toHaveClass('nav-justified');
+    });
   });
 
-  describe('type', function() {
-    beforeEach(inject(function($compile, $rootScope) {
+  describe('type', function () {
+    beforeEach(inject(function ($compile, $rootScope) {
       scope = $rootScope.$new();
       scope.navType = 'pills';
 
@@ -712,30 +807,30 @@ describe('tabs', function() {
       scope.$apply();
     }));
 
-    it('to show pills', function() {
+    it('to show pills', function () {
       expect(elm.find('ul')).toHaveClass('nav-pills');
       expect(elm.find('ul')).not.toHaveClass('nav-tabs');
     });
   });
 
   //https://github.com/angular-ui/bootstrap/issues/524
-  describe('child compilation', function() {
+  describe('child compilation', function () {
     var elm;
-    beforeEach(inject(function($compile, $rootScope) {
+    beforeEach(inject(function ($compile, $rootScope) {
       elm = $compile('<uib-tabset><uib-tab><div></div></uib-tab></uib-tabset></div>')($rootScope.$new());
       $rootScope.$apply();
     }));
 
-    it('should hookup the tab\'s children to the tab with $compile', function() {
+    it('should hookup the tab\'s children to the tab with $compile', function () {
       var tabChild = $('.tab-pane', elm).children().first();
       expect(tabChild.inheritedData('$uibTabsetController')).toBeTruthy();
     });
   });
 
   //https://github.com/angular-ui/bootstrap/issues/631
-  describe('ng-options in content', function() {
+  describe('ng-options in content', function () {
     var elm;
-    it('should render correct amount of options', inject(function($compile, $rootScope) {
+    it('should render correct amount of options', inject(function ($compile, $rootScope) {
       var scope = $rootScope.$new();
       elm = $compile('<uib-tabset><uib-tab><select ng-model="foo" ng-options="i for i in [1,2,3]"></uib-tab></uib-tabset>')(scope);
       scope.$apply();
@@ -747,21 +842,21 @@ describe('tabs', function() {
   });
 
   //https://github.com/angular-ui/bootstrap/issues/599
-  describe('ng-repeat in content', function() {
+  describe('ng-repeat in content', function () {
     var elm;
-    it('should render ng-repeat', inject(function($compile, $rootScope) {
+    it('should render ng-repeat', inject(function ($compile, $rootScope) {
       var scope = $rootScope.$new();
       scope.tabs = [
-        {title:'a', array:[1,2,3]},
-        {title:'b', array:[2,3,4]},
-        {title:'c', array:[3,4,5]}
+        {title: 'a', array: [1, 2, 3]},
+        {title: 'b', array: [2, 3, 4]},
+        {title: 'c', array: [3, 4, 5]}
       ];
       elm = $compile('<div><uib-tabset>' +
-        '<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}">' +
-          '<uib-tab-heading>{{$index}}</uib-tab-heading>' +
-          '<span ng-repeat="a in tab.array">{{a}},</span>' +
-        '</uib-tab>' +
-      '</uib-tabset></div>')(scope);
+              '<uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}">' +
+              '<uib-tab-heading>{{$index}}</uib-tab-heading>' +
+              '<span ng-repeat="a in tab.array">{{a}},</span>' +
+              '</uib-tab>' +
+              '</uib-tabset></div>')(scope);
       scope.$apply();
 
       var contents = elm.find('.tab-pane');
@@ -772,9 +867,9 @@ describe('tabs', function() {
   });
 
   //https://github.com/angular-ui/bootstrap/issues/783
-  describe('nested tabs', function() {
+  describe('nested tabs', function () {
     var elm;
-    it('should render without errors', inject(function($compile, $rootScope) {
+    it('should render without errors', inject(function ($compile, $rootScope) {
       var scope = $rootScope.$new();
       elm = $compile([
         '<div>',
@@ -800,7 +895,7 @@ describe('tabs', function() {
       expect(elm.find('.tabbable').length).toEqual(3);
     }));
 
-    it('should render with the correct scopes', inject(function($compile, $rootScope) {
+    it('should render with the correct scopes', inject(function ($compile, $rootScope) {
       var scope = $rootScope.$new();
       scope.tab1Text = 'abc';
       scope.tab1aText = '123';
@@ -843,17 +938,17 @@ describe('tabs', function() {
       expect(nestedTabset.eq(2).find('.tab-pane').eq(0).find('.tab-2aa').text().trim()).toEqual(scope.tab2aaText);
     }));
 
-    it('ng-repeat works with nested tabs', inject(function($compile, $rootScope) {
+    it('ng-repeat works with nested tabs', inject(function ($compile, $rootScope) {
       var scope = $rootScope.$new();
       scope.tabs = [
         {
           tabs: [
-          {
-            content: 'tab1a'
-          },
-          {
-            content: 'tab2a'
-          }
+            {
+              content: 'tab1a'
+            },
+            {
+              content: 'tab2a'
+            }
           ],
           content: 'tab1'
         }

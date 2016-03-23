@@ -58,7 +58,7 @@ angular.module('meanstacktutorials').controller('TreeController', [
                 label: 'ExpressJS',
                 data: {
                   description: "Express.js is a Node.js web application server framework, designed for building single-page, multi-page, and hybrid web applications. It is the de facto standard server framework for node.js. The original author, TJ Holowaychuk, described it as a Sinatra-inspired server, meaning that it is relatively minimal with many features available as plugins. Express is the backend part of the MEAN stack, together with MongoDB database and AngularJS frontend framework. In June 2014, rights to manage the project were acquired by StrongLoop. StrongLoop was acquired by IBM in September 2015; [5] in January 2016, IBM announced that it would place Express.js under the stewardship of the Node.js Foundation incubator.",
-                  codeblock: "To start using ExpressJS download it from npm with:<pre>npm install express --save</pre>Then add the following to your NodeJS master file:<pre>var express = require('express');</pre>See the Server Side Overview for the ExpressJS Setup info."                
+                  codeblock: "To start using ExpressJS download it from npm with:<pre>npm install express --save</pre>Then add the following to your NodeJS master file:<pre>var express = require('express');</pre>See the Server Side Overview for the ExpressJS Setup info."
                 }
               }, {
                 label: 'AngularJS',

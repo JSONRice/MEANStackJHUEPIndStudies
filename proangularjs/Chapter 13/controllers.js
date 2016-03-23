@@ -2,18 +2,18 @@
 
 app.controller("firstController", function ($scope) {
 
-    $scope.dataValue = "Hello, Adam";
+  $scope.dataValue = "Hello, Adam";
 
-    $scope.reverseText = function () {
-        $scope.dataValue = $scope.dataValue.split("").reverse().join("");
-    }
+  $scope.reverseText = function () {
+    $scope.dataValue = $scope.dataValue.split("").reverse().join("");
+  }
 });
 
 app.controller("secondController", function ($scope) {
 
-    $scope.dataValue = "Hello, Jacqui";
+  $scope.dataValue = "Hello, Jacqui";
 
-    $scope.changeCase = function () {
-       $scope.dataValue = $scope.dataValue.toUpperCase();
-    };
+  $scope.changeCase = function () {
+    $scope.dataValue = $scope.dataValue.toUpperCase();
+  };
 });

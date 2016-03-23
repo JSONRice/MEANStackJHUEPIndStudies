@@ -14,7 +14,7 @@ var debug = require('debug')('node:server');
 var fs = require('fs');
 var bodyParser = require('body-parser');
 var passport = require('passport');
-var localStrategy = require('passport-local' ).Strategy;
+var localStrategy = require('passport-local').Strategy;
 
 
 // app object handle
@@ -32,20 +32,20 @@ ioc.use(ioc.node_modules());
 var database = ioc.create('database');
 
 /* TODO: setup user authentication (login) services over HTTPS
-var ssl = ioc.create('ssl');
-var authService = ioc.create('authService');
-var userService = ioc.create('userService');
-*/
+ var ssl = ioc.create('ssl');
+ var authService = ioc.create('authService');
+ var userService = ioc.create('userService');
+ */
 
 // connect to the database:
 database.connect(function (err) {
-    if (err) {
-        console.log("Unable to connect to the Mongo database! Make sure 'mongod' is running.");
-        console.log(err);
-        process.exit(-1);
-    } else {
-        console.log("Connected to Mongo database.");
-    }
+  if (err) {
+    console.log("Unable to connect to the Mongo database! Make sure 'mongod' is running.");
+    console.log(err);
+    process.exit(-1);
+  } else {
+    console.log("Connected to Mongo database.");
+  }
 });
 
 // Schemas
@@ -53,9 +53,9 @@ var user = require('./server/models/user.js');
 
 // security
 app.use(require('express-session')({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -63,11 +63,11 @@ passport.use(new localStrategy(user.authenticate()));
 passport.serializeUser(user.serializeUser());
 passport.deserializeUser(user.deserializeUser());
 
- 
+
 // set routes up:
 var routes = {
-    index: require('./server/routes/index.js'),
-    api: require('./server/routes/api.js')
+  index: require('./server/routes/index.js'),
+  api: require('./server/routes/api.js')
 };
 
 // view engine setup
@@ -78,14 +78,14 @@ app.use(logger('dev'));
 
 // database settings for app
 app.use(session({
-    store: new MongoConnector({
-        mongooseConnection: database.getConnection(),
-        // time to live:
-        ttl: 3360
-    }),
-    secret: 'ChangeMe1',
-    resave: true,
-    saveUninitialized: true
+  store: new MongoConnector({
+    mongooseConnection: database.getConnection(),
+    // time to live:
+    ttl: 3360
+  }),
+  secret: 'ChangeMe1',
+  resave: true,
+  saveUninitialized: true
 }));
 
 app.use(bodyParser.json());
@@ -101,21 +101,21 @@ app.use('/api', routes.api);
 
 // catch 404 and forward on to error handler:
 app.use(function (res, req, next) {
-    var err = new Error("Not Found");
-    err.status = 404;
-    next(err);
+  var err = new Error("Not Found");
+  err.status = 404;
+  next(err);
 });
 
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-    app.use(function (err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
+  app.use(function (err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err
     });
+  });
 }
 
 // Get port from environment and store in Express:
@@ -128,8 +128,8 @@ var server = http.createServer(app);
 // listen on provided port, on all network interfaces.
 
 server.listen(port, function () {
-    // callback:
-    console.log("Server listening on: http://localhost:%s", port);
+  // callback:
+  console.log("Server listening on: http://localhost:%s", port);
 });
 server.on('error', onError);
 server.on('listening', onListening);
@@ -137,52 +137,54 @@ server.on('listening', onListening);
 
 // normalize a port into a number, string, or false:
 function normalizePort(val) {
-    var port = parseInt(val, 10);
-    if (isNaN(port)) {
-        return val;
-    }
-    if (port >= 0) {
-        return port;
-    }
-    return false;
+  var port = parseInt(val, 10);
+  if (isNaN(port)) {
+    return val;
+  }
+  if (port >= 0) {
+    return port;
+  }
+  return false;
 }
 ;
 
 // error handler function
 function onError(error) {
-    if (error.syscall !== 'listen') {
-        throw error;
-    }
-    var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
-    // handle specific listen errors with friendly messages
-    switch (error.code) {
-        case 'EACCES':
-            console.error(bind + ' requires elevated privileges.');
-            process.exit(1);
-            break;
-        case 'EADDRINUSE':
-            console.error(bind + ' is already in use');
-            process.exit(1);
-            break;
-        default:
-            throw error;
-    }
-};
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges.');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+;
 
 function loadDefaultPage(defaultPage) {
-    fs.readFile(defaultPage, function (err, html) {
-        if (err) {
-            throw err;
-        }
-    });
+  fs.readFile(defaultPage, function (err, html) {
+    if (err) {
+      throw err;
+    }
+  });
 }
 
 // event listeners for HTTP server "listening" event
 function onListening() {
-    var addr = server.address();
-    // unix (file) pipe (IPC) or network port:
-    var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-    loadDefaultPage('./client/templates/index.html');
-    console.log("NOTE: if you haven't already done so restart the web app with 'nodemon' instead of using 'node' and any code changes will cause NodeJS to restart.");
-};
+  var addr = server.address();
+  // unix (file) pipe (IPC) or network port:
+  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+  // loadDefaultPage('./client/templates/index.html');
+  console.log("NOTE: if you haven't already done so restart the web app with 'nodemon' instead of using 'node' and any code changes will cause NodeJS to restart.");
+}
+;

@@ -49,24 +49,24 @@ gulp.task('style', function () {
 // Convert Angular templates into a cache file
 gulp.task('templates', function () {
   return gulp.src('./client/templates/*.html')
-          .pipe(templateCache('templates.js', {module: 'meanstacktutorials'}))
+          .pipe(templateCache('templates.js', {
+            module: 'meanstacktutorials'
+          }))
           .pipe(gulp.dest('./client/javascript/dist'));
 });
 
 // Concatenate JavaScripts
 gulp.task('concat', ['templates'], function () {
   return gulp.src([
-    './app.js',
-    './dist/templates.js',
-    './constants/**/*.js',
-    './controllers/**/*.js',
-    './directives/**/*.js',
-    './filters/**/*.js',
-    './models/**/*.js',
-    './services/**/*.js'
-  ], {
-    cwd: './client/javascript'
-  })
+    './client/javascript/app.js',
+    './client/javascript/dist/templates.js',
+    './client/javascript/constants/**/*.js',
+    './client/javascript/controllers/**/*.js',
+    './client/javascript/directives/**/*.js',
+    './client/javascript/filters/**/*.js',
+    './client/javascript/models/**/*.js',
+    './client/javascript/services/**/*.js'
+  ])
           .pipe(concat('all.js'))
           .pipe(gulp.dest('./client/javascript/dist'));
 });

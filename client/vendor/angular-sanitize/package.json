@@ -1,15 +1,59 @@
 {
-  "name": "angular-sanitize",
-  "version": "1.5.0-beta.0",
+  "_args": [
+    [
+      "angular-sanitize@1.5.2",
+      "/Users/jsnrice/git/MEANStackJHUEPIndStudies"
+    ]
+  ],
+  "_from": "angular-sanitize@1.5.2",
+  "_id": "angular-sanitize@1.5.2",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/angular-sanitize",
+  "_nodeVersion": "4.4.0",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/angular-sanitize-1.5.2.tgz_1458342027021_0.7769083979073912"
+  },
+  "_npmUser": {
+    "email": "angular-core+npm@google.com",
+    "name": "angularcore"
+  },
+  "_npmVersion": "2.14.20",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "angular-sanitize",
+    "raw": "angular-sanitize@1.5.2",
+    "rawSpec": "1.5.2",
+    "scope": null,
+    "spec": "1.5.2",
+    "type": "version"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-sanitize/-/angular-sanitize-1.5.2.tgz",
+  "_shasum": "66607873669d2e1b42f4aa95e5c29bcc34068cb9",
+  "_shrinkwrap": null,
+  "_spec": "angular-sanitize@1.5.2",
+  "_where": "/Users/jsnrice/git/MEANStackJHUEPIndStudies",
+  "author": {
+    "email": "angular-core+npm@google.com",
+    "name": "Angular Core Team"
+  },
+  "bugs": {
+    "url": "https://github.com/angular/angular.js/issues"
+  },
+  "dependencies": {},
   "description": "AngularJS module for sanitizing HTML",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "66607873669d2e1b42f4aa95e5c29bcc34068cb9",
+    "tarball": "http://registry.npmjs.org/angular-sanitize/-/angular-sanitize-1.5.2.tgz"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/angular/angular.js.git"
-  },
+  "gitHead": "d37d54daf0f354debf52740e7bfadea7cb0562a1",
+  "homepage": "http://angularjs.org",
   "keywords": [
     "angular",
     "framework",
@@ -17,21 +61,35 @@
     "html",
     "client-side"
   ],
-  "author": {
-    "name": "Angular Core Team",
-    "email": "angular-core+npm@google.com"
-  },
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/angular/angular.js/issues"
+  "main": "index.js",
+  "maintainers": [
+    {
+      "email": "a.kalinovski@gmail.com",
+      "name": "akalinovski"
+    },
+    {
+      "email": "angular-core+npm@google.com",
+      "name": "angularcore"
+    },
+    {
+      "email": "pete@bacondarwin.com",
+      "name": "petebd"
+    },
+    {
+      "email": "PitBeast777@gmail.com",
+      "name": "pitbeast"
+    }
+  ],
+  "name": "angular-sanitize",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/angular/angular.js.git"
   },
-  "homepage": "http://angularjs.org",
-  "readme": "# packaged angular-sanitize\n\nThis repo is for distribution on `npm` and `bower`. The source for this module is in the\n[main AngularJS repo](https://github.com/angular/angular.js/tree/master/src/ngSanitize).\nPlease file issues and pull requests against that repo.\n\n## Install\n\nYou can install this package either with `npm` or with `bower`.\n\n### npm\n\n```shell\nnpm install angular-sanitize\n```\n\nThen add `ngSanitize` as a dependency for your app:\n\n```javascript\nangular.module('myApp', [require('angular-sanitize')]);\n```\n\n### bower\n\n```shell\nbower install angular-sanitize\n```\n\nAdd a `<script>` to your `index.html`:\n\n```html\n<script src=\"/bower_components/angular-sanitize/angular-sanitize.js\"></script>\n```\n\nThen add `ngSanitize` as a dependency for your app:\n\n```javascript\nangular.module('myApp', ['ngSanitize']);\n```\n\n## Documentation\n\nDocumentation is available on the\n[AngularJS docs site](http://docs.angularjs.org/api/ngSanitize).\n\n## License\n\nThe MIT License\n\nCopyright (c) 2010-2015 Google, Inc. http://angularjs.org\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.\n",
-  "readmeFilename": "README.md",
-  "_id": "angular-sanitize@1.5.0-beta.0",
-  "dist": {
-    "shasum": "4625731d73cd5a891db67499e65c96a4c46bc980"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "_from": "angular-sanitize@",
-  "_resolved": "https://registry.npmjs.org/angular-sanitize/-/angular-sanitize-1.5.0-beta.0.tgz"
+  "version": "1.5.2"
 }

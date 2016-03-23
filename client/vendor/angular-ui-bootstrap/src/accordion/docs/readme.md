@@ -33,6 +33,7 @@ The body of each accordion group is transcluded into the body of the collapsible
   Whether accordion group is open or closed.
 
 * `panel-class`
+  <i class="glyphicon glyphicon-eye-open"></i>
   _(Default: `panel-default`)_ -
   Add ability to use Bootstrap's contextual panel classes (panel-primary, panel-success, panel-info, etc...) or your own.  This must be a string.
 
@@ -43,6 +44,8 @@ The body of each accordion group is transcluded into the body of the collapsible
 ### Accordion heading
 
 Instead of the `heading` attribute on the `uib-accordion-group`, you can use an `uib-accordion-heading` element inside a group that will be used as the group's header.
+
+If you're using a custom template for the `uib-accordion-group`, you'll need to have an element for the heading to be transcluded into using `uib-accordion-header` (e.g. `<div uib-accordion-header></div>`).
 
 ### Known issues
 

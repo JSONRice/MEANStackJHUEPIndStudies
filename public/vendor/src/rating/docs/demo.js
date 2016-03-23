@@ -3,7 +3,7 @@ angular.module('ui.bootstrap.demo').controller('RatingDemoCtrl', function ($scop
   $scope.max = 10;
   $scope.isReadonly = false;
 
-  $scope.hoveringOver = function(value) {
+  $scope.hoveringOver = function (value) {
     $scope.overStar = value;
     $scope.percent = 100 * (value / $scope.max);
   };

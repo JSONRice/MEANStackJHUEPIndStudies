@@ -1,24 +1,24 @@
 <div ng-controller="PageBannerController" class="navbar navbar-inverse" role="navigation">
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li>
-                    <div id="logo"></div>                
-                </li>
-                <li ng-show="loggedIn" class="loggedIn">
-                    Welcome {{userdata.firstname}} {{userdata.lastname}}                  
-                </li>                
-                <li>
-                    <a href="" ng-click="openFeedback('md')">Submit Feedback</a>
-                </li>                
-                <li>
-                    <a href="" ng-click="openFAQ()">FAQs</a>
-                </li>
-                <li>
-                    <a href="" ng-click="openHistory()">History</a>
-                </li>
-                <li class="logout-li">
-                    <a ng-show="loggedIn" href="" ng-click="logout()">Logout</a>
-                </li>
-            </ul>
-        </div>
+  <div class="collapse navbar-collapse">
+    <ul class="nav navbar-nav">
+      <li>
+        <div id="logo"></div>                
+      </li>
+      <li ng-show="loggedIn" class="loggedIn">
+        Welcome {{userdata.firstname}} {{userdata.lastname}}                  
+      </li>                
+      <li>
+        <a href="" ng-click="openFeedback('md')">Submit Feedback</a>
+      </li>                
+      <li>
+        <a href="" ng-click="openFAQ()">FAQs</a>
+      </li>
+      <li>
+        <a href="" ng-click="openHistory()">History</a>
+      </li>
+      <li class="logout-li">
+        <a ng-show="loggedIn" href="" ng-click="logout()">Logout</a>
+      </li>
+    </ul>
+  </div>
 </div>

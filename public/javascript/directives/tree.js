@@ -16,9 +16,9 @@ meanstacktutorials.directive('tree', [
         initialSelection: '@',
         treeControl: '='
       },
-      link: function(scope, element, attrs) {
+      link: function (scope, element, attrs) {
         var error, expand_all_parents, expand_level, for_all_ancestors, for_each_branch, get_parent, n, on_treeData_change, select_branch, selected_branch, tree;
-        error = function(s) {
+        error = function (s) {
           console.log('ERROR:' + s);
           debugger;
           return void 0;
@@ -48,9 +48,9 @@ meanstacktutorials.directive('tree', [
             return;
           }
         }
-        for_each_branch = function(f) {
+        for_each_branch = function (f) {
           var do_f, root_branch, _i, _len, _ref, _results;
-          do_f = function(branch, level) {
+          do_f = function (branch, level) {
             var child, _i, _len, _ref, _results;
             f(branch, level);
             if (branch.children != null) {
@@ -72,7 +72,7 @@ meanstacktutorials.directive('tree', [
           return _results;
         };
         selected_branch = null;
-        select_branch = function(branch) {
+        select_branch = function (branch) {
           if (!branch) {
             if (selected_branch != null) {
               selected_branch.selected = false;
@@ -88,12 +88,12 @@ meanstacktutorials.directive('tree', [
             selected_branch = branch;
             expand_all_parents(branch);
             if (branch.onSelect != null) {
-              return $timeout(function() {
+              return $timeout(function () {
                 return branch.onSelect(branch);
               });
             } else {
               if (scope.onSelect != null) {
-                return $timeout(function() {
+                return $timeout(function () {
                   return scope.onSelect({
                     branch: branch
                   });
@@ -102,16 +102,16 @@ meanstacktutorials.directive('tree', [
             }
           }
         };
-        scope.user_clicks_branch = function(branch) {
+        scope.user_clicks_branch = function (branch) {
           if (branch !== selected_branch) {
             return select_branch(branch);
           }
         };
-        get_parent = function(child) {
+        get_parent = function (child) {
           var parent;
           parent = void 0;
           if (child.parent_uid) {
-            for_each_branch(function(b) {
+            for_each_branch(function (b) {
               if (b.uid === child.parent_uid) {
                 return parent = b;
               }
@@ -119,7 +119,7 @@ meanstacktutorials.directive('tree', [
           }
           return parent;
         };
-        for_all_ancestors = function(child, fn) {
+        for_all_ancestors = function (child, fn) {
           var parent;
           parent = get_parent(child);
           if (parent != null) {
@@ -127,21 +127,21 @@ meanstacktutorials.directive('tree', [
             return for_all_ancestors(parent, fn);
           }
         };
-        expand_all_parents = function(child) {
-          return for_all_ancestors(child, function(b) {
+        expand_all_parents = function (child) {
+          return for_all_ancestors(child, function (b) {
             return b.expanded = true;
           });
         };
         scope.tree_rows = [];
-        on_treeData_change = function() {
+        on_treeData_change = function () {
           var add_branch_to_list, root_branch, _i, _len, _ref, _results;
-          for_each_branch(function(b, level) {
+          for_each_branch(function (b, level) {
             if (!b.uid) {
               return b.uid = "" + Math.random();
             }
           });
           console.log('UIDs are set.');
-          for_each_branch(function(b) {
+          for_each_branch(function (b) {
             var child, _i, _len, _ref, _results;
             if (angular.isArray(b.children)) {
               _ref = b.children;
@@ -154,11 +154,11 @@ meanstacktutorials.directive('tree', [
             }
           });
           scope.tree_rows = [];
-          for_each_branch(function(branch) {
+          for_each_branch(function (branch) {
             var child, f;
             if (branch.children) {
               if (branch.children.length > 0) {
-                f = function(e) {
+                f = function (e) {
                   if (typeof e === 'string') {
                     return {
                       label: e,
@@ -168,7 +168,7 @@ meanstacktutorials.directive('tree', [
                     return e;
                   }
                 };
-                return branch.children = (function() {
+                return branch.children = (function () {
                   var _i, _len, _ref, _results;
                   _ref = branch.children;
                   _results = [];
@@ -183,7 +183,7 @@ meanstacktutorials.directive('tree', [
               return branch.children = [];
             }
           });
-          add_branch_to_list = function(level, branch, visible) {
+          add_branch_to_list = function (level, branch, visible) {
             var child, child_visible, tree_icon, _i, _len, _ref, _results;
             if (branch.expanded == null) {
               branch.expanded = false;
@@ -225,9 +225,9 @@ meanstacktutorials.directive('tree', [
         };
         scope.$watch('treeData', on_treeData_change, true);
         if (attrs.initialSelection != null) {
-          for_each_branch(function(b) {
+          for_each_branch(function (b) {
             if (b.label === attrs.initialSelection) {
-              return $timeout(function() {
+              return $timeout(function () {
                 return select_branch(b);
               });
             }
@@ -235,48 +235,48 @@ meanstacktutorials.directive('tree', [
         }
         n = scope.treeData.length;
         console.log('num root branches = ' + n);
-        for_each_branch(function(b, level) {
+        for_each_branch(function (b, level) {
           b.level = level;
           return b.expanded = b.level < expand_level;
         });
         if (scope.treeControl != null) {
           if (angular.isObject(scope.treeControl)) {
             tree = scope.treeControl;
-            tree.expand_all = function() {
-              return for_each_branch(function(b, level) {
+            tree.expand_all = function () {
+              return for_each_branch(function (b, level) {
                 return b.expanded = true;
               });
             };
-            tree.collapse_all = function() {
-              return for_each_branch(function(b, level) {
+            tree.collapse_all = function () {
+              return for_each_branch(function (b, level) {
                 return b.expanded = false;
               });
             };
-            tree.get_first_branch = function() {
+            tree.get_first_branch = function () {
               n = scope.treeData.length;
               if (n > 0) {
                 return scope.treeData[0];
               }
             };
-            tree.select_first_branch = function() {
+            tree.select_first_branch = function () {
               var b;
               b = tree.get_first_branch();
               return tree.select_branch(b);
             };
-            tree.get_selected_branch = function() {
+            tree.get_selected_branch = function () {
               return selected_branch;
             };
-            tree.get_parent_branch = function(b) {
+            tree.get_parent_branch = function (b) {
               return get_parent(b);
             };
-            tree.select_branch = function(b) {
+            tree.select_branch = function (b) {
               select_branch(b);
               return b;
             };
-            tree.get_children = function(b) {
+            tree.get_children = function (b) {
               return b.children;
             };
-            tree.select_parent_branch = function(b) {
+            tree.select_parent_branch = function (b) {
               var p;
               if (b == null) {
                 b = tree.get_selected_branch();
@@ -289,7 +289,7 @@ meanstacktutorials.directive('tree', [
                 }
               }
             };
-            tree.add_branch = function(parent, new_branch) {
+            tree.add_branch = function (parent, new_branch) {
               if (parent != null) {
                 parent.children.push(new_branch);
                 parent.expanded = true;
@@ -298,11 +298,11 @@ meanstacktutorials.directive('tree', [
               }
               return new_branch;
             };
-            tree.add_root_branch = function(new_branch) {
+            tree.add_root_branch = function (new_branch) {
               tree.add_branch(null, new_branch);
               return new_branch;
             };
-            tree.expand_branch = function(b) {
+            tree.expand_branch = function (b) {
               if (b == null) {
                 b = tree.get_selected_branch();
               }
@@ -311,7 +311,7 @@ meanstacktutorials.directive('tree', [
                 return b;
               }
             };
-            tree.collapse_branch = function(b) {
+            tree.collapse_branch = function (b) {
               if (b == null) {
                 b = selected_branch;
               }
@@ -320,7 +320,7 @@ meanstacktutorials.directive('tree', [
                 return b;
               }
             };
-            tree.get_siblings = function(b) {
+            tree.get_siblings = function (b) {
               var p, siblings;
               if (b == null) {
                 b = selected_branch;
@@ -335,7 +335,7 @@ meanstacktutorials.directive('tree', [
                 return siblings;
               }
             };
-            tree.get_next_sibling = function(b) {
+            tree.get_next_sibling = function (b) {
               var i, siblings;
               if (b == null) {
                 b = selected_branch;
@@ -349,7 +349,7 @@ meanstacktutorials.directive('tree', [
                 }
               }
             };
-            tree.get_prev_sibling = function(b) {
+            tree.get_prev_sibling = function (b) {
               var i, siblings;
               if (b == null) {
                 b = selected_branch;
@@ -361,7 +361,7 @@ meanstacktutorials.directive('tree', [
                 return siblings[i - 1];
               }
             };
-            tree.select_next_sibling = function(b) {
+            tree.select_next_sibling = function (b) {
               var next;
               if (b == null) {
                 b = selected_branch;
@@ -373,7 +373,7 @@ meanstacktutorials.directive('tree', [
                 }
               }
             };
-            tree.select_prev_sibling = function(b) {
+            tree.select_prev_sibling = function (b) {
               var prev;
               if (b == null) {
                 b = selected_branch;
@@ -385,7 +385,7 @@ meanstacktutorials.directive('tree', [
                 }
               }
             };
-            tree.get_first_child = function(b) {
+            tree.get_first_child = function (b) {
               var _ref;
               if (b == null) {
                 b = selected_branch;
@@ -396,7 +396,7 @@ meanstacktutorials.directive('tree', [
                 }
               }
             };
-            tree.get_closest_ancestor_next_sibling = function(b) {
+            tree.get_closest_ancestor_next_sibling = function (b) {
               var next, parent;
               next = tree.get_next_sibling(b);
               if (next != null) {
@@ -406,7 +406,7 @@ meanstacktutorials.directive('tree', [
                 return tree.get_closest_ancestor_next_sibling(parent);
               }
             };
-            tree.get_next_branch = function(b) {
+            tree.get_next_branch = function (b) {
               var next;
               if (b == null) {
                 b = selected_branch;
@@ -421,7 +421,7 @@ meanstacktutorials.directive('tree', [
                 }
               }
             };
-            tree.select_next_branch = function(b) {
+            tree.select_next_branch = function (b) {
               var next;
               if (b == null) {
                 b = selected_branch;
@@ -434,7 +434,7 @@ meanstacktutorials.directive('tree', [
                 }
               }
             };
-            tree.last_descendant = function(b) {
+            tree.last_descendant = function (b) {
               var last_child;
               if (b == null) {
                 debugger;
@@ -447,7 +447,7 @@ meanstacktutorials.directive('tree', [
                 return tree.last_descendant(last_child);
               }
             };
-            tree.get_prev_branch = function(b) {
+            tree.get_prev_branch = function (b) {
               var parent, prev_sibling;
               if (b == null) {
                 b = selected_branch;
@@ -462,7 +462,7 @@ meanstacktutorials.directive('tree', [
                 }
               }
             };
-            return tree.select_prev_branch = function(b) {
+            return tree.select_prev_branch = function (b) {
               var prev;
               if (b == null) {
                 b = selected_branch;

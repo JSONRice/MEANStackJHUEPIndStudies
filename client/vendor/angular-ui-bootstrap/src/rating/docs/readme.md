@@ -26,7 +26,7 @@ Rating directive that will take care of visualising a star rating bar.
   _(Default: `null`)_ -
   An array of objects defining properties for all icons. In default template, `stateOn` & `stateOff` property is used to specify the icon's class.
 
-* `readonly`
+* `read-only`
   <small class="badge">$</small>
   <i class="icon-eye-open"></i>
   _(Default: `false`)_ -
@@ -37,6 +37,11 @@ Rating directive that will take care of visualising a star rating bar.
   <small class="badge">C</small>
   _(Default: ['one', 'two', 'three', 'four', 'five']`)_ -
   An array of strings defining titles for all icons.
+
+* `enable-reset`
+  <small class="badge">$</small>
+  _(Default: `true`)_ -
+  Clicking the icon of the current rating will reset the rating to 0.
 
 * `state-off`
   <small class="badge">$</small>

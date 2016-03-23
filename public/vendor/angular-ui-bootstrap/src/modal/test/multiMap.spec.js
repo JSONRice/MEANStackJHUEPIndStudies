@@ -1,12 +1,12 @@
-describe('multi map', function() {
+describe('multi map', function () {
   var multiMap;
 
   beforeEach(module('ui.bootstrap.modal'));
-  beforeEach(inject(function($$multiMap) {
+  beforeEach(inject(function ($$multiMap) {
     multiMap = $$multiMap.createNew();
   }));
 
-  it('should add and remove objects by key', function() {
+  it('should add and remove objects by key', function () {
     multiMap.put('foo', 'bar');
 
     expect(multiMap.get('foo')).toEqual(['bar']);
@@ -24,14 +24,14 @@ describe('multi map', function() {
     expect(multiMap.hasKey('foo')).toBe(false);
   });
 
-  it('should support getting the keys', function() {
+  it('should support getting the keys', function () {
     multiMap.put('foo', 'bar');
     multiMap.put('baz', 'boo');
 
     expect(multiMap.keys()).toEqual(['foo', 'baz']);
   });
 
-  it('should return all entries', function() {
+  it('should return all entries', function () {
     multiMap.put('foo', 'bar');
     multiMap.put('foo', 'bar2');
     multiMap.put('baz', 'boo');
@@ -48,11 +48,11 @@ describe('multi map', function() {
     ]);
   });
 
-  it('should preserve semantic of an empty key', function() {
+  it('should preserve semantic of an empty key', function () {
     expect(multiMap.get('key')).toBeUndefined();
   });
 
-  it('should respect removal of non-existing elements', function() {
+  it('should respect removal of non-existing elements', function () {
     expect(multiMap.remove('foo', 'bar')).toBeUndefined();
   });
 });

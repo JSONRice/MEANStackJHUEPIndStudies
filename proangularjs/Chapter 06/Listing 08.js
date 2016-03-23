@@ -1,19 +1,19 @@
 angular.module("sportsStore")
-    .constant("productListActiveClass", "btn-primary")
-    .controller("productListCtrl", function ($scope, $filter, productListActiveClass) {
+        .constant("productListActiveClass", "btn-primary")
+        .controller("productListCtrl", function ($scope, $filter, productListActiveClass) {
 
-        var selectedCategory = null;
+          var selectedCategory = null;
 
-        $scope.selectCategory = function (newCategory) {
+          $scope.selectCategory = function (newCategory) {
             selectedCategory = newCategory;
-        }
+          }
 
-        $scope.categoryFilterFn = function (product) {
+          $scope.categoryFilterFn = function (product) {
             return selectedCategory == null ||
-                product.category == selectedCategory;
-        }
+                    product.category == selectedCategory;
+          }
 
-        $scope.getCategoryClass = function (category) {
+          $scope.getCategoryClass = function (category) {
             return selectedCategory == category ? productListActiveClass : "";
-        }
-    });
+          }
+        });

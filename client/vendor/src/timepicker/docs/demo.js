@@ -10,14 +10,14 @@ angular.module('ui.bootstrap.demo').controller('TimepickerDemoCtrl', function ($
   };
 
   $scope.ismeridian = true;
-  $scope.toggleMode = function() {
-    $scope.ismeridian = ! $scope.ismeridian;
+  $scope.toggleMode = function () {
+    $scope.ismeridian = !$scope.ismeridian;
   };
 
-  $scope.update = function() {
+  $scope.update = function () {
     var d = new Date();
-    d.setHours( 14 );
-    d.setMinutes( 0 );
+    d.setHours(14);
+    d.setMinutes(0);
     $scope.mytime = d;
   };
 
@@ -25,7 +25,7 @@ angular.module('ui.bootstrap.demo').controller('TimepickerDemoCtrl', function ($
     $log.log('Time changed to: ' + $scope.mytime);
   };
 
-  $scope.clear = function() {
+  $scope.clear = function () {
     $scope.mytime = null;
   };
 });

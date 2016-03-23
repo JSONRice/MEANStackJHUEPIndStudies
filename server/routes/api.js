@@ -9,8 +9,8 @@ var version = require('../models/version.js');
 // To test route run: 
 // curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"username": "test@test.com", "password": "test"}' http://localhost:8000/api/register
 // Note if test fails ensure port is the startup port from the NodeJS config file (app.js)
-router.post('/register', function(req, res) {
-  user.register(new user({ username: req.body.username, firstname: req.body.firstname, lastname: req.body.lastname}), req.body.password, function(err, account) {
+router.post('/register', function (req, res) {
+  user.register(new user({username: req.body.username, firstname: req.body.firstname, lastname: req.body.lastname}), req.body.password, function (err, account) {
     if (err) {
       return res.status(500).json({err: err});
     }
@@ -23,15 +23,15 @@ router.post('/register', function(req, res) {
 // To test route:
 // curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"username": "test@test.com", "password": "test"}' http://localhost:8000/api/login
 // Note if test fails ensure port is the startup port from the NodeJS config file (app.js)
-router.post('/login', function(req, res, next) {
-  passport.authenticate('local', function(err, user, info) {
-    if (err) { 
-        return next(err);
+router.post('/login', function (req, res, next) {
+  passport.authenticate('local', function (err, user, info) {
+    if (err) {
+      return next(err);
     }
     else if (!user) {
       return res.status(401).json({err: info});
     }
-    req.logIn(user, function(err) {
+    req.logIn(user, function (err) {
       if (err) {
         return res.status(500).json({err: 'Could not log in user'});
       }
@@ -43,7 +43,7 @@ router.post('/login', function(req, res, next) {
 // To test route:
 // curl -H "Accept: application/json" -H "Content-type: application/json" -X GET http://localhost:8000/api/logout
 // Note if test fails ensure port is the startup port from the NodeJS config file (app.js)
-router.get('/logout', function(req, res) {
+router.get('/logout', function (req, res) {
   req.logout();
   res.status(200).json({status: 'Bye!'});
 });

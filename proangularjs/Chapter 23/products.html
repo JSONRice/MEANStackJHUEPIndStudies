@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html ng-app="exampleApp">
-<head>
+  <head>
     <title>Products</title>
     <script src="angular.js"></script>
     <script src="angular-resource.js"></script>
@@ -11,14 +11,14 @@
     <script src="products.js"></script>
     <script src="increment.js"></script>
     <style type="text/css">
-        .ngFade.ng-enter { transition: 0.1s linear all; opacity: 0; }
-        .ngFade.ng-enter-active { opacity: 1; }
+      .ngFade.ng-enter { transition: 0.1s linear all; opacity: 0; }
+      .ngFade.ng-enter-active { opacity: 1; }
     </style>
-</head>
-<body ng-controller="defaultCtrl">
+  </head>
+  <body ng-controller="defaultCtrl">
     <div class="panel panel-primary">
-        <h3 class="panel-heading">Products</h3>
-        <div ng-view class="ngFade"></div>
+      <h3 class="panel-heading">Products</h3>
+      <div ng-view class="ngFade"></div>
     </div>
-</body>
+  </body>
 </html>

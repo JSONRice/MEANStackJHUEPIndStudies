@@ -1,0 +1,16 @@
+.result-pending{
+  position: relative;
+}
+
+.result-pending::before{
+  content: "";
+  position: absolute;
+  z-index: 9999;
+  height: 100%;
+  width: 100%;
+  min-height: 64px;
+  min-width: 64px;
+  background-size: contain;
+  left: 0;
+  top: 0;
+}

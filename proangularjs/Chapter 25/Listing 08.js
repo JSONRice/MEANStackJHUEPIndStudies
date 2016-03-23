@@ -1,24 +1,24 @@
 angular.module("exampleApp", [])
-    .controller("defaultCtrl", function ($scope, $http, $interval, $timeout) {
+        .controller("defaultCtrl", function ($scope, $http, $interval, $timeout) {
 
-        $scope.intervalCounter = 0;
-        $scope.timerCounter = 0;
+          $scope.intervalCounter = 0;
+          $scope.timerCounter = 0;
 
-        $interval(function () {
+          $interval(function () {
             $scope.intervalCounter++;
-        }, 5000, 10);
+          }, 5000, 10);
 
-        $timeout(function () {
+          $timeout(function () {
             $scope.timerCounter++;
-        }, 5000);
+          }, 5000);
 
-        $http.get("productData.json").success(function (data) {
+          $http.get("productData.json").success(function (data) {
             $scope.products = data;
-        });
+          });
 
-        $scope.counter = 0;
+          $scope.counter = 0;
 
-        $scope.incrementCounter = function() {
+          $scope.incrementCounter = function () {
             $scope.counter++;
-        }
-    });
+          }
+        });

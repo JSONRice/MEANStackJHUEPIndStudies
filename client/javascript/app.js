@@ -9,28 +9,27 @@ var meanstacktutorials = angular.module('meanstacktutorials', [
 ]);
 
 // Custom filter to take string and trust as html
-meanstacktutorials.filter('htmlify', function ($sce) {
+meanstacktutorials.filter('unsafe', function ($sce) {
   return function (val) {
-    console.log('trusting: ' + val);
     return $sce.trustAsHtml(val);
   };
 });
 
 // This filter expects input that conforms to a date string:
-meanstacktutorials.filter('defaultDateTimeFormat', function($filter) {
- return function(input) {
-  if(input === undefined || input === null){ 
-    return ""; 
-  }
-  
- 
-  var date = new Date(input);
-  var am_pm = (date.getHours() > 11) ? "pm" : "am";
-  
-  var dateStr = $filter('date')(date, 'MMM dd yyyy - hh:mm');
-                              
-  return dateStr + ' ' + am_pm;
- };
+meanstacktutorials.filter('defaultDateTimeFormat', function ($filter) {
+  return function (input) {
+    if (input === undefined || input === null) {
+      return "";
+    }
+
+
+    var date = new Date(input);
+    var am_pm = (date.getHours() > 11) ? "pm" : "am";
+
+    var dateStr = $filter('date')(date, 'MMM dd yyyy - hh:mm');
+
+    return dateStr + ' ' + am_pm;
+  };
 });
 
 
@@ -92,5 +91,3 @@ meanstacktutorials.config(['$routeProvider', function ($routeProvider) {
               redirectTo: '/login'
             });
   }]);
-
-console.log('dependencies pre-loaded in public/javascript/app.js');

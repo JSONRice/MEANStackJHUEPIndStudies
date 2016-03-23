@@ -13,6 +13,7 @@
     - [NuGet](#install-with-nuget)
     - [Custom](#custom-build)
     - [Manual](#manual-download)
+- [Webpack](#webpack)
 - [Support](#support)
     - [FAQ](#faq)
     - [Code of Conduct](#code-of-conduct)
@@ -35,7 +36,9 @@ Are you interested in Angular 2? We are on our way! Check out [ng-bootstrap](htt
 # Installation
 
 Installation is easy as UI Bootstrap has minimal dependencies - only the AngularJS and Twitter Bootstrap's CSS are required.
-Note: Since version 0.13.0, UI Bootstrap depends on [ngAnimate](https://docs.angularjs.org/api/ngAnimate) for transitions and animations, such as the accordion, carousel, etc. Include `ngAnimate` in the module dependencies for your app in order to enable animation.
+*Notes:* 
+* Since version 0.13.0, UI Bootstrap depends on [ngAnimate](https://docs.angularjs.org/api/ngAnimate) for transitions and animations, such as the accordion, carousel, etc. Include `ngAnimate` in the module dependencies for your app in order to enable animation.
+* UI Bootstrap depends on [ngTouch](https://docs.angularjs.org/api/ngTouch) for swipe actions. Include `ngTouch` in the module dependencies for your app in order to enable swiping.
 
 ## Angular Requirements
 * UI Bootstrap 1.0 and higher _requires_ Angular 1.4.x or higher and it has been tested with Angular 1.4.8.
@@ -86,13 +89,28 @@ When you are done downloading all the dependencies and project files the only re
 angular.module('myModule', ['ui.bootstrap']);
 ```
 
-If you're a Browserify or Webpack user, you can do:
+# Webpack
+
+To use this project with webpack, follow the [NPM](#install-with-npm) instructions. Now, if you want to use only the accordion, you can do:
 
 ```js
-var uibs = require('angular-ui-bootstrap');
+import accordion from 'angular-ui-bootstrap/src/accordion';
 
-angular.module('myModule', [uibs]);
+angular.module('myModule', [accordion]);
 ```
+
+You can import all the pieces you need in the same way:
+
+```js
+import accordion from 'angular-ui-bootstrap/src/accordion';
+import datepicker from 'angular-ui-bootstrap/src/datepicker';
+
+angular.module('myModule', [accordion, datepicker]);
+```
+
+This will load all the dependencies (if any) and also the templates (if any).
+
+Be sure to have a loader able to process `css` files like `css-loader`.
 
 # Support
 

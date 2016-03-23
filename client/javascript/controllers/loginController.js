@@ -3,7 +3,7 @@ angular.module('meanstacktutorials').controller('LoginController', [
   '$location',
   'AuthenticationService',
   function ($scope, $location, AuthenticationService) {
-   
+
     $scope.login = function () {
       // initial values
       $scope.error = false;
@@ -13,7 +13,7 @@ angular.module('meanstacktutorials').controller('LoginController', [
               $scope.loginForm.username,
               $scope.loginForm.password)
               // handle success
-              .then(function () {                
+              .then(function () {
                 $scope.disabled = false;
                 AuthenticationService.setUsername($scope.loginForm.username);
                 $location.path('/home');

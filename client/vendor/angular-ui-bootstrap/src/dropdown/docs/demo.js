@@ -9,11 +9,11 @@ angular.module('ui.bootstrap.demo').controller('DropdownCtrl', function ($scope,
     isopen: false
   };
 
-  $scope.toggled = function(open) {
+  $scope.toggled = function (open) {
     $log.log('Dropdown is now: ', open);
   };
 
-  $scope.toggleDropdown = function($event) {
+  $scope.toggleDropdown = function ($event) {
     $event.preventDefault();
     $event.stopPropagation();
     $scope.status.isopen = !$scope.status.isopen;

@@ -1,21 +1,21 @@
 <div ng-controller="AccordionDemoCtrl">
   <script type="text/ng-template" id="group-template.html">
     <div class="panel {{panelClass || 'panel-default'}}">
-      <div class="panel-heading">
-        <h4 class="panel-title" style="color:#fa39c3">
-          <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading"><span
-            ng-class="{'text-muted': isDisabled}">{{heading}}</span></a>
-        </h4>
-      </div>
-      <div class="panel-collapse collapse" uib-collapse="!isOpen">
-        <div class="panel-body" style="text-align: right" ng-transclude></div>
-      </div>
+    <div class="panel-heading">
+    <h4 class="panel-title" style="color:#fa39c3">
+    <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading"><span
+    ng-class="{'text-muted': isDisabled}">{{heading}}</span></a>
+    </h4>
+    </div>
+    <div class="panel-collapse collapse" uib-collapse="!isOpen">
+    <div class="panel-body" style="text-align: right" ng-transclude></div>
+    </div>
     </div>
   </script>
 
   <p>
     <button type="button" class="btn btn-default btn-sm" ng-click="status.open = !status.open">Toggle last panel</button>
-    <button type="button" class="btn btn-default btn-sm" ng-click="status.isFirstDisabled = ! status.isFirstDisabled">Enable / Disable first panel</button>
+    <button type="button" class="btn btn-default btn-sm" ng-click="status.isFirstDisabled = !status.isFirstDisabled">Enable / Disable first panel</button>
   </p>
 
   <div class="checkbox">

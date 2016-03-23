@@ -16,17 +16,18 @@ angular.module('meanstacktutorials').controller('TreeController', [
       $scope.output = "<h1>" + branch.label + "</h1>";
       if (branch.data) {
         if (branch.data.url) {
+          //$scope.output += branch.data.url;
+
           ajax.templateToString(branch.data.url).then(function (templateStr) {
             $scope.output += templateStr;
-            console.log('treeController caught url data: ' + $scope.output);          
           }, function () {
             console.error('Failed to find template at:' + branch.data.url);
           });
+
         }
       }
-      return $scope.output;
     };
-    
+
     apple_selected = function (branch) {
       return $scope.output = "An Apple was selected! : " + branch.label;
     };
@@ -39,7 +40,7 @@ angular.module('meanstacktutorials').controller('TreeController', [
           {
             label: 'MEAN Stack Introduction',
             data: {
-              url: 'templates/tutorials/toc/meanIntro/meanIntro.html',
+              url: 'templates/tutorials/toc/meanIntro/meanIntro.html'
             },
             children: [
               {
@@ -47,19 +48,19 @@ angular.module('meanstacktutorials').controller('TreeController', [
                 data: {
                   url: 'templates/tutorials/toc/meanIntro/mongo.html'
                 }
-              }, 
+              },
               {
                 label: 'ExpressJS',
                 data: {
                   url: 'templates/tutorials/toc/meanIntro/express.html'
                 }
-              }, 
+              },
               {
                 label: 'AngularJS',
                 data: {
                   url: 'templates/tutorials/toc/meanIntro/angular.html'
                 }
-              }, 
+              },
               {
                 label: 'NodeJS',
                 data: {
@@ -191,8 +192,9 @@ angular.module('meanstacktutorials').controller('TreeController', [
       }
     ];
 
-    // The other tree datasets are mainly for test purposes and examples. Migrate these to a test controller in Jasmine (Karma).
     $scope.my_data = treedata_mean;
+
+    // The other tree datasets above and the following functions are mainly for test purposes and examples. Migrate these to a test controller in Jasmine (Karma).    
     $scope.try_changing_the_tree_data = function () {
       if ($scope.my_data === treedata_avm) {
         return $scope.my_data = treedata_geography;

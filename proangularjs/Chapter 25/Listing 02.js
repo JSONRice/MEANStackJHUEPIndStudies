@@ -1,9 +1,9 @@
 angular.module("exampleApp", [])
-    .controller("defaultCtrl", function ($scope) {
+        .controller("defaultCtrl", function ($scope) {
 
-        $scope.counter = 0;
+          $scope.counter = 0;
 
-        $scope.incrementCounter = function() {
+          $scope.incrementCounter = function () {
             $scope.counter++;
-        }
-    });
+          }
+        });

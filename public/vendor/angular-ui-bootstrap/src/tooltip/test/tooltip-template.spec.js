@@ -1,10 +1,10 @@
-describe('tooltip template', function() {
+describe('tooltip template', function () {
   var elm,
-      elmBody,
-      scope,
-      elmScope,
-      tooltipScope,
-      $document;
+          elmBody,
+          scope,
+          elmScope,
+          tooltipScope,
+          $document;
 
   // load the popover code
   beforeEach(module('ui.bootstrap.tooltip'));
@@ -12,15 +12,15 @@ describe('tooltip template', function() {
   // load the template
   beforeEach(module('uib/template/tooltip/tooltip-template-popup.html'));
 
-  beforeEach(inject(function($templateCache) {
+  beforeEach(inject(function ($templateCache) {
     $templateCache.put('myUrl', [200, '<span>{{ myTemplateText }}</span>', {}]);
   }));
 
-  beforeEach(inject(function($rootScope, $compile, _$document_) {
+  beforeEach(inject(function ($rootScope, $compile, _$document_) {
     $document = _$document_;
     elmBody = angular.element(
-      '<div><span uib-tooltip-template="templateUrl">Selector Text</span></div>'
-    );
+            '<div><span uib-tooltip-template="templateUrl">Selector Text</span></div>'
+            );
 
     scope = $rootScope;
     $compile(elmBody)(scope);
@@ -32,7 +32,7 @@ describe('tooltip template', function() {
     tooltipScope = elmScope.$$childTail;
   }));
 
-  afterEach(function() {
+  afterEach(function () {
     $document.off('keypress');
   });
 
@@ -41,14 +41,14 @@ describe('tooltip template', function() {
     element.scope().$$childTail.$digest();
   }
 
-  it('should open on mouseenter', inject(function() {
+  it('should open on mouseenter', inject(function () {
     trigger(elm, 'mouseenter');
     expect(tooltipScope.isOpen).toBe(true);
 
     expect(elmBody.children().length).toBe(2);
   }));
 
-  it('should not open on mouseenter if templateUrl is empty', inject(function() {
+  it('should not open on mouseenter if templateUrl is empty', inject(function () {
     scope.templateUrl = null;
     scope.$digest();
 
@@ -58,7 +58,7 @@ describe('tooltip template', function() {
     expect(elmBody.children().length).toBe(1);
   }));
 
-  it('should show updated text', inject(function() {
+  it('should show updated text', inject(function () {
     scope.myTemplateText = 'some text';
 
     trigger(elm, 'mouseenter');
@@ -73,7 +73,7 @@ describe('tooltip template', function() {
     expect(elmBody.children().eq(1).text().trim()).toBe('new text');
   }));
 
-  it('should hide tooltip when template becomes empty', inject(function($timeout) {
+  it('should hide tooltip when template becomes empty', inject(function ($timeout) {
     trigger(elm, 'mouseenter');
     expect(tooltipScope.isOpen).toBe(true);
 
