@@ -1,6 +1,6 @@
 <div>
   <section>
-    <p>This tutorial will cover the server side processes of a MEAN stack web application. The server side integrates a minimal web framework referred to as ExpressJS along with tools such ElectrolyteJS to ensure Inversion of Control and Dependency Injection. NodeJS is the main web server that processes the main JavaScript file (app.js) that leverages ExpressJS, ElectrolyteJS, MongooseJS (for MongoDB) and other tools to establish server side communications that are able to asynchronously communicate with the front end user interface modules. The following is a typically folder hierarchy setup:</p>
+    <p>This tutorial will cover the server side processes of a MEAN stack web application. The server side integrates a minimal web framework referred to as ExpressJS along with tools such ElectrolyteJS to ensure Inversion of Control and Dependency Injection. NodeJS is the web server and JavaScript Engine that processes the main JavaScript file (app.js) that leverages ExpressJS, ElectrolyteJS, MongooseJS (for MongoDB) and other tools to establish server side communications that are able to asynchronously communicate with the front end user interface modules. The following is a typical folder hierarchy setup for the server side of a MEAN web application:</p>
   </section>
   
   <!-- TODO: move the following to a tooltip demo template
@@ -12,7 +12,7 @@
     <a href="" tooltip-placement="right" 
        uib-tooltip="text">Unbound to TestController</a>     
   -->
-  
+  <h4>Hover over a link (underlined text) to reveal more info:</h4>
   <pre>
 rice-MacBook-Pro:MEANStackJHUEPIndStudies jsnrice$ ls -lR server/
 total 0
@@ -23,24 +23,23 @@ drwxr-xr-x  5 jsnrice  staff  170 Mar 18 14:53 <a href="" class="atooltip" toolt
 drwxr-xr-x  4 jsnrice  staff  136 Mar 18 14:53 <a href="" class="atooltip" tooltip-placement="right" uib-tooltip="Contains the common base views for the entire web application. By default the index.ejs is invoked for HTTP 200 (server OK) and the HTTP 500's trigger the loading of the error.ejs The ejs stands for Embedded JavaScript and allows JS to be placed in between <% %> and <%= %> much the same way the J2EE (Java) based web apps allow in JSP (Java Servlet Pages).">views</a>
 
 server/config:
--rw-r--r--  1 jsnrice  staff  217 Mar 18 14:53 development.js
+-rw-r--r--  1 jsnrice  staff  217 Mar 18 14:53 <a href="" class="atooltip" tooltip-placement="right" uib-tooltip="Contains settings that pertain to the development phase of the software. These are configurations such as database location and web app network path.">development.js</a>
 
 server/models:
--rw-r--r--  1 jsnrice  staff  823 Mar 18 14:53 user.js
--rw-r--r--  1 jsnrice  staff  883 Mar 18 14:53 version.js
-
+-rw-r--r--  1 jsnrice  staff  823 Mar 18 14:53 <a href="" class="atooltip" tooltip-placement="right" uib-tooltip="User model that establishes a schema standard through Mongoose. Mongo is a NoSQL database and doesn't require a schema but Mongoose affords one so the developers have a contextual contract or undersanding as to what entities contain what key-value pairs. The user model is straightfoward and contains basic user properties such as name and registration date.">user.js</a>
+-rw-r--r--  1 jsnrice  staff  823 Mar 18 14:53 version.js
 server/routes:
--rw-r--r--  1 jsnrice  staff  3374 Mar 18 14:53 api.js
+-rw-r--r--  1 jsnrice  staff  3374 Mar 18 14:53 <a href="" class="atooltip" tooltip-placement="right" uib-tooltip="Contains the routes for hitting the Mongo database to perform basic CRUD (create, read, update, delete) operations. The User model is the main database collection that is affected.">api.js</a>
 -rw-r--r--  1 jsnrice  staff   266 Mar 18 14:53 index.js
 
 server/utils:
--rw-r--r--  1 jsnrice  staff  743 Mar 18 14:53 config.js
--rw-r--r--  1 jsnrice  staff  491 Mar 18 14:53 database.js
--rw-r--r--  1 jsnrice  staff  143 Mar 18 14:53 router.js
+-rw-r--r--  1 jsnrice  staff  743 Mar 18 14:53 <a href="" class="atooltip" tooltip-placement="right" uib-tooltip="Loads the environment set configuration through ExpressJS">config.js</a>
+-rw-r--r--  1 jsnrice  staff  491 Mar 18 14:53 <a href="" class="atooltip" tooltip-placement="right" uib-tooltip="Loads the database according to configurations through ExpressJS">database.js</a>
+-rw-r--r--  1 jsnrice  staff  143 Mar 18 14:53 <a href="" class="atooltip" tooltip-placement="right" uib-tooltip="ExpressJS Singleton for the router mechanism made available to NodeJS. All router settings would go here.">router.js</a>
 
 server/views:
--rw-r--r--  1 jsnrice  staff    83 Mar 18 14:53 error.ejs
--rw-r--r--  1 jsnrice  staff  2002 Mar 18 14:53 index.ejs            
+-rw-r--r--  1 jsnrice  staff    83 Mar 18 14:53 <a href="" class="atooltip" tooltip-placement="right" uib-tooltip="Meant for generic server errors such as HTTP 500 and HTTP 503. Prints error stack trace. This file is an EJS (Embedded JavaScript).">error.js</a>
+-rw-r--r--  1 jsnrice  staff  2002 Mar 18 14:53 <a href="" class="atooltip" tooltip-placement="right" uib-tooltip="Loads in all the dependencies at once including the continuous distribution file. This file is an EJS (Embedded JavaScript) and has the single ng-app entry point for the application.">index.js</a>            
   </pre>
 </div>
 
