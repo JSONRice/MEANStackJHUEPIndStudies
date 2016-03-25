@@ -102,6 +102,26 @@ angular.module('meanstacktutorials').controller('TreeController', [
                 }
               }
             ]
+          },
+          {
+            label: 'Client Side Overview',
+            data: {
+              url: 'templates/tutorials/toc/clientSideOverview/clientSideOverview.html'
+            },
+            children: [
+              {
+                label: 'Angular Framework Basics',
+                data: {
+                  url: ""
+                }
+              },
+              {
+                label: 'Angular UI Bootstrap',
+                data: {
+                  url: ""
+                }
+              }
+            ]
           }
         ]}];
 
