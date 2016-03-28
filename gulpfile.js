@@ -7,7 +7,7 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var jasmine = require('gulp-jasmine');
 var istanbul = require('gulp-istanbul');
-var Server = require('karma').Server;
+var karma = require('karma').Server;
 var minifyCSS = require('gulp-minify-css');
 var merge = require('merge-stream');
 
@@ -81,13 +81,14 @@ gulp.task('minify', ['concat'], function () {
 
 // Karma
 gulp.task('karma', function (done) {
-  new Server({
+  return karma.start({
     configFile: __dirname + '/testing/karma.conf.js',
     singleRun: true
-  }, done).start();
+  }, done);
 });
 
-// Unit tests with Jasmine and code coverage
+// Server side unit tests with gulp-jasmine and code coverage. This only works for server side code.
+// See: https://github.com/sindresorhus/gulp-jasmine/issues/46
 gulp.task('coverage', ['templates'], function (cb) {
   // All source files that should be included in the code coverage report
   return gulp.src([
@@ -96,21 +97,22 @@ gulp.task('coverage', ['templates'], function (cb) {
     './server/routes/**/*.js',
     './server/services/**/*.js',
     './server/utils/**/*.js',
-    './client/javascript/**/*.js',
+    './app.js'
   ])
           .pipe(istanbul({includeUntested: true})) // Covering files
           .pipe(istanbul.hookRequire()) // Force 'require' to return covered filed
           .on('finish', function () {
+            var coverageThreshold = 90; // 90% code coverage
             // Source to test
-            gulp.src(['./tests/frontend/**/*Spec.js'])
+            gulp.src(['./testing/tests/frontend/**/*Spec.js'])
                     // gulp-jasmine works on filepaths so you can't have any plugins before it 
                     .pipe(jasmine()) // run all unit tests in source
                     .pipe(istanbul.writeReports())
-                    .pipe(istanbul.enforceThresholds({thresholds: {global: 90}})) // code coverage of 90%
+                    .pipe(istanbul.enforceThresholds({thresholds: {global: coverageThreshold}}))
                     .on('end', function () {
                       // On end have call back (function) pop off stack
                       console.log('Tests and code coverage complete. See reports.');
-                      return;
+                      this.emit('end'); //instead of erroring the stream, end it
                     });
           });
 });
@@ -125,8 +127,7 @@ gulp.task('test-server', function () {
     './server/utils/**/*.js',
     './app.js'
   ])
-
-          .pipe(karma({
+          .pipe(KarmaServer({
             configFile: __dirname + '/testing/karma.conf.js',
             action: 'run'
           }))
@@ -162,7 +163,7 @@ gulp.task('watch', ['dev'], function () {
 gulp.task('dev', ['style', 'concat']);
 
 // Runs unit tests
-gulp.task('test', ['karma', 'coverage']);
+gulp.task('test', ['karma', 'jasmine']);
 
 // Used for production 'gulp'
 gulp.task('default', ['lint', 'style', 'minify']);

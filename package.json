@@ -64,7 +64,7 @@
     "istanbul": "~0.3.20",
     "jasmine-core": "~2.4.1",
     "jquery": "~2.1.4",
-    "karma": "^0.13.19",
+    "karma": "^0.13.22",
     "karma-browserify": "^5.0.1",
     "karma-chrome-launcher": "~0.2.2",
     "karma-coverage": "^0.5.3",
