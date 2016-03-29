@@ -82,7 +82,7 @@ gulp.task('minify', ['concat'], function () {
 // Karma
 gulp.task('karma', function (done) {
   return karma.start({
-    configFile: __dirname + '/testing/karma.conf.js'
+    configFile: __dirname + '/karma.conf.js'
   }, done);
 });
 
