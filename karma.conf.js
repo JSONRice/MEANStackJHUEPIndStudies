@@ -8,7 +8,7 @@
 module.exports = function (config) {
   config.set({
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: './',
+    basePath: '',
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: [
@@ -17,15 +17,26 @@ module.exports = function (config) {
     ],
     // list of files / patterns to load in the browser
     files: [
-      '../client/vendor/jquery/jquery.js',
-      '../client/vendor/angular/angular.js',
-      '../client/vendor/angular-sanitize/angular-sanitize.js',
-      '../client/vendor/angular-resource/angular-resource.js',
-      '../client/vendor/angular-ui-router/angular-ui-router.js',
-      '../bower_components/angular-route/angular-route.js',
-      '../bower_components/angular-mocks/angular-mocks.js',
-      '../client/javascript/app.js',
-      '../client/javascript/**/*.js',
+      // Vendor sources:
+      './client/vendor/jquery/jquery.js',
+      './client/vendor/angular/angular.js',
+      './client/vendor/angular-sanitize/angular-sanitize.js',
+      './client/vendor/angular-resource/angular-resource.js',
+      './client/vendor/angular-ui-router/angular-ui-router.js',      
+      './node_modules/angular-mocks/angular-mocks.js',
+      './client/vendor/angular-animate/angular-animate.js',
+      './client/vendor/angular-route/angular-route.js',
+      './client/vendor/angular-ui-select/select.js',
+      './client/vendor/angular-ui-utils/ui-utils.js',
+      './client/vendor/angular-nvd3/angular-nvd3.js',
+      './client/vendor/ng-lodash/ng-lodash.js',
+      './client/vendor/angular-spinner/angular-spinner.js',
+      './client/vendor/angular-ui-bootstrap/dist/ui-bootstrap.js',
+      './client/vendor/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',      
+      // User defined sources:
+      './client/javascript/app.js',
+      './client/javascript/**/*.js',      
+      './client/javascript/dist/templates.js',
       './tests/frontend/*Spec.js',
       './tests/frontend/**/*Spec.js'
     ],
@@ -35,10 +46,14 @@ module.exports = function (config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      '../client/javascript/**/*.js': 'coverage',
+      './client/javascript/**/*.js': 'coverage',
       // browserify framework allows requires in the specs
       './tests/frontend/**/*Spec.js': 'browserify'
     },
+    // configure the coverage checker
+    coverageReporter: {
+      includeAllSoruces: true
+    },    
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
@@ -59,7 +74,6 @@ module.exports = function (config) {
     browsers: ['PhantomJS'],
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true,
-    concurrency: Infinity
+    singleRun: true
   });
 };

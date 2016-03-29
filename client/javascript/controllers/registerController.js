@@ -3,7 +3,7 @@ angular.module('meanstacktutorials').controller('RegisterController', [
   '$location',
   'AuthenticationService',
   function ($scope, $location, AuthenticationService) {
-
+    $scope.name = "foo";
     $scope.register = function () {
       // initial values
       $scope.error = false;
@@ -27,7 +27,6 @@ angular.module('meanstacktutorials').controller('RegisterController', [
                 $scope.disabled = false;
                 $scope.registerForm = {};
               });
-
     };
 
     // login (back) button
