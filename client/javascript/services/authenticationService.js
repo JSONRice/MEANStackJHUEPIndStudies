@@ -1,10 +1,8 @@
 angular.module('meanstacktutorials').factory('AuthenticationService', [
   '$q',
-  '$timeout',
   '$http',
-  function ($q, $timeout, $http) {
+  function ($q, $http) {
 
-    // user was successfully logged in ~ used for user status
     var user = null;
 
     // place all data to share between controllers in here
@@ -17,6 +15,7 @@ angular.module('meanstacktutorials').factory('AuthenticationService', [
       setUsername: setUsername,
       getUsername: getUsername,
       isLoggedIn: isLoggedIn,
+      setUserStatus: setUserStatus,
       getUserStatus: getUserStatus,
       login: login,
       logout: logout,
@@ -35,6 +34,10 @@ angular.module('meanstacktutorials').factory('AuthenticationService', [
     function isLoggedIn() {
       return (user) ? user : false;
     }
+    
+    function setUserStatus(pUser) {
+      user = pUser;
+    }
 
     function getUserStatus() {
       return user;
@@ -49,22 +52,15 @@ angular.module('meanstacktutorials').factory('AuthenticationService', [
       $http.post('/api/login', {
         username: username,
         password: password
-      })
-              // handle success
-              .success(function (data, status) {
-                if (status === 200 && data.status) {
-                  user = true;
-                  deferred.resolve();
-                } else {
-                  user = false;
-                  deferred.reject();
-                }
-              })
-              // handle error
-              .error(function (data) {
-                user = false;
-                deferred.reject();
-              });
+      }).then(function (data) {
+        if (data.status >= 200) {
+          user = true;
+          deferred.resolve(data);
+        }
+      }, function (data) {
+        user = false;
+        deferred.reject(data);
+      });
 
       // return promise object
       return deferred.promise;
@@ -77,17 +73,13 @@ angular.module('meanstacktutorials').factory('AuthenticationService', [
       var deferred = $q.defer();
 
       // send a get request to the server
-      $http.get('/api/logout')
-              // handle success
-              .success(function (data) {
-                user = false;
-                deferred.resolve();
-              })
-              // handle error
-              .error(function (data) {
-                user = false;
-                deferred.reject();
-              });
+      $http.get('/api/logout').then(function (data) {
+        user = false;
+        deferred.resolve(data);
+      }, function (data) {
+        user = false;
+        deferred.reject();
+      });
 
       // return promise object
       return deferred.promise;
@@ -106,19 +98,13 @@ angular.module('meanstacktutorials').factory('AuthenticationService', [
         firstname: firstname,
         lastname: lastname,
         password: password
-      })
-              // handle success
-              .success(function (data, status) {
-                if (status === 200 && data.status) {
-                  deferred.resolve();
-                } else {
-                  deferred.reject();
-                }
-              })
-              // handle error
-              .error(function (data) {
-                deferred.reject();
-              });
+      }).then(function (data) {
+        if (data.status >= 200 ) {
+          deferred.resolve(data);
+        }
+      }, function (data) {
+        deferred.reject();
+      });
 
       // return promise object
       return deferred.promise;

@@ -96,6 +96,7 @@ gulp.task('coverage', ['templates'], function (cb) {
     './server/routes/**/*.js',
     './server/services/**/*.js',
     './server/utils/**/*.js',
+    './client/javascript/**/*.js',
     './app.js'
   ])
           .pipe(istanbul({includeUntested: true})) // Covering files

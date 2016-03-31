@@ -46,13 +46,21 @@ meanstacktutorials.filter('defaultDateTimeFormat', function ($filter) {
 
 // The following ensures that a user is logged in prior to any view being loaded.
 // Restricted pages get re-routed back to the login view.
+
 meanstacktutorials.run(function ($rootScope, $location, $route, AuthenticationService) {
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
+    // -- preempt if restricted is undefined. This will be redefined if you have services or
+    // controllers that are testing within their own $rootScope. Same principle should apply for the
+    // event and current parameters.
+    if (!next || !next.access || !next.access.restricted) {
+      return;
+    }
     if (next.access.restricted && AuthenticationService.isLoggedIn() === false) {
       $location.path('/login');
     }
   });
 });
+
 
 meanstacktutorials.config(['$routeProvider', function ($routeProvider) {
     console.log('meanstacktutorials.config > routing');
