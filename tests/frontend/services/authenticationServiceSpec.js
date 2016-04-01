@@ -4,10 +4,10 @@ describe('AuthenticationServiceSpec', function () {
   var $httpBackend;
   var $rootScope;
 
-  var username = "jsnrice";
-  var firstname = "Jason";
-  var lastname = "Rice";
-  var password = "Joan0f@Rc.Fire";
+  var username = "john";
+  var firstname = "smith";
+  var lastname = "jsmith";
+  var password = "jsmith123";
 
 
   // Note: if you're having nested (double) $digest issues omit the following:
@@ -21,10 +21,10 @@ describe('AuthenticationServiceSpec', function () {
   beforeEach(function () {
     angular.mock.module('meanstacktutorials');
 
-    inject(function (AuthenticationService, $injector) {
+    inject(function (AuthenticationService, $injector, _$httpBackend_, _$rootScope_) {
       service = AuthenticationService;
-      $httpBackend = $injector.get('$httpBackend');
-      $rootScope = $injector.get('$rootScope').$new();
+      $httpBackend = _$httpBackend_; // $injector.get('$httpBackend');
+      $rootScope = _$rootScope_.$new();// $injector.get('$rootScope').$new();
     });
 
     // See: client/javascript/app.js
