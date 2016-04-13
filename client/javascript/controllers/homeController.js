@@ -13,7 +13,6 @@ angular.module('meanstacktutorials').controller('HomeController', [
 
     $scope.userdata = {};
     try {
-      console.log("homeController load. $scope.username => " + $scope.username);
       var dpromise = UserService.getUser($scope.username);
       if (dpromise) {
         dpromise.getUser($scope.username)
@@ -36,7 +35,6 @@ angular.module('meanstacktutorials').controller('HomeController', [
               .then(function () {
                 $location.path('/');
                 $scope.loggedIn = false;
-                console.log('inner $scope.loggedIn: ' + $scope.loggedIn);
               });
     };
 

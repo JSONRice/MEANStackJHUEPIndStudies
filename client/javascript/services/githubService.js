@@ -21,7 +21,7 @@ angular.module('meanstacktutorials').service('GithubService', [
         self.gitData = angular.copy(response);
         deferred.resolve(self.gitData);
       }).error(function (response) {
-        deferred.resolve(response);
+        deferred.reject();
       });
       return deferred.promise;
     }

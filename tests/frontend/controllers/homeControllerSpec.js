@@ -52,12 +52,4 @@ describe('HomeControllerSpec', function () {
       expect($scope.loggedIn).toBeFalsy();      
     });
   });
-  
-  xdescribe("test initial load", function() {
-    it("should be able to login user", function() {
-      // $scope.username = "foo";
-      // authenticationService.setUserName("foo");
-      console.log("$scope.username " + $scope.username);
-    });
-  }); 
 });

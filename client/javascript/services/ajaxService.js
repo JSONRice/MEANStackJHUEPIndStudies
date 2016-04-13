@@ -20,7 +20,7 @@ angular.module('meanstacktutorials').service('AjaxService', [
       $http.get(url).success(function (response) {
         deferred.resolve(response);
       }).error(function (response) {
-        deferred.resolve(response);
+        deferred.reject();
       });
       return deferred.promise;
     }

@@ -78,7 +78,7 @@ angular.module('meanstacktutorials').factory('AuthenticationService', [
         deferred.resolve(data);
       }, function (data) {
         user = false;
-        deferred.reject();
+        deferred.reject(data);
       });
 
       // return promise object

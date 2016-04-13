@@ -19,10 +19,9 @@ angular.module('meanstacktutorials').factory('UserService', [
         deferred.resolve(users);
         // Now sort through the users:
         console.debug('users: ' + users);
-      })
-              .error(function (error) {
-                console.error('Error: ' + error);
-              });
+      }).error(function (error) {
+        deferred.reject(error);
+      });
       return deferred.promise;
     }
 
@@ -37,7 +36,7 @@ angular.module('meanstacktutorials').factory('UserService', [
       httpPromise.then(function (user) {
         deferred.resolve(user);
       }, function (error) {
-        console.error('Error: ' + error);
+        deferred.reject(error);        
       });
       return deferred.promise;
     }

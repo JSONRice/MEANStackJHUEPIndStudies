@@ -15,12 +15,12 @@ angular.module('meanstacktutorials').factory('VersionService', [
       var httpPromise = $http.get('/api/versions');
 
       httpPromise.success(function (versions) {
-        deferred.resolve(versions);
         // TODO: sort versions (optional)
-      })
-              .error(function (error) {
-                console.error('Error: ' + error);
-              });
+        deferred.resolve(versions);
+      }).error(function (error) {
+        deferred.rejeect(error);
+        console.error('Error: ' + error);
+      });
       return deferred.promise;
     }
   }

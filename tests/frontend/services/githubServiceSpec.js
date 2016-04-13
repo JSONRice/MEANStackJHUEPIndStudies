@@ -77,13 +77,9 @@ describe('GithubServiceSpec', function () {
       $httpBackend.expectGET(url).respond(500, data);
       var dpromise = service.httpGitGET(url);
       expect(dpromise).toBeDefined();
-      dpromise
-              .then(function () {
-                // success
-              })
-              .catch(function () {
-                // trip test
-                expect("exception! something bad happened!").toEqual("");
+      dpromise.then(function () {
+                expect("expected to catch a throw from deferred.reject() but promise succeeded!").toEqual("");
+              }).catch(function () {
               });
       $httpBackend.flush();      
     });
