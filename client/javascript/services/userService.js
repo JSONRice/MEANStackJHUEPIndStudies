@@ -28,17 +28,17 @@ angular.module('meanstacktutorials').factory('UserService', [
 
     // Given a username fetch a single user object (document) from Mongo user collection:
     function getUser(username) {
+      if (!username || username === "" || username === null) {
+        return null;
+      }
       var deferred = $q.defer();
       var httpPromise = $http.get('/api/findUser/' + username);
 
-      httpPromise.success(function (user) {
+      httpPromise.then(function (user) {
         deferred.resolve(user);
-        // Now sort through the users:
-        console.debug('user: ' + user);
-      })
-              .error(function (error) {
-                console.error('Error: ' + error);
-              });
+      }, function (error) {
+        console.error('Error: ' + error);
+      });
       return deferred.promise;
     }
   }

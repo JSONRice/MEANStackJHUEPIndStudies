@@ -12,20 +12,11 @@ angular.module('meanstacktutorials').controller('GenericModalController', [
      */
     $scope.ok = function () {
       // Note pass any data you wish to close here.
-      $uibModalInstance.close();
+      $uibModalInstance.close(true);
     };
 
     $scope.cancel = function () {
       $uibModalInstance.dismiss('cancel');
     };
-
-    /***
-     * HELPERS:
-     */
-
-    /**
-     * MUTATORS: 
-     */
-
   }
 ]);

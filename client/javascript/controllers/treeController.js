@@ -16,14 +16,11 @@ angular.module('meanstacktutorials').controller('TreeController', [
       $scope.output = "<h1>" + branch.label + "</h1>";
       if (branch.data) {
         if (branch.data.url) {
-          //$scope.output += branch.data.url;
-
           ajax.templateToString(branch.data.url).then(function (templateStr) {
             $scope.output += templateStr;
           }, function () {
             console.error('Failed to find template at:' + branch.data.url);
           });
-
         }
       }
     };

@@ -34,7 +34,7 @@ meanstacktutorials.filter('defaultDateTimeFormat', function ($filter) {
 
 
 // calls the services to force pre-load
-// this is good for calling services (REST data fetches) prior to page loads
+// this is good for calling services (REST data fetches) during web app bootup
 /*
  meanstacktutorials.run([
  'homeService',

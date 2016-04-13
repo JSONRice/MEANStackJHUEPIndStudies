@@ -3,28 +3,47 @@ angular.module('meanstacktutorials').controller('HomeController', [
   '$location',
   'AuthenticationService',
   'UserService',
-  '$timeout',
-  function ($scope, $location, AuthenticationService, UserService, timeout) {
+  function ($scope, $location, AuthenticationService, UserService) {
     $scope.username = AuthenticationService.getUsername() || "";
     $scope.loggedIn = AuthenticationService.isLoggedIn();
 
+    function getCurrentlyLoggedInUsername() {
+      return $scope.username;
+    };
+
     $scope.userdata = {};
-    UserService.getUser($scope.username)
-            .then(function (userdata) {
-              // now that we have the JSON of users go ahead and grab just the user we want
-              $scope.userdata = userdata;
-            }, function (error) {
-              console.error(error);
-            });
+    try {
+      console.log("homeController load. $scope.username => " + $scope.username);
+      var dpromise = UserService.getUser($scope.username);
+      if (dpromise) {
+        dpromise.getUser($scope.username)
+                .then(function (userdata) {
+                  // now that we have the JSON of users go ahead and grab just the user we want
+                  $scope.userdata = angular.copy(userdata);
+                }, function (error) {
+                  throw "Error fetching userdata from UserService promise";
+                });
+      } else {
+        throw "UserServer getUser returned null instead of promise. Param (username) must be nonexistent!";
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+
 
     $scope.logout = function () {
-      console.log(AuthenticationService.getUserStatus());
-
       AuthenticationService.logout()
               .then(function () {
-                console.log('Logging out...');
                 $location.path('/');
+                $scope.loggedIn = false;
+                console.log('inner $scope.loggedIn: ' + $scope.loggedIn);
               });
     };
+
+    return ({
+      getCurrentlyLoggedInUsername: function () {
+        return getCurrentlyLoggedInUsername();
+      }
+    });
   }
 ]);
