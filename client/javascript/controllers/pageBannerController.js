@@ -8,7 +8,7 @@ angular.module('meanstacktutorials').controller('PageBannerController', [
   'AuthenticationService',
   function ($scope, $location, $uibModal, $log,
           UserService, GithubService, AuthenticationService) {
-    $scope.username = AuthenticationService.getUsername() || "";
+    $scope.username;
     $scope.loggedIn = AuthenticationService.isLoggedIn();
 
     /**
@@ -25,7 +25,6 @@ angular.module('meanstacktutorials').controller('PageBannerController', [
       _this.branchData = [];
       _this.offset = 0;
       _this.url = GithubService.getGithubUrl();
-
       for (var i = 0; i < _this.branches.length; i++) {
         _this.branchurl = _this.url + '/branches/' + _this.branches[i].name;
 
@@ -36,61 +35,62 @@ angular.module('meanstacktutorials').controller('PageBannerController', [
       $scope.gitspecificbranchdata = _this.branchData || {};
     });
 
-    $scope.openFeedback = function (size) {
-      modalInstance('../../templates/modals/feedback.html',
-              'FeedbackController', size);
-    };
-
     $scope.openFAQ = function (size) {
-      modalInstance('../../templates/modals/faq.html',
+      $scope.modalInstance('../../templates/modals/faq.html',
               'GenericModalController', size);
     };
 
     $scope.openHistory = function (size) {
-      modalInstance('../../templates/modals/history.html',
+      $scope.modalInstance('../../templates/modals/history.html',
               'GenericModalController', size);
     };
 
-
-    function modalInstance(templateUrl, controller, size) {
+    $scope.modalInstance = function (templateUrl, controller, size) {
       var modalInstance = $uibModal.open({
         animation: true,
         templateUrl: templateUrl,
         controller: controller,
         size: size,
-        // Don't use 'this' here unless you want to use the controller $scope
-        // passed into the 'controller' field. Just '$scope' will use the $scope
-        // of this controller (JS file):
-        scope: $scope,
+        // Don't use 'this' here Just use the controller $scope with all the properties
+        scope: $scope
         // pass any data to modal controller here:
+        /*
         resolve: {
           items: function () {
             return $scope.items;
           }
         }
+        */
       });
-
+      /* Optional: can use this to select an item bound to the modal
       modalInstance.result.then(function (selectedItem) {
         $scope.selected = selectedItem;
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());
       });
-    }
+      */
+    };
 
+    // expect at least a firstname and lastname to be injected 
+    // from UserService into $scope.userdata
     $scope.userdata = {};
-    UserService.getUser($scope.username)
+    if (!$scope.username || $scope.username === "") {
+      $scope.username = AuthenticationService.getUsername() || "";
+    }
+    var username = $scope.username || "";
+    UserService.getUser(username)
             .then(function (userdata) {
               $scope.userdata = userdata;
             }, function (error) {
-              console.error(error);
+              $log.error(error);
             });
 
     $scope.logout = function () {
-      console.log(AuthenticationService.getUserStatus());
       AuthenticationService.logout()
               .then(function () {
                 $location.path('/');
               });
+      return true;        
     };
   }]);
 

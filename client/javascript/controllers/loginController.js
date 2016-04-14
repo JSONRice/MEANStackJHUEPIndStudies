@@ -26,7 +26,6 @@ angular.module('meanstacktutorials').controller('LoginController', [
                 $scope.disabled = false;
                 $scope.loginForm = {};
               });
-
     };
 
     $scope.register = function () {

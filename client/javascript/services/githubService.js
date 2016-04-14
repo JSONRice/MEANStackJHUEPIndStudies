@@ -37,8 +37,6 @@ angular.module('meanstacktutorials').service('GithubService', [
           }
 
           self.gitBranchData.push(response[i]);
-
-          var branchUrl = self.gitBranchData[self.gitBranchData.length - 1].commit.url;
         }
         deferred.resolve(self.gitBranchData);
       }).error(function (response) {
