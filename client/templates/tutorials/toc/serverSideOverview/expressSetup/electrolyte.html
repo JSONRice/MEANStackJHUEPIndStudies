@@ -1,16 +1,87 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-  <head>
-    <title>TODO supply a title</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-  <body>
-    <div>TODO write content</div>
-  </body>
-</html>
+<div id="electrolyteSetup">
+  <section>
+    <p>From the Electrolyte Github description:</p>
+    <p>Electrolyte is a simple, lightweight inversion of control (IoC) container for Node.js applications.</p>
+    <p>Electrolyte automatically wires together the various components and services needed by an application. It does this using a technique known as dependency injection (DI). Using Electrolyte eliminates boilerplate code and improves software quality by encouraging loose coupling between modules, resulting in greater reusability and increased test coverage.</p>
+    <p>To start using Electrolyte.js download it from npm with:</p>
+    <pre>npm install electrolyte --save</pre>
+    <p>Now you can apply Electrolyte based dependency injections within your Node app file. For example you might have this (see app.js):</p>
+    <pre>
+var ioc = require('electrolyte');
+ioc.use(ioc.node('./server/models'));
+ioc.use(ioc.node('./server/services'));
+ioc.use(ioc.node('./server/controllers'));
+ioc.use(ioc.node('./server/utils'));
+ioc.use(ioc.node_modules());
+
+// create objects from IoC (inversion of control) here:
+var database = ioc.create('database');
+
+var ssl = ioc.create('ssl');
+var authService = ioc.create('authService');
+var userService = ioc.create('userService');
+
+// connect to the database:
+database.connect(function (err) {
+  if (err) {
+    console.log("Unable to connect to the Mongo database! Make sure 'mongod' is running.");
+    console.log(err);
+    process.exit(-1);
+  } else {
+    console.log("Connected to Mongo database.");
+  }
+});
+    </pre>
+    <p>The ioc represents the Inversion of Control (IoC) design pattern and is a form of Dependency Injection (DI). Check out the app.js file at the root level of the web app to get a sense for how Electrolyte is being utilized. Notice that all the dependencies injected into the app file are mainly coming from either the server directory or are node based modules such as ssl. What's neat is that no 'require's where used besides the initial require for 'electrolyte' That's because IoC (Electrolyte) handles this for you. Those modules contained under the server directory are Electrolyte singletons (dependencies) that are made available for use. For example the database variable loads the exported Electrolyte based database object so that it can be utilized within app.js as a Mongo NoSQL database connector that may be further applied by Mongoose downstream. The Electrolyte enabled database file is located at server/utils/database.js This is really powerful because each of the modules are loosely coupled meaning that these dependencies will not bring the app down if they have a runtime issue and they are abstracted away from the main app file. To clarify the dependency injection (inversion of control) design pattern an illustration has been provided.</p>
+    <img src="/images/di.png" alt="Dependency Injection Illustration with Electrolyte"/>            
+    <p>The illustration above describes the basic flow of dependency injection. Read the flow as numbers 1-5. This alone might be enough to explain so let's look at a basic routes Electrolyte based file that utilizes Express. This example is from the 'njs-di-example' project on Github courtesy of @jsumners </p>
+    <pre>
+'use strict';
+
+// Here we are using Node.js's module caching to retrieve a reference to the
+// IoC container we created in server.js. That means we have immediate access
+// to all of the component namespaces we defined previously, as well as any
+// singleton objects that have already been instantiated.
+var ioc = require('electrolyte');
+
+var routes = [];
+
+routes.push({
+  method: 'GET',
+  path: '/foo',
+
+  // By using the 'controllers/' namespace that we previously registered
+  // with the IoC container, we are able to create a new instance of the
+  // 'fooController' object without having to use Node.js's require
+  // mechnasim. If we were relying on the Node.js require, then the line would
+  // read `handler: require('../controllers/fooController')`.
+  //
+  // By using IoC, we decouple reliance on hard coded paths and improve
+  // maintainability. If we decide that we need to refactor the file system
+  // location of 'controllers/' then we only have to modify the path in
+  // one location -- the place where we defined the IoC component namespaces.
+  //
+  // We also gain flexibility in testing. Our tests can create their own
+  // namespace for 'controllers/' and create their own implementation of
+  // 'fooController' such that we can more easily test the 'routes' component.
+  handler: ioc.create('controllers/fooController')
+});
+
+// This is a standard Node.js export. When this module is loaded by Electrolyte,
+// Electrolyte will detect that it is a literal object and behave accordingly.
+exports = module.exports = routes;
+
+// This is an Electrolyte annotation. It, obviously, indicates to Electrolyte
+// that this 'routes' component is a singleton object and should only be
+// instantiated once.
+//
+// Note: Electrolyte annotations should be defined after your `module.exports`.
+// Otherwise, the annotations will be overwritten and Electrolyte won't have
+// access to them.
+//
+// You should now read the '../controllers/fooController.js' file.
+exports['@singleton'] = true;      
+    </pre>
+    <p>DI and IOC are trivial design patterns, albeit they may sound complex. Try practicing with DI and IOC by creating your own custom modules under server, though many are already defined such as environment settings, database settings, route settings, etc. Also check out the 'njs-di-example' over on Github.</p>
+  </section>
+</div>

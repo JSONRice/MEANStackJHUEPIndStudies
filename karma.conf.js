@@ -46,8 +46,14 @@ module.exports = function (config) {
     reporters: ['progress', 'coverage'],
     // list of files to exclude
     exclude: [
+      // Custom code that doesn't exactly conform to JSLint. Someday I may fix the lints (warnings) 
+      // but I don't have the time to fix all the issues now.
       'client/javascript/directives/tree.js',
-      'client/javascript/dist/all.js'
+      // TODO: apply calendar to showcase then test
+      'client/javascript/controllers/calendarController.js',
+      'client/javascript/directives/calendar.js',
+      // don't test the minified distribution code as the code should already be tested as-is
+      'client/javascript/dist/*.js'
     ],
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor

@@ -211,7 +211,8 @@ angular.module('meanstacktutorials').controller('TreeController', [
 
     $scope.my_data = treedata_mean;
 
-    // The other tree datasets above and the following functions are mainly for test purposes and examples. Migrate these to a test controller in Jasmine (Karma).    
+    $scope.my_tree = tree = {};
+    /* Optional showcase additional functionality
     $scope.try_changing_the_tree_data = function () {
       if ($scope.my_data === treedata_avm) {
         return $scope.my_data = treedata_geography;
@@ -219,7 +220,7 @@ angular.module('meanstacktutorials').controller('TreeController', [
         return $scope.my_data = treedata_avm;
       }
     };
-    $scope.my_tree = tree = {};
+    
     $scope.try_async_load = function () {
       $scope.my_data = [];
       $scope.doing_async = true;
@@ -242,7 +243,7 @@ angular.module('meanstacktutorials').controller('TreeController', [
           something: 42,
           "else": 43
         }
-      });
-    };
+      });      
+    };*/
   }
 ]);

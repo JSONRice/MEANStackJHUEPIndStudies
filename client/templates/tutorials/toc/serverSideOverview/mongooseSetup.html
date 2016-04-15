@@ -1,16 +1,72 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-  <head>
-    <title>TODO supply a title</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-  <body>
-    <div>TODO write content</div>
-  </body>
-</html>
+<div id="mongooseSetup">
+  <section>
+    <p>Mongoose is a powerful utility that allows web programmers to write a schema for Mongoose objects. At this point you may be thinking that Mongo NoSQL is a schema-less database implementation. That is true, however Mongoose is convenient because it allows developers to establish a schema per objects (documents), that are mapped to a Mongo collection so that everyone that uses the object can be confident that the Mongoose enabled object will always be a certain format. In the world of web development this is necessary to ensure successful, expected REST based transactions that are CRUD (Create, Read, Update, Delete) based.</p> 
+    <p>A typical example of a Mongoose enabled object is a <b>User</b> Such a schema can be found within this project under server/models/ All the Mongoose models can be found here. As of 04/15/2016 the User model is the only model used exclusively within the project, for educational purposes. Other models may be applied in the future or per request.</p>
+    <pre>
+// User database model entity that represents a Mongo collection
+var mongoose = require('mongoose');
+var schema = mongoose.Schema;
+var passportLocalMongoose = require('passport-local-mongoose');
+
+var user = new schema({
+  // OPTIONAL-TODO: ensure username is an email address
+  username: {
+    type: String,
+      required: true,
+      unique: true
+  },
+  firstname: {
+    type: String,
+    required: true
+  },
+  lastname: {
+    type: String,
+    required: true
+  },
+  // UI is responsible for ensuring that there's a valid password. This is left off
+  // so that passport-local-mongoose can encrypt the password per user.        
+  password: String,
+  registrationDate: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+user.plugin(passportLocalMongoose);
+
+module.exports = mongoose.model('users', user);      
+    </pre>
+    <p>The above is self explanatory. 'mongoose' is required and it's Schema library pulled in. The 'passport-local-mongoose' is used to encrypt the 'password' field. After the schema is defined then it's made available to the application through a simple Node export. The 'User' object is utilized within the API routes file located at server/routes/api.js Here's an example of finding a specific user:</p>
+    <pre>
+////
+// Retrieve a single user (doc) from the Mongo user collection
+// To test on command line:
+// curl -H "Accept: application/json" -H "Content-type: application/json" -X GET http://localhost:8000/api/findUser/test@test.com
+//
+// To test in browser:
+// http://localhost:8000/api/findUser/test@test.com
+////
+router.get('/findUser/:username', function (req, res) {
+  user.findOne({username: req.params.username}, function (err, user) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(user);
+  });
+});      
+    </pre>
+    <p>You can test the above snippet. To do so first startup your Mongo database daemon (process) and the run your web application from your app.js file with:</p>
+    <pre>
+node app.js
+    </pre>
+    <p>As the snippet suggests there are two ways to test but in order to successfully test you will need to register a user such as <b>test@test.com</b> or you can make your own user and use that to test. If you are running within a Unix (Mac OS X or Linux) based environment 'curl' can be used:</p>
+    <pre>
+curl -H "Accept: application/json" -H "Content-type: application/json" -X GET http://localhost:8000/api/findUser/test@test.com
+    </pre>
+    <p>For users who are not running within a Unix environment such as Windows, you can test the Mongoose API route within your browser with:</p>
+    <pre>
+http://localhost:8000/api/findUser/test@test.com
+    </pre>
+    <h6>Note that you may need to change your port from 8000 to whatever port your app is running off of. If you're running in production swap 'localhost' out for the web server domain name.</h6>
+  </section>
+</div>    
