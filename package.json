@@ -30,6 +30,7 @@
     "angular-sanitize": "~1.5.2",
     "angular-selectize": "0.0.1",
     "angular-spinner": "~0.7.0",
+    "angular-toc": "^1.0.0",
     "angular-ui-bootstrap": "~1.2.5",
     "angular-ui-router": "~0.2.15",
     "angular-ui-select": "~0.12.100",

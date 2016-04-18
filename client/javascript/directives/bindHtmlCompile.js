@@ -6,7 +6,10 @@
  * (through unsafe) prior to this directive as this directive uses $watch and the filter pipe will break the 
  * $watch
  */
-meanstacktutorials.directive('bindHtmlCompile', ['$compile', '$sce', function ($compile, $sce) {
+meanstacktutorials.directive('bindHtmlCompile', [
+  '$compile', 
+  '$sce', 
+  function ($compile, $sce) {
     return {
       restrict: 'A',
       link: function (scope, element, attrs) {

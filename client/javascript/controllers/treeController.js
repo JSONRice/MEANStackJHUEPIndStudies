@@ -107,15 +107,15 @@ angular.module('meanstacktutorials').controller('TreeController', [
             },
             children: [
               {
-                label: 'Angular Framework Basics',
+                label: 'Angular Basics',
                 data: {
-                  url: ""
+                  url: 'templates/tutorials/toc/clientSideOverview/angularBasics.html'
                 }
               },
               {
-                label: 'Angular UI Bootstrap',
+                label: 'Angular UI',
                 data: {
-                  url: ""
+                  url: 'templates/tutorials/toc/clientSideOverview/angularUI.html'
                 }
               }
             ]

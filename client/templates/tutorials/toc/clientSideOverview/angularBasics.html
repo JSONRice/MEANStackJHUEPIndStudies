@@ -1,0 +1,51 @@
+<div id="angularBasics" ng-controller="AngularBasicsController">
+  <section>
+    <div class="row">
+      <div class="col-xs-4 col-md-3">
+        <div toc no-dots toc-items="tocItems"></div>
+      </div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-xs-4 col-md-12 col-lg-12">
+        <h4 id="traditionalintro">Routing with HTTP</h4>      
+        <p>Traditional web routing as we know it evolved directly from the world wide web network. ARPANET was the first network to transmit a packet, or communication data, between two end systems (servers). The pioneer behind ARPANET is a Computer Scientist named Leonard Kleinrock who at the time was attending UCLA. Mr. Kleinrock stated,<i>"Basically, what I did for my PhD research in 1961–1962 was to establish a mathematical theory of packet networks..."</i> As of November 21, 1969 two end systems were communicating through the ARPANET network due to Mr. Kleinrock and UCLA student programmers countless hours of research. Through trial and effort the worlds first packets were transmitted via a network of interconnected nodes, albeit a few at the time, in order to relay information in small chunks known as packets. One of the servers in the two-way communication chain was of course located at the UCLA Computer Science laboratory, with the other residing in the Stanford Research Institution. Later on the year two additional nodes were added to the network, increasing the total nodes within the ARPANET to four.</p>
+        <p>Since 1969 the network has rapidly evolved. Sir Timothy John Berners-Lee of London, England proposed a simple hypertext transfer protocol (HTTP) in the late 1980's and worked hard with the World Wide Web Consortium (W3C) to standardize HTTP as the worlds first standard for the exchange of web communications. With HTTP the world was ready to introduce a standard for web transactions that would be necessary to propel web development into the 21'st century. </p>
+        <p>During mid to late 1990's and early 2000's, an era referred to as the "dot-com bubble" the web gained traction as companies such as Netscape and Microsoft developed graphical user interfaces (GUI's) to host web pages in the form of HTML (Hyper Text Markup Language). Now companies and businesses alike were able to host informative text and media such as photographs, sound clips, and video directly on their HTML based web sites. As the demand for web pages grew so did the available job market. Companies hired web programmers and trained their existing programmers to learn the ways of web. Java a programming language that had at the time been around for years and was arguably the worlds most popular Object Oriented Programming language, had additional API (applied programming interface) libraries added to support the web. Java was the "go to" programming language for server side processes at the time, as the new web libraries for Java were adapted to handle HTTP transactions. Java was robust, tried, and proven and had a myriad of web methods that offered secure programming, database connectivity, media decoding, and the new Java Servlets HTTP enabled libraries, offered a way to manage HTTP transactions such as 200 (Ok) and 404 (Forbidden). The web was becoming a vibrant place full of new web pages and the populace glady accepted new web based apps such as Wikipedia, Facebook, Yahoo, My Space, and Craigslist.</p>
+        <p>This brings up a good transition point; what is a web application? A web application or simply web 'app' is one or more interconnected web pages that are managed by some server side processes, that typically carry out the HTTP transactions and route information to and from the server. This web application must be programmed like any other computer program. Note that a program is typically referred to as an application. For example when talking about mobile executable programs, a user might say something akin to, "Hey did you check out the new app from Google?" The same lingo goes for other programs, though in the traditional Computer Science sense an app is just an executable program.</p>
+        <p>As previously mentioned, in order for a web application to be successful it must have some business logic that typically resides on the server side. Java makes this easy with it's J2EE API libraries. J2EE stands for Java Enterprise Edition and includes the famous JSP standard. JSP stands for Java Servlet Page and contains both HTML and embedded Java. Without going into to much detail the basic lifecycle of a JSP page was to serve up the lander page and from this page the user could then fill out forms, view information (including media), and eventually route themeselves to another page within the web app. Herein lies the essence of early web development. A user routing to a new page, required an HTTP transaction to occur. The user would click on the link and the server side logic would then be carried out in Java via socket typically managed by an HttpServlet. Notice that Java is referred to here but other programming network-enabled frameworks and languages certainly apply such as C#, Visual Basic, and ASP.NET from Microsoft.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-4 col-md-12 col-lg-12">
+        <h4 id="traditionalillustration">Traditional Web Routing Illustration</h4>
+        <div class='image'>
+          <img src='images/traditional.jpg' alt='Traditional Web Routing'/>
+        </div>
+        <div class="imagedesc">
+          <p>The illustration above describes the basic concepts of routing within a web application through the mid 1990's, early 2000's and continuing on today. Since Java seems to be one of the more popular web application languages we will cover these concepts in Java. As the illustration describes the first page to be routed to is automatically loaded when the page url is visited. In J2EE the routing rules may be provided within the pom.xml file and a Java capable web server such as Tomcat will read the pom.xml file and load up the default lander page such as index.html or in Java's case index.jsp Then according to the illustration say a user fills out a form and submits the online form (e.g. login or registration). An HTTP POST is issued and the data is sent from the HTML based JSP file to a Java HttpServlet that parses the form data, performs the server side (business) logic, and then routes to a brand new web page with HTML (e.g. home page after login or registration). This process is continued for future transactions such as shopping cart checkouts, etc. Many web applications such as Numbeo (cost of living database) and Walmart do this today. This process of serving up a whole new web page is expensive on the network and can even irritate and annoy users who must wait for all of the content to be loaded or served up from the hosting web server. In the next section, Single Page Applications (SPA) will be discussed to cover how JavaScript can be used with a technology known as AJAX to dynamically load up the contents of a web page rather than re-routing to brand new pages.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-4 col-md-12 col-lg-12">
+        <h4 id="jsandajax">Emergence of JavaScript and AJAX</h4>
+        <div>
+          <p>Chances are at this point you've heard of JavaScript but you are may not have heard of AJAX. JavaScript was developed by an employee of Netscape the early web browser and was the work of Brendan Eich who during 1995 was a Netscape employee. JavaScript (JS) is the most popular client side computer language to date and has gained popularity, though during the early years it had a reputation for not being robust and full of problems (buggy). To day with JS 6 (ECMAScript 6) the language has worked out a lot of its early problems. One of the biggest selling points for JS and in my own opinion what helped it gain popularity, was the fact that it was capable of solving some of the business logic up front and therefore prevented web pages from having to go all the way back to the server to get answers to questions. Along with client side computing JS brought a mechanism known as an XmlHttpRequest object, and this object enabled Asynchronous JavaScript and Extensible Markup Lanuage (AJAX). XmlHttpRequest was not the first mechanism to employ asynchronous requests for data. Microsoft Inc. had utilized their iframe technology with Active X to acquire data asynchronously in their Internet Explorer 5 browser by the mid to late 1990's. XmlHttpRequest was based off of this technology and came at a later date in late 2000. XmlHttpRequest allowed developers to apply JS based AJAX request. An AJAX request is simply a request for a single component, or piece of data and is the most powerful factor of JS and client side computing. Rather than issuing a synchronous request, that locks up a page and forces a new page reload as described in the previous section, AJAX pulls just the pieces that are absolutely essential. An example of AJAX utilized within this web app is the Tree Table of Contents component on the left side of the screen. When you click on a component that data is asynchronously served up from the controller holding the data on the server side. Keep in mind this data could easily be stored within a SQL based or Mongo NoSQL database, but as this project is dynamic I found it easier to just add the flat data within the controller. The benefit of this approach is that Angular by leveraging JS and AJAX pulls that piece of data that is absolutely essential, yet everything else remains the same. No page reloads. No extra requests for duplicative data. The web app is quicker and more efficient.</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-4 col-md-12 col-lg-12">
+        <h4 id="spaillustration">SPA (AJAX) Illustration</h4>
+        <div class='image'>
+          <img src='images/spa.jpg' alt='AJAX (SPA) Illustration'/>
+        </div>
+        <div class="imagedesc">
+          <p>Since Single Page Applications (SPA) heavily rely on AJAX, a SPA or rather AJAX based illustration is provided before SPA is discussed in depth.</p>
+        </div>
+      </div>
+    </div>
+    
+  </section>
+</div>

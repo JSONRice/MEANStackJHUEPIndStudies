@@ -1,7 +1,7 @@
 /**
  * Sources: https://github.com/nickperkinslondon/angular-bootstrap-nav-tree
- * Note: do not resolve JS errors. This directive works as is and should be excluded form the
- * Gulp JSLint goal.
+ * Note: do not resolve JS errors. This directive works as is and should be excluded from the
+ * Gulp JSLint goal and tests. It works. Don't break it.
  */
 meanstacktutorials.directive('tree', [
   '$timeout',
