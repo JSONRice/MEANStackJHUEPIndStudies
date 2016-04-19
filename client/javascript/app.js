@@ -63,8 +63,6 @@ meanstacktutorials.run(function ($rootScope, $location, $route, AuthenticationSe
 
 
 meanstacktutorials.config(['$routeProvider', function ($routeProvider) {
-    console.log('meanstacktutorials.config > routing');
-
     // note: chain on additional route configs with .when(...)
     // The otherwise() (default) page loads from '/' and is the login page
     // All other pages should be restricted access besides the registration,

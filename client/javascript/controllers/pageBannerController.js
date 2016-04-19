@@ -79,8 +79,8 @@ angular.module('meanstacktutorials').controller('PageBannerController', [
     }
     var username = $scope.username || "";
     UserService.getUser(username)
-            .then(function (userdata) {
-              $scope.userdata = userdata;
+            .then(function (response) {
+              $scope.userdata = angular.copy(response.data);
             }, function (error) {
               $log.error(error);
             });

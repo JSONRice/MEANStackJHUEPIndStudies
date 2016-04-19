@@ -16,9 +16,9 @@ angular.module('meanstacktutorials').controller('HomeController', [
       var dpromise = UserService.getUser($scope.username);
       if (dpromise) {
         dpromise.getUser($scope.username)
-                .then(function (userdata) {
+                .then(function (response) {
                   // now that we have the JSON of users go ahead and grab just the user we want
-                  $scope.userdata = angular.copy(userdata);
+                  $scope.userdata = angular.copy(response.data);
                 }, function (error) {
                   throw "Error fetching userdata from UserService promise";
                 });
