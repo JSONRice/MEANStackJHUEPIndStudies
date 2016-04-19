@@ -29,7 +29,7 @@ describe('AjaxServiceSpec', function () {
     $httpBackend.flush();
   });
 
-  describe("Test templateToString", function () {
+  describe("Test getTemplate", function () {
     it("expect string from valid template url HTTP 200", function () {
       var templateURL = "../../templates/home.html";
       var response = "<div>" +
@@ -57,7 +57,7 @@ describe('AjaxServiceSpec', function () {
               "</div>" +
               "</div>";
       $httpBackend.expectGET(templateURL).respond(200, response);
-      var dpromise = service.templateToString(templateURL);
+      var dpromise = service.getTemplate(templateURL);
       dpromise.then(function (templateStr) {
         expect(templateStr).toEqual(response);
       }, function () {
@@ -69,7 +69,7 @@ describe('AjaxServiceSpec', function () {
       var templateURL = "../../templates/foobar.html";
       $httpBackend.expectGET(templateURL).respond(200, { });
 
-      var dpromise = service.templateToString(templateURL);
+      var dpromise = service.getTemplate(templateURL);
       dpromise.then(function (templateStr) {
         expect(templateStr).toEqual({ });
       }, function () {

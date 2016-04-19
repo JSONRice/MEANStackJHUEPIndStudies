@@ -52,8 +52,8 @@ angular.module('meanstacktutorials').controller('AngularBasicsController', [
             link: "spaillustration",
             isInternalLink: true            
           },
-          "Evolution of SPA": {
-            link: "spa",
+          "SPA Continued": {
+            link: "spacontinued",
             isInternalLink: true
           }
         }

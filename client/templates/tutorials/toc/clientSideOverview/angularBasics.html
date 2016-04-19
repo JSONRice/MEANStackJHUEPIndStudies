@@ -42,10 +42,83 @@
           <img src='images/spa.jpg' alt='AJAX (SPA) Illustration'/>
         </div>
         <div class="imagedesc">
-          <p>Since Single Page Applications (SPA) heavily rely on AJAX, a SPA or rather AJAX based illustration is provided before SPA is discussed in depth.</p>
+          <p>Since Single Page Applications (SPA) heavily rely on AJAX, a SPA or rather AJAX based illustration is provided before SPA is discussed in depth. In the above illustration an initial request for a web page is made. After this first page is loaded, then additional AJAX requests are made for certain components of the page. These data components may be templates in the form of HTML, JSON, JavaScript objects, XML, and other data formats. Data can be pulled from remote sites through HTTP REST calls or from a local database instance such as Mongo. The possibilities are endless, but what's important to remember is that with SPA additional pages are rarely routed to. That doesn't mean that routing to new pages is disallowed, but rather there's no need to do so and it's much more efficient to allow Angular to assist in pulling back just bits and pieces asynchronously. Read the next section for an example of how AJAX is being used within this web app.</p>
         </div>
       </div>
-    </div>
-    
+    </div>   
+    <div class="row">
+      <div class="col-xs-4 col-md-12 col-lg-12">
+        <h4 id="spacontinued">SPA Continued</h4>
+        <div>
+          <p>AJAX is employed throughout this web application through the heavy use of Angular $q which is an implementation of JavaScript promises. Promises allow the web browser to continue processing and handling user feedback, while waiting for the promise (AJAX function call) to complete. A promise will either received a resolve (success) or reject (failed) response. An example of how this web app utilizes promises to make the page SPA-like is by serving up the various templates, or HTML based components from the tree view Table of Contents on the far left of the screen. In fact the component that you are in right known is the Angular Basics template. When you click on the "Client Side Overview" then "Angular Basics" this page is loaded through AJAX into the center of your screen. Imagine what might happen if all of the web components in each section of the tree-based Table of Contents where loaded during page load. With a smaller web app you might not notice much of a delay, but with a bigger web application this could take seconds even a minute or more to load. Now consider that most users will not read and browse all of the sections of your web app. These users will undoubtedly be frustrated that your web app loads slow when they are really only interested in reading up on a few articles. You get the idea. Below is a code snippet of how AJAX promises are utilized in Angular:</p>
+          <br/>
+          <p>
+            Within the tree Table of Contents view a user clicks on the "Angular Basics" under the "Client Side Overview" The JavaScript object instance contains a local url to the Angular Basics page. Here's the object:
+          </p>              
+          <pre>              
+            {
+              label: 'Client Side Overview',
+              data: {
+                url: 'templates/tutorials/toc/clientSideOverview/clientSideOverview.html'
+              },
+              children: [
+                {
+                  label: 'Angular Basics',
+                  data: {
+                    url: 'templates/tutorials/toc/clientSideOverview/angularBasics.html'
+                  }
+                },
+                {
+                  label: 'Angular UI',
+                  data: {
+                   url: 'templates/tutorials/toc/clientSideOverview/angularUI.html'
+                  }
+                }
+              ]
+            }
+          </pre>
+          <p>
+            The user initiates a AJAX request for "templates/tutorials/toc/clientSideOverview/clientSideOverview.html" The following code inside the tree controller carries out this request:
+          </p>
+          <pre>
+            $scope.my_tree_handler = function (branch) {
+            $scope.output = "&lt;h1&gt;" + branch.label + "&lt;/h1&gt;";
+              if (branch.data) {
+                if (branch.data.url) {
+                  ajax.getTemplate(branch.data.url).then(function (html) {
+                    $scope.output += html;
+                  }, function () {
+                    console.error('Failed to find template at:' + branch.data.url);
+                  });
+                }
+              }
+            };
+          </pre>
+          <p>
+            The above utilizes a custom built AJAX service that expects a url in the form of a string and then passes that url to the $templateRequest Angular object. This object returns a $q based promise that is asynchronously fulfilled. If the call fails then an error message is printed to console, else the html from the template at the url is appended to <b>$scope.output</b> The ajax.getTemplate call implementation as implemented by AjaxService is simply:
+          </p>
+          <pre>
+            function getTemplate(url) {
+              return $templateRequest($sce.getTrustedResourceUrl(url));
+            }
+          </pre>
+          <p>
+            Notice how the above $scope variable is named 'output' This variable is bound on the $scope to the template that the tree controller manages. Because the tree controller works with a tree directive the directive can be bound directly onto the home.html web page as:
+          </p>
+          <pre> 
+            <!-- Snippet from the home.html template -->
+          &lt;div class="home-tree"&gt;
+            &lt;tree tree-data="my_data" 
+                  tree-control="my_tree" 
+                  on-select="my_tree_handler(branch)" 
+                  initial-selection="MEAN Stack Introduction"&gt;&lt;/tree&gt;
+          &lt;/div&gt;                    
+          </pre>
+          <p>
+            Notice the on-select calls the my_tree_handler function from that is bound to tree controller? Also notice that there is a 'tree' tag (element). &lt;tree&gt; is not a standard HTML element but rather a custom directive named 'tree' that is bound to an element. If you don't understand what directives are that's alright. They are mainly DOM (Data Object Model) manipulators and are convenient for dynamic HTML component rendering. An example would be to have a tree based Table of Contents directive were you pass a JavaScript object to and it returns a well formated tree based Table of Examples in HTML form. Often but not always a directive will be paired with a controller.
+          </p>
+        </div>
+      </div>
+    </div>       
   </section>
 </div>

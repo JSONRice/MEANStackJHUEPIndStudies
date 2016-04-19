@@ -6,12 +6,12 @@ angular.module('meanstacktutorials').service('AjaxService', [
   function ($templateRequest, $sce, $q, $http) {
 
     /**
-     * Given a url fetch the template as a string.
+     * Given a url fetch the template markup.
      * 
      * @param {String} url to template markup.
-     * @returns {String} string representation of template.
+     * @return {promise} AJAX promise to receive the template markup from the url.
      */
-    function templateToString(url) {
+    function getTemplate(url) {
       return $templateRequest($sce.getTrustedResourceUrl(url));
     }
 
@@ -26,7 +26,7 @@ angular.module('meanstacktutorials').service('AjaxService', [
     }
 
     return({
-      templateToString: templateToString,
+      getTemplate: getTemplate,
       httpGET: httpGET
     });
   }]);
