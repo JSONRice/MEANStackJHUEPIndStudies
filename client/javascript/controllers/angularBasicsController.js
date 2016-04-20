@@ -6,14 +6,13 @@
  * contained are internal to the page, and these internal links use the custom scrollTo
  * directive, in order to perform page bound linking without having to go through the
  * custom route table in the client/javascript/app.js file.
- * 
- * @param {type} param1
- * @param {type} param2
  */
 angular.module('meanstacktutorials').controller('AngularBasicsController', [
   '$location',
   '$scope',
   function ($location, $scope) {
+    // $scope.ajaxServiceCode = 
+    
     $scope.tocItems = {
       "Traditional Web Transactions": {
         lead: true,
@@ -58,21 +57,23 @@ angular.module('meanstacktutorials').controller('AngularBasicsController', [
           }
         }
       },
-      "MEAN Stack and Angular": {
+      "Angular Fundamentals": {
         lead: true,
         sub: {
-          "MEAN Stack Fundamentals": {
-            link: "meanfund",
-            isInternalLink: true
-            // Glyphicons from Twitter Bootstrap may be used. Here's an example.
-            // glyphicon: "glyphicon glyphicon-star"
-          },
-          "Angular and MEAN": {
-            link: "angularandmean",
+          "Angular Controllers": {
+            link: "angularcontrollers",
             isInternalLink: true
           },
-          "The Future of Angular": {
-            link: "angularfuture",
+          "Angular Services": {
+            link: "angularservices",
+            isInternalLink: true
+          },
+          "Angular Templates": {
+            link: "angulartemplates",
+            isInternalLink: true
+          },
+          "Angular Directives": {
+            link: "angulardirectives",
             isInternalLink: true
           }          
         }

@@ -7,7 +7,7 @@
     </div>
     <br/>
     <div class="row">
-      <div class="col-xs-4 col-md-12 col-lg-12">
+      <div class="col-xs-4 col-md-8 col-lg-12">
         <h4 id="traditionalintro">Routing with HTTP</h4>      
         <p>Traditional web routing as we know it evolved directly from the world wide web network. ARPANET was the first network to transmit a packet, or communication data, between two end systems (servers). The pioneer behind ARPANET is a Computer Scientist named Leonard Kleinrock who at the time was attending UCLA. Mr. Kleinrock stated,<i>"Basically, what I did for my PhD research in 1961–1962 was to establish a mathematical theory of packet networks..."</i> As of November 21, 1969 two end systems were communicating through the ARPANET network due to Mr. Kleinrock and UCLA student programmers countless hours of research. Through trial and effort the worlds first packets were transmitted via a network of interconnected nodes, albeit a few at the time, in order to relay information in small chunks known as packets. One of the servers in the two-way communication chain was of course located at the UCLA Computer Science laboratory, with the other residing in the Stanford Research Institution. Later on the year two additional nodes were added to the network, increasing the total nodes within the ARPANET to four.</p>
         <p>Since 1969 the network has rapidly evolved. Sir Timothy John Berners-Lee of London, England proposed a simple hypertext transfer protocol (HTTP) in the late 1980's and worked hard with the World Wide Web Consortium (W3C) to standardize HTTP as the worlds first standard for the exchange of web communications. With HTTP the world was ready to introduce a standard for web transactions that would be necessary to propel web development into the 21'st century. </p>
@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-xs-4 col-md-12 col-lg-12">
+      <div class="col-xs-4 col-md-8 col-lg-12">
         <h4 id="traditionalillustration">Traditional Web Routing Illustration</h4>
         <div class='image'>
           <img src='images/traditional.jpg' alt='Traditional Web Routing'/>
@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-xs-4 col-md-12 col-lg-12">
+      <div class="col-xs-4 col-md-8 col-lg-12">
         <h4 id="jsandajax">Emergence of JavaScript and AJAX</h4>
         <div>
           <p>Chances are at this point you've heard of JavaScript but you are may not have heard of AJAX. JavaScript was developed by an employee of Netscape the early web browser and was the work of Brendan Eich who during 1995 was a Netscape employee. JavaScript (JS) is the most popular client side computer language to date and has gained popularity, though during the early years it had a reputation for not being robust and full of problems (buggy). To day with JS 6 (ECMAScript 6) the language has worked out a lot of its early problems. One of the biggest selling points for JS and in my own opinion what helped it gain popularity, was the fact that it was capable of solving some of the business logic up front and therefore prevented web pages from having to go all the way back to the server to get answers to questions. Along with client side computing JS brought a mechanism known as an XmlHttpRequest object, and this object enabled Asynchronous JavaScript and Extensible Markup Lanuage (AJAX). XmlHttpRequest was not the first mechanism to employ asynchronous requests for data. Microsoft Inc. had utilized their iframe technology with Active X to acquire data asynchronously in their Internet Explorer 5 browser by the mid to late 1990's. XmlHttpRequest was based off of this technology and came at a later date in late 2000. XmlHttpRequest allowed developers to apply JS based AJAX request. An AJAX request is simply a request for a single component, or piece of data and is the most powerful factor of JS and client side computing. Rather than issuing a synchronous request, that locks up a page and forces a new page reload as described in the previous section, AJAX pulls just the pieces that are absolutely essential. An example of AJAX utilized within this web app is the Tree Table of Contents component on the left side of the screen. When you click on a component that data is asynchronously served up from the controller holding the data on the server side. Keep in mind this data could easily be stored within a SQL based or Mongo NoSQL database, but as this project is dynamic I found it easier to just add the flat data within the controller. The benefit of this approach is that Angular by leveraging JS and AJAX pulls that piece of data that is absolutely essential, yet everything else remains the same. No page reloads. No extra requests for duplicative data. The web app is quicker and more efficient.</p>
@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-xs-4 col-md-12 col-lg-12">
+      <div class="col-xs-4 col-md-8 col-lg-12">
         <h4 id="spaillustration">SPA (AJAX) Illustration</h4>
         <div class='image'>
           <img src='images/spa.jpg' alt='AJAX (SPA) Illustration'/>
@@ -47,7 +47,7 @@
       </div>
     </div>   
     <div class="row">
-      <div class="col-xs-4 col-md-12 col-lg-12">
+      <div class="col-xs-4 col-md-8 col-lg-12">
         <h4 id="spacontinued">SPA Continued</h4>
         <div>
           <p>AJAX is employed throughout this web application through the heavy use of Angular $q which is an implementation of JavaScript promises. Promises allow the web browser to continue processing and handling user feedback, while waiting for the promise (AJAX function call) to complete. A promise will either received a resolve (success) or reject (failed) response. An example of how this web app utilizes promises to make the page SPA-like is by serving up the various templates, or HTML based components from the tree view Table of Contents on the far left of the screen. In fact the component that you are in right known is the Angular Basics template. When you click on the "Client Side Overview" then "Angular Basics" this page is loaded through AJAX into the center of your screen. Imagine what might happen if all of the web components in each section of the tree-based Table of Contents where loaded during page load. With a smaller web app you might not notice much of a delay, but with a bigger web application this could take seconds even a minute or more to load. Now consider that most users will not read and browse all of the sections of your web app. These users will undoubtedly be frustrated that your web app loads slow when they are really only interested in reading up on a few articles. You get the idea. Below is a code snippet of how AJAX promises are utilized in Angular:</p>
@@ -56,69 +56,128 @@
             Within the tree Table of Contents view a user clicks on the "Angular Basics" under the "Client Side Overview" The JavaScript object instance contains a local url to the Angular Basics page. Here's the object:
           </p>              
           <pre>              
-            {
-              label: 'Client Side Overview',
-              data: {
-                url: 'templates/tutorials/toc/clientSideOverview/clientSideOverview.html'
-              },
-              children: [
-                {
-                  label: 'Angular Basics',
-                  data: {
-                    url: 'templates/tutorials/toc/clientSideOverview/angularBasics.html'
-                  }
-                },
-                {
-                  label: 'Angular UI',
-                  data: {
-                   url: 'templates/tutorials/toc/clientSideOverview/angularUI.html'
-                  }
-                }
-              ]
-            }
+{
+  label: 'Client Side Overview',
+  data: {
+    url: 'templates/tutorials/toc/clientSideOverview/clientSideOverview.html'
+  },
+  children: [
+    {
+      label: 'Angular Basics',
+      data: {
+        url: 'templates/tutorials/toc/clientSideOverview/angularBasics.html'
+      }
+    },
+    {
+      label: 'Angular UI',
+      data: {
+        url: 'templates/tutorials/toc/clientSideOverview/angularUI.html'
+      }
+    }
+  ]
+}
           </pre>
           <p>
             The user initiates a AJAX request for "templates/tutorials/toc/clientSideOverview/clientSideOverview.html" The following code inside the tree controller carries out this request:
           </p>
           <pre>
-            $scope.my_tree_handler = function (branch) {
-            $scope.output = "&lt;h1&gt;" + branch.label + "&lt;/h1&gt;";
-              if (branch.data) {
-                if (branch.data.url) {
-                  ajax.getTemplate(branch.data.url).then(function (html) {
-                    $scope.output += html;
-                  }, function () {
-                    console.error('Failed to find template at:' + branch.data.url);
-                  });
-                }
-              }
-            };
+$scope.my_tree_handler = function (branch) {
+  $scope.output = "&lt;h1&gt;" + branch.label + "&lt;/h1&gt;";
+  if (branch.data) {
+    if (branch.data.url) {
+      ajax.getTemplate(branch.data.url).then(function (html) {
+        $scope.output += html;
+      }, function () {
+        console.error('Failed to find template at:' + branch.data.url);
+      });
+    }
+  }
+};
           </pre>
           <p>
             The above utilizes a custom built AJAX service that expects a url in the form of a string and then passes that url to the $templateRequest Angular object. This object returns a $q based promise that is asynchronously fulfilled. If the call fails then an error message is printed to console, else the html from the template at the url is appended to <b>$scope.output</b> The ajax.getTemplate call implementation as implemented by AjaxService is simply:
           </p>
           <pre>
-            function getTemplate(url) {
-              return $templateRequest($sce.getTrustedResourceUrl(url));
-            }
+function getTemplate(url) {
+  return $templateRequest($sce.getTrustedResourceUrl(url));
+}
           </pre>
           <p>
             Notice how the above $scope variable is named 'output' This variable is bound on the $scope to the template that the tree controller manages. Because the tree controller works with a tree directive the directive can be bound directly onto the home.html web page as:
           </p>
           <pre> 
-            <!-- Snippet from the home.html template -->
-          &lt;div class="home-tree"&gt;
-            &lt;tree tree-data="my_data" 
-                  tree-control="my_tree" 
-                  on-select="my_tree_handler(branch)" 
-                  initial-selection="MEAN Stack Introduction"&gt;&lt;/tree&gt;
-          &lt;/div&gt;                    
+<!-- Snippet from the home.html template -->
+&lt;div class="home-tree"&gt;
+  &lt;tree tree-data="my_data" 
+      tree-control="my_tree" 
+      on-select="my_tree_handler(branch)" 
+      initial-selection="MEAN Stack Introduction"&gt;&lt;/tree&gt;
+&lt;/div&gt;                    
           </pre>
           <p>
             Notice the on-select calls the my_tree_handler function that is bound to tree controller? Also notice that there is a 'tree' tag (element). &lt;tree&gt; is not a standard HTML tag but rather a custom directive named 'tree' that is bound to a custom tag. If you don't understand what directives are that's alright. They are mainly DOM (Data Object Model) manipulators and are convenient for dynamic HTML component rendering. An example would be to have a tree based Table of Contents directive were you pass a JavaScript object to and it returns a well formated tree based Table of Examples in HTML form. Often but not always a directive will be paired with a controller.
           </p>
         </div>
       </div>
-    </div>       
+    </div>
+    <div class="row">      
+      <div class="col-xs-4 col-md-8 col-lg-12">
+        <h4 id="angularcontrollers">Angular Controllers</h4>
+        <div>
+          <p>Note that this tutorial series is not comprehensive nor is it meant to be read line-per-line but rather it should be a hands on tutorial kit, a tool that allows those who are seeking to understand MEAN with some demo-able code and an opportunity to learn from hours of research on MEAN and Angular. With that said the focus of this section is on Angular. Angular is a JavaScript framework that provides the web developer with a way to organize JavaScript files into a Model View Controller or Model View Whatever (MVW) design pattern. This plays well with SPA, as it seeks to couple components of the UI up with the JavaScript modules. A controller is a common element in Angular and controls the web interactions between the UI and client side business logic computing. An example of a controller commonly uesd within this web app is the PageBannerController found at <b>client/javascript/pageBannerController.js</b> The first part of the file reveals:</p>
+          <pre>
+angular.module('meanstacktutorials').controller('PageBannerController', [
+  '$scope',
+  '$location',
+  '$uibModal',
+  '$log',
+  'UserService',
+  'GithubService',
+  'AuthenticationService',
+  function ($scope, $location, $uibModal, $log,
+    UserService, GithubService, AuthenticationService) {
+  $scope.username;
+  $scope.loggedIn = AuthenticationService.isLoggedIn();
+
+  /* business logic computing goes here */
+}]);            
+          </pre>
+          <p>The important things to consider here is that this controller uses a lot of dependencies, some of which are Angular API dependencies and others are custom dependencies known as Services that were programmed into the web app such as the AuthenticationService. The PageBannerController holds variables in a special container known as a $scope. When you add variables to $scope then these variables are immediately accessible to the UI. More information on this to come soon, but for now lookup the PageBannerController JS file and read the comments. It's well documented and reading the comments will help you to piece together the pieces of a basic controller. Take a break, check out the PageBannerController and then continue to read this tutorial and run the example web app. If you don't know everything about Angular or MVC now, that's fine. You're learning this for the first time. If you have some previous exposure to MEAN this tutorials series should reinforce the principles you have been taught. Note that Angular 1.x and 2.x are very different, and this tutorial series covers the Angular 1.5 API (Applied Programming Interface). Angular 2.x may be covered in the future, time permitting.</p>
+        </div>
+      </div>
+    </div>    
+    <div class="row">
+      <div class="col-xs-4 col-md-8 col-lg-12">
+        <h4 id="angularservices">Angular Services</h4>
+        <div>
+          <p>Angular Services provide a convenient way to develop JS components that are commonly used throughout the web application. J2EE (Java) web development is also based off of the MVC (Model View Controller [Service]) design pattern, and Angular seems to base its principles of MVC to include Services off of the early days of web development with Java Servlets. Think back on any web application you were exposed to or any computer program you were actively contributing to at home, work, or school. Chances are you have used a service library to aid in your efforts. For example in Java there is the Pattern and Matcher libraries that aid in performing simple string (characters) regular expressions. An example is as follows:</p>
+          <pre>
+Pattern p = Pattern.compile("a*b");
+Matcher m = p.matcher("aaaaab");
+boolean b = m.matches();            
+          </pre>
+          <p>Above the boolean would evaluate to true as the compiled regular expression of <b>a*b</b> matches against the string <b>aaaaab</b> Now you wouldn't want to code the entire Pattern or Matcher library. Even if you coded your own chances are you will not copy and paste the functions for your custom Pattern and Matcher into all of your Java files. Rather you, being the ever efficient programmer that you are, would take out the logic and put it into your own Pattern and Matcher Java classes. These custom classes would then act as a service, by providing reusable service-oriented functions (methods) throughout your Java codebase. The same principle applies in Angular. Some of the common Angular Services developed for this web application include a Github AJAX Service, a User Service to query the Mongo database for user information, an Authentication Service for authenticating users, and an Ajax Service to prevent duplicative AJAX code throughout the codebase. The AJAX Service is trivial, yet used by many controllers and even other services. The current codebase for the AjaxService is:</p>
+          <pre>
+{{ajaxServiceCode}}            
+          </pre>
+        </div>
+      </div>
+    </div>    
+    <div class="row">
+      <div class="col-xs-4 col-md-8 col-lg-12">
+        <h4 id="angulartemplates">Angular Templates</h4>
+        <div>
+          <p></p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-4 col-md-8 col-lg-12">
+        <h4 id="angulardirectives">Angular Directives</h4>
+        <div>
+          <p></p>
+        </div>
+      </div>
+    </div>        
   </section>
 </div>
