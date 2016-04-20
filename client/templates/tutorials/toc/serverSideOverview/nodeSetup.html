@@ -1,12 +1,18 @@
 <div id="nodeSetup">
   <section>
-    <p>NodeJS setup really depends on what your project setup entails, but there are a few base standards that go along with node. </p> 
-    <p>To start using NodeJS download it from their web site (Google search: 'Node download') then once installed you will have NPM (Node Package Manager).</p>
-    <p>Head over to the root level of the web application in the terminal and run the following to download the dependencies:</p>
+    <p>NodeJS setup really depends on what your project setup entails, but there are a few base standards that go along with node. To start using NodeJS download it from their web site (Google search: 'Node download') then once installed you will have NPM (Node Package Manager). Head over to the root level of the web application in the terminal (command line) and run the following to download the dependencies:</p>
     <pre>npm install</pre>
+    <p>If you suspect any dependencies are out of date in the web app then you can update them as follows:</p>
+    <pre>npm update</pre>
+    <p>To view the current version of a dependency such as <b>karma</b> type:</p>
+    <pre>npm list karma</pre>
+    <p>Also if you just want to update karma try:</p>
+    <pre>npme update karma</pre>
     <p>The dependencies are all stored within the package.json at the root level of the web application.</p>
     <p>Checkout the package.json for a list of production and developer level dependencies.</p>
-    <p>Checkout the app.js at the root level. The app file is the bootstrap file and it loads all the dependencies and connects the app to the network and database.</p>
+    <p>Checkout the app.js at the root level. The app.js file is the bootstrap file Node loads all the dependencies and connects the app to the network and database by caling this file. To call file in Node simply type:</p>
+    <pre>node app.js</pre>
+    <p>Since the app.js requires a Mongo database to run, you will need to startup your Mongo instance with a database location. Read up on the Mongo slides for more info.</p>
     <p>Throughout this overview other elements of the app file will be introduced.</p>
   </section>
 </div>

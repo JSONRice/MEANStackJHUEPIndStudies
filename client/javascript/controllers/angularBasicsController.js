@@ -10,9 +10,43 @@
 angular.module('meanstacktutorials').controller('AngularBasicsController', [
   '$location',
   '$scope',
-  function ($location, $scope) {
-    // $scope.ajaxServiceCode = 
+  'AjaxService',
+  function ($location, $scope, ajax) {
+    var ajaxServiceUrl = "https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/javascript/services/ajaxService.js";
+    var errorMsg = "Code Not Found! Please check the controller AJAX request.";
+    function setAjaxServiceCode(url) {
+      ajax.httpGET(ajaxServiceUrl).then(function (data) {
+        $scope.ajaxServiceCode = data || errorMsg;
+      });
+    }
+
+    var tocTemplateUrl = "https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/templates/tutorials/toc/toc.html";
+    function setTocTemplateCode(url) {
+      ajax.httpGET(url).then(function (data) {
+        $scope.tocTemplateCode = data || errorMsg;
+      });
+    }
+
+    var pageBannerUrl = "https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/javascript/directives/pageBanner.js";
+    function setPageBannerCode(url) {
+      ajax.httpGET(url).then(function (data) {
+        $scope.pageBannerCode = data || errorMsg;
+      });
+    }
     
+    var homeUrl = "https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/templates/home.html";
+    function setHomeTemplateCode(url) {
+      ajax.httpGET(url).then(function (data) {
+        $scope.homeTemplateCode = data || errorMsg;
+      });
+    }    
+
+    // call $scope setters:
+    setAjaxServiceCode(ajaxServiceUrl);
+    setTocTemplateCode(tocTemplateUrl);
+    setPageBannerCode(pageBannerUrl);
+    setHomeTemplateCode(homeUrl);
+
     $scope.tocItems = {
       "Traditional Web Transactions": {
         lead: true,
@@ -20,22 +54,22 @@ angular.module('meanstacktutorials').controller('AngularBasicsController', [
           "Routing with HTTP": {
             link: "traditionalintro",
             isInternalLink: true
-            // No need for icons, but if you want to add one here it is:
-            // icon: "1"
-            // No need for sub sub links but an example of doing that is as follows:
-            /*
-            subsub: {
-              "Sub Sub Link": {
-                link: "#subsub",
-                isInternalLink: true
-              },
-            }
-            */
+                    // No need for icons, but if you want to add one here it is:
+                    // icon: "1"
+                    // No need for sub sub links but an example of doing that is as follows:
+                    /*
+                     subsub: {
+                     "Sub Sub Link": {
+                     link: "#subsub",
+                     isInternalLink: true
+                     },
+                     }
+                     */
           },
           "Traditional Web Routing Illustration": {
             link: "traditionalillustration",
             isInternalLink: true
-          }        
+          }
         }
       },
       "AJAX and SPA": {
@@ -44,12 +78,12 @@ angular.module('meanstacktutorials').controller('AngularBasicsController', [
           "Emergence of JavaScript and AJAX": {
             link: "jsandajax",
             isInternalLink: true
-            // Glyphicons from Twitter Bootstrap may be used. Here's an example.
-            // glyphicon: "glyphicon glyphicon-star"
+                    // Glyphicons from Twitter Bootstrap may be used. Here's an example.
+                    // glyphicon: "glyphicon glyphicon-star"
           },
-          "SPA Illustration" : {
+          "SPA Illustration": {
             link: "spaillustration",
-            isInternalLink: true            
+            isInternalLink: true
           },
           "SPA Continued": {
             link: "spacontinued",
@@ -75,10 +109,10 @@ angular.module('meanstacktutorials').controller('AngularBasicsController', [
           "Angular Directives": {
             link: "angulardirectives",
             isInternalLink: true
-          }          
+          }
         }
       }
-      
+
     };
   }
 ]);

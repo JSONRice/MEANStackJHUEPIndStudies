@@ -106,7 +106,6 @@ function getTemplate(url) {
             Notice how the above $scope variable is named 'output' This variable is bound on the $scope to the template that the tree controller manages. Because the tree controller works with a tree directive the directive can be bound directly onto the home.html web page as:
           </p>
           <pre> 
-<!-- Snippet from the home.html template -->
 &lt;div class="home-tree"&gt;
   &lt;tree tree-data="my_data" 
       tree-control="my_tree" 
@@ -115,7 +114,7 @@ function getTemplate(url) {
 &lt;/div&gt;                    
           </pre>
           <p>
-            Notice the on-select calls the my_tree_handler function that is bound to tree controller? Also notice that there is a 'tree' tag (element). &lt;tree&gt; is not a standard HTML tag but rather a custom directive named 'tree' that is bound to a custom tag. If you don't understand what directives are that's alright. They are mainly DOM (Data Object Model) manipulators and are convenient for dynamic HTML component rendering. An example would be to have a tree based Table of Contents directive were you pass a JavaScript object to and it returns a well formated tree based Table of Examples in HTML form. Often but not always a directive will be paired with a controller.
+            Notice the on-select calls the my_tree_handler function that is bound to tree controller. Also notice that there is a 'tree' tag (element). &lt;tree&gt; is not a standard HTML tag but rather a custom directive named 'tree' that is bound to a custom tag. If you don't understand what directives are that's alright. They are mainly DOM (Data Object Model) manipulators and are convenient for dynamic HTML component rendering. An example would be to have a tree based Table of Contents directive were you pass a JavaScript object to and it returns a well formated tree based Table of Examples in HTML form. Often but not always a directive will be paired with a controller. More on directives will be covered in the next section. Directives are a key ingredient, just like controllers, services, and templates to building an Angular enabled SPA web application.
           </p>
         </div>
       </div>
@@ -150,16 +149,28 @@ angular.module('meanstacktutorials').controller('PageBannerController', [
       <div class="col-xs-4 col-md-8 col-lg-12">
         <h4 id="angularservices">Angular Services</h4>
         <div>
-          <p>Angular Services provide a convenient way to develop JS components that are commonly used throughout the web application. J2EE (Java) web development is also based off of the MVC (Model View Controller [Service]) design pattern, and Angular seems to base its principles of MVC to include Services off of the early days of web development with Java Servlets. Think back on any web application you were exposed to or any computer program you were actively contributing to at home, work, or school. Chances are you have used a service library to aid in your efforts. For example in Java there is the Pattern and Matcher libraries that aid in performing simple string (characters) regular expressions. An example is as follows:</p>
+          <p>Angular Services provide a convenient way to develop JS components that are commonly used throughout the web application and compliment the MVC design pattern by providing additional functionality to controllers. J2EE (Java) web development is also based off of the MVC (Model View Controller [Service]) design pattern, and Angular seems to base its principles of MVC to include Services off of the early days of web development with Java Servlets. Think back on any web application you were exposed to or any computer program you were actively contributing to at home, work, or school. Chances are you have used a service library to aid in your efforts. For example in Java there is the Pattern and Matcher libraries that aid in performing simple string (character) regular expressions. An example is as follows:</p>
           <pre>
 Pattern p = Pattern.compile("a*b");
 Matcher m = p.matcher("aaaaab");
 boolean b = m.matches();            
           </pre>
-          <p>Above the boolean would evaluate to true as the compiled regular expression of <b>a*b</b> matches against the string <b>aaaaab</b> Now you wouldn't want to code the entire Pattern or Matcher library. Even if you coded your own chances are you will not copy and paste the functions for your custom Pattern and Matcher into all of your Java files. Rather you, being the ever efficient programmer that you are, would take out the logic and put it into your own Pattern and Matcher Java classes. These custom classes would then act as a service, by providing reusable service-oriented functions (methods) throughout your Java codebase. The same principle applies in Angular. Some of the common Angular Services developed for this web application include a Github AJAX Service, a User Service to query the Mongo database for user information, an Authentication Service for authenticating users, and an Ajax Service to prevent duplicative AJAX code throughout the codebase. The AJAX Service is trivial, yet used by many controllers and even other services. The current codebase for the AjaxService is:</p>
+          <p>Above the boolean would evaluate to true as the compiled regular expression of <b>a*b</b> matches against the string <b>aaaaab</b> Now you wouldn't want to code the entire Pattern or Matcher library. Even if you coded your own chances are you will not copy and paste the functions for your custom Pattern and Matcher into all of your Java files. Rather you, being the ever efficient programmer that you are, would take out the logic and put it into your own Pattern and Matcher Java classes. These custom classes would then act as a service, by providing reusable service-oriented functions (methods) throughout your Java codebase. The same principle applies in Angular. Some of the common Angular Services developed for this web application include a Github AJAX Service, a User Service to query the Mongo database for user information, an Authentication Service for authenticating users, and an Ajax Service to prevent duplicative AJAX code throughout the codebase. The AJAX Service is trivial, yet used by many controllers and even other services. The current code for the AjaxService within the <b>master</b> repository is:</p>
           <pre>
 {{ajaxServiceCode}}            
           </pre>
+          <p>What's neat is the above code was served up for display through an AngularBasicsController that invoked an HTTP GET request through the AjaxService. That code is as follows within the AngularBasicsController:</p>
+          <pre>
+var ajaxServiceUrl = "https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/javascript/services/ajaxService.js";
+var errorMsg = "Code Not Found! Please check the controller AJAX request.";
+function setAjaxServiceCode(url) {
+  ajax.httpGET(ajaxServiceUrl).then(function (data) {
+    $scope.ajaxServiceCode = data || errorMsg;
+  });
+}
+setAjaxServiceCode(ajaxServiceUrl);
+          </pre>
+          <p>As you can see above the AjaxService is passed the url to the 'raw.githubusercontent.com' domain with the 'ajaxService.js' as the desired file to fetch via HTTP GET. The result of the HTTP GET is stored on the $scope within a variable named <b>ajaxServiceCode</b> Within our angularBasics.html page this is then accessed with <b>{</b><span id="scopeExample"><b>{ajaxServiceCode}</b></span><b>}</b>. The implementation of the AJAX promise enabled HTTP GET REST call is abstracted away within AjaxService. This is a prime example of how services prevent duplicative, boilerplate code.</p>
         </div>
       </div>
     </div>    
@@ -167,7 +178,11 @@ boolean b = m.matches();
       <div class="col-xs-4 col-md-8 col-lg-12">
         <h4 id="angulartemplates">Angular Templates</h4>
         <div>
-          <p></p>
+          <p>Angular templates are just HTML that is injected into a web page. Oftentimes a template is paired up with a directive, but this is not always the case. Remember back to the "SPA Continued" tutorial above with the tree directive example. The tree Table of Contents over on the left side of the screen is a launch widget for templates. Whenever a node in a branch is clicked such as the <b>Angular Basics</b> under the <b>Client Side Overview</b> then that template is requested via AJAX and injected into the page. Templates are therefore HTML components that don't necessarily need to be wrapped within the &lt;html&gt; tags. Sometimes templates can be contained within directives (we'll cover those shortly) and the template HTML is then dynamically rendered to a web page. For simplicity the most basic template in this web app is the toc.html template. Here's the code from the <b>master</b> repository:</p>
+          <pre>
+{{tocTemplateCode}}
+          </pre>
+          <p>In a similar manner to the way the AjaxService code was acquired the toc.html file was fetched via the AngularBasicsController through a call to the AjaxService httpGET function and injected directly within the page you are looking at now. As you can see the toc.html file is trivial. If you click on the <b>Table of Contents</b> node at the top of the tree Table of Contents the tree directive will dynamically fetch the code for toc.html and inject it into the main view. You can try that now for additional clarity. Templates will be further discussed with the next section, that covers the basics of Angular Directives.</p>
         </div>
       </div>
     </div>
@@ -175,7 +190,15 @@ boolean b = m.matches();
       <div class="col-xs-4 col-md-8 col-lg-12">
         <h4 id="angulardirectives">Angular Directives</h4>
         <div>
-          <p></p>
+          <p>Angular Directives have been saved for last, though many of the stock Angular components and functions are not covered in this tutorial series. The basics to get you going with MVC are covered. At this point you may be wondering what directives are and how they fit into MVC. A directive is a special kind of controller and a directive does take some practice and creativity in order to use. A directive is a DOM (Document Object Model) marker and manipulator. As previously mentioned a directive can bind HTML in the form of templates to form larger HTML components that are then injected into the web page. A single Angular based web page can contain many directive enabled templates. If you have any experience with <b>jQuery</b> or DOM manipulation with JavaScript functions such as <b>getElementById</b> then a directive will make sense to you. Directives do take some time to get used to so let's look at a simple example that is currently being used within this web app. The simplest example would be the PageBanner directive contained within a file named pageBanner.js Here's the code:</p>
+          <pre>
+{{pageBannerCode}}            
+          </pre>
+          <p>The page banner directive has a restrict of 'E' This means that it may only be applied at the element (tag) level. Also the name of the directive is <b>pageBanner</b> and this is camel cased on purpose, however the first letter does not need to be capitalized. The camel cased name is then normalized onto the web page with hyphens separating each word. So <b>pageBanner</b> would normalize to <b>page-banner</b> Also this directive takes the pageBanner.html markup and injects it wherever the directive element is invoked. Think of this as a function that returns a string. Angular handles all of the injections and template passing. Page banner is applied directly from the home.html web page. This is what home.html looks like in the <b>master</b> repository:</p>
+          <pre>
+{{homeTemplateCode}}          
+          </pre>
+          <p>The &lt;page-banner&gt;&lt;/page-banner&gt; is set at the very top of the home template. The previous section on SPA gives another example of how directives are applied when paired with controllers. Other directives used within this page include a toc (Table of Contents) directive and scroll to (inner link navigation). Other directives may be added. As you use this web app see if you can find any other directives. Directives are typically bound to the element (tag name) or attribute of the markup. This means that if you see any odd looking, HTML markup such as &lt;tree&gt; or an attribute such as <b>scroll-to</b> do not be alarmed. These are not part of HTML5 or some third party HTML implementation but rather custom Angular based directive components and are meant to be used as utilities to bind Angular functionality to the HTML and CSS.</p>
         </div>
       </div>
     </div>        
