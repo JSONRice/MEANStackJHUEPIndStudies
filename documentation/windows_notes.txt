@@ -56,13 +56,11 @@ Open Powershell or other terminal (e.g. Cygwin) and type:
 
 md \data\db 
 
-This will create a db directory under C:
-
 You should see the 'db' directory in C:\data by running:
 
 ls C:\data
 
-Now navigate to your "MongoDB" installation directory. Should be under "Program Files" under C: Could also be in "Program Files (x86)" Double click on the "MongoDB" directory and then follow this path of directories until you see "bin" For me it was "MongoDB" -> "Server" -> "3.2" -> "bin" Then double click on "mongod" The daemon will start mongo up at "C:/data/db" This will not work if the "C:/data/db" has not been setup properly.
+Now navigate to your "MongoDB" installation directory. Should be under "Program Files" under C: Could also be in "Program Files (x86)" Double click on the "MongoDB" directory and then follow this path of directories until you see "bin" For me it was "MongoDB" > "Server" > "3.2" > "bin" Then double click on "mongod" The daemon will start mongo up at "C:/data/db" This will not work if the "C:/data/db" has not been created with 'md'.
 
 Now Mongo is running in its own terminal. Do not close this terminal. To verify Mongo is running open up the same "bin" folder you previously navigated to and double click on "mongo" The Mongo shell will appear. Type "show dbs" to show the databases. You should have no databases and be presented with an empty local db.
 

@@ -1,0 +1,76 @@
+<div id="mongoSetup">
+  <section>
+    <p>Mongo setup is straightforward but it helps if you have a basic understanding of the command line for either Windows, Linux, or Mac OS X. Mac OS X and Linux are both in the Unix category and Windows is slightly different. Detailed notes on Mongo setup can be found under the documentation folder at the project root level. This tutorial will cover the basic setup for both Windows and Unix based systems. To download Mongo just do a simple Google search for "mongodb download" You should see the first download at the top pointing to Mongo NoSQL database. After installing Mongo try to run it from the command line. This depends on your OS. See the tutorials below for specific operating system installation instructions.</p> 
+    <hr/>
+    <h4>Windows Setup</h4>
+    <pre>
+# Install the Mongo database directory:
+md \data\db 
+    </pre>
+    <p>You should see the 'db' directory in C:\data by running:</p>
+    <pre>ls C:\data</pre>
+    <p>Now navigate to your "MongoDB" installation directory. Should be under "Program Files" under C: Could also be in "Program Files (x86)" Double click on the "MongoDB" directory and then follow this path of directories until you see "bin" For me it was "MongoDB" > "Server" > "3.2" > "bin" Then double click on "mongod" The daemon will start mongo up at "C:/data/db" This will not work if the "C:/data/db" folder has not been created with 'md'.</p>
+    <p>Now Mongo is running in its own terminal. Do not close this terminal. To verify Mongo is running open up the same "bin" folder you previously navigated to and double click on "mongo" The Mongo shell will appear. Type "show dbs" to show the databases. You should have no databases and be presented with an empty local db.</p>
+    <p>See the Post Installation Tutorial near the bottom of this page for more info on how to use Mongo.</p>
+    <hr/>
+    <h4>Unix (Linux & Mac OS X) Setup</h4>
+    <p>If your on a Mac open a terminal and add the path of your Mongo directory with the bin to the /etc/paths file (use vi or emacs to edit this file, must be sudo). Then restart your terminal session and type:</p>
+    <pre>echo $PATH</pre>
+    <p>The path should be of the format &lt;path-to-mongo&gt;/bin Where "&lt;path-to-mongo&gt;" is the location of your mongo download and the bin directory should be under there. If you're using Linux simply append the Mongo bin to your PATH variable in your .bashrc or .bash_profile file.</p>
+    <p>Now create the db directory under your home directory:</p>
+    <pre>mkdir -p ~/data/db</pre>
+    <p>Then start up the mongo daemon:</p>
+    <pre>mongod --dbpath ~/data/db</pre>
+    <p>Open up a new terminal tab and type the following for database access:</p>
+    <pre>mongo</pre>
+    <p>Troubleshooting Mongo:</p>
+    <p>Do not create the db directory under root (/data/db) rather for security and simplicity run under your home directory. If you create under /data/db this requires root (sudo) to run. If you attempt to connect and get a timed out connection examine the mongod output. Chances are you attempted connection before the daemon was finished setting up the socket.</p>
+    <p>See the Post Installation Tutorial near the bottom of this page for more info on how to use Mongo.</p>    
+    <hr/>
+    <h4>Post Installation Tutorial</h4>
+    <p>After the dependencies are installed with Node Package Manager (NPM) and the web app is running you will be presented with a Login screen. If you aren't seeing this read up on the Node Setup tutorial and make sure you can get the web app to run. For the web app to run, the Mongo background process (daemon) will need to be running. Also note that you won't be able to login until your register. Go through with the registration then go back to the command line and type "mongo" to get into your Mongo shell then "show dbs" If you are on Windows remember to navigate to your Mongo bin directory where Mongo is installed and double click on your mongo executable to launch the shell. On Linux or Mac OS X you just need to type "mongo" After getting into the shell type "show dbs" to show the database instances. You should now see a database named "meanstacktutorials" since the registration stored a new document (your user info) within this newly created database. To switch to this database type:</p>    
+    <pre>use meanstacktutorials</pre>
+    <p>Before proceeding it's important to define a few Mongo definitions:</p>
+    <section id="definitions">
+      <dl>
+        <dt>Schemaless</dt>
+        <dd>Mongo is schemaless meaning that it's data entities do not need to be predefined upfront. The exception to this is Mongoose which enforces a schema so that developers can be confident that the data conforms to a standard schema. This is the exception not the rule.</dd>
+        <dt>Document</dt>
+        <dd>A document is a tuple, or single entity within a collection. A Mongo collection contains <b>one-to-many</b> documents. Documents are formatted as JSON but encoded as BSON.</dd>
+        <dt>Collection</dt>
+        <dd>A Mongo collection is similar to a relational SQL (database) table, but unlike an relational SQL table doesn't have to conform to a particular schema and only accepts JSON. A collection consists of one or more documents.</dd>
+        <dt>BSON</dt>
+        <dd>Documents in Mongo are stored in BSON (binary JSON). BSON is simply JSON that has been compressed for efficient storage. Developers don't need to be concerned with BSON as this is abstracted away from their view but they need to be aware that Mongo stores data as BSON.</dd>
+        <dt>ObjectId</dt>
+        <dd>The object id uniquely identifies a document within a collection and serves as a unique document identifier, similar to how a primary key in a traditional SQL database identifies a unique row (tuple).</dd>
+      </dl>
+    </section>
+    <p>Now that the you have some definitions in mind, here's a dialog of a simple Mongo database interaction, where the user logs in to the <b>meanstacktutorials</b> and views a user document:</p>
+    <pre>
+> show dbs
+cleaningschedule        0.000GB
+local                   0.000GB
+mean-auth               0.000GB
+mean-social-token-auth  0.000GB
+meanstacktutorials      0.000GB
+> use meanstacktutorials
+switched to db meanstacktutorials
+> show collections
+sessions
+users
+versions
+> db.users.findOne()
+{
+	"_id" : ObjectId("56e7481bdbc104b935d9bf19"),
+	"salt" : "0d773f386d229117e6148ac91921b43116767a5975241d08a83503ddec4df84b",
+	"hash" : "8e01ebb0b5eba99589094621d2d77b3ce78d0bbc518de88ac9d301aaa099e4a29e59a6930378bfa3bdb709234978a119f4b1e02d537c10d3781221c490cc314715ebb8df8e0554a5d0f09c175b317942719cadc1482ad022cce974f5581f8ffbb2b3560fccb44ed2cf4ff361b88531dd66d9e9146a38955d308b2fbc661401f716ee9f8389f2499347843be47ece2bc9cf86341d8f2a50f4b2b2f821f1956e7f1a18120e86a2136e9ee84b8ad46360d060ab53307b9f81626d2fcb1ece121a1874daaca0f1b8c25f87c174cefbc88b5c512453bcb187b056db56aa8e90dca6dc0068581970ffe341c5dd31d9e1e6484e07508215659bceee266d9d197cebf33dd70569bc4dda442bc0d74b310dc864d54d210b07c813f71b693e8f533a4ada165d5c26d2e3f8e47bb95c78798b95cecae9370e50c44c8c58119c95f705d259c12117238dd338ddce7b35aefd19cd9877fe49cb5f5e9ac3bfdd73c67006af8da6dae39a654712d8f691150d24833d7bb87a2ce571611183f1bcda5f62c1886cbafb8fa48ac5311950bcfc4ec3878d8615411b9f00bdd78ddcde29ebec9f606fdc850ad7846135023eedaf1b8ebf61dc63cb4cf91fb5c61d39dad61d9af46277d8bce2a990272e361a4f082da4e3b664951381b91e36b1defca46eaf541008187c9e0b6ba6579d7987a69328119e131eebcd4dfb6c3dc82c658a45770f024978dc",
+	"username" : "jjacob",
+	"firstname" : "john",
+	"lastname" : "jacob",
+	"registrationDate" : ISODate("2016-03-14T23:24:11.249Z"),
+	"__v" : 0
+}      
+    </pre>
+    <p>You can try this on your system but instead of using the <b>findOne( )</b> function just call <b>find( ).pretty( )</b> because you should only have one user document after you register. The <b>pretty()</b> function formats the displayed JSON in a well readable format with each key-value pair on it's own line. You will notice the <b>_id</b> key refers to an ObjectId value. The value inside the object id is the unique object hash for the document. For the users collection you should also see a salt and hash. This is the salt and hash for your user password and is managed by Mongoose and the Passport dependencies installed from NPM. Mongoose and Passport are discussed within the Mongoose Setup tutorial.</p>
+  </section>
+</div>

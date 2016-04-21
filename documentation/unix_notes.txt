@@ -71,7 +71,7 @@ If you see any deprecated modules feel free to adjust the package.json and submi
 
 Mongo Installation:
 Download Mongo from www.mongodb.com
-If your on a Mac ppen a terminal and add the path of your Mongo directory with the bin to the /etc/paths file (use vi or emacs to edit this file, must be sudo). Then restart your terminal session and type:
+If your on a Mac open a terminal and add the path of your Mongo directory with the bin to the /etc/paths file (use vi or emacs to edit this file, must be sudo). Then restart your terminal session and type:
 
 echo $PATH
 

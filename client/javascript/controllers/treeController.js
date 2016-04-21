@@ -93,10 +93,18 @@ angular.module('meanstacktutorials').controller('TreeController', [
                 ]
               },
               {
-                label: 'Mongoose Setup',
+                label: 'Mongo Setup',
                 data: {
-                  url: "templates/tutorials/toc/serverSideOverview/mongooseSetup.html"
-                }
+                  url: "templates/tutorials/toc/serverSideOverview/mongoSetup/mongoSetup.html"
+                },
+                children: [
+                  {
+                    label: 'Mongoose Setup',
+                    data: {
+                      url: "templates/tutorials/toc/serverSideOverview/mongoSetup/mongooseSetup.html"
+                    }
+                  }
+                ]
               }
             ]
           },
