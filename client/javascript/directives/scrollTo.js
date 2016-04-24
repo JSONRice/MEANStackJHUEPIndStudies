@@ -21,6 +21,7 @@ meanstacktutorials.directive('scrollTo', function ($location, $anchorScroll) {
   return {
     restrict: 'A',
     link: function (scope, element, attrs) {
+      console.log('called scrollTo');
       element.bind('click', function (event) {
         event.stopPropagation();
         var off = scope.$on('$locationChangeStart', function (ev) {

@@ -1,0 +1,12 @@
+<div id="showcaseUI" ng-controller="ShowcaseController">
+  <section id="showcaseUIViewable">
+    <span id="markup" bind-html-compile="widget.markup"></span>
+    <uib-tabset active="active">
+      <uib-tab ng-repeat="file in widget.files" heading="{{file.title}}" active="tab.active" disable="tab.disabled">
+        <br/>
+        <pre id="code" style="margin-right: 70px">{{getFileContent(file.uri)}}</pre>
+      </uib-tab>
+    </uib-tabset>
+  </section>
+</div>
+

@@ -3,7 +3,7 @@ meanstacktutorials.directive('calendar', function () {
     restrict: 'AE',
     replace: 'true',
     templateUrl: '../../templates/calendar.html',
-    controller: 'calendarController'
+    controller: 'CalendarController'
   };
 });
 

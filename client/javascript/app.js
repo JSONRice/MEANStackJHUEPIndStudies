@@ -32,6 +32,14 @@ meanstacktutorials.filter('defaultDateTimeFormat', function ($filter) {
   };
 });
 
+// Pretty print JSON
+meanstacktutorials.filter('prettyJSON', function () {
+  function prettyPrintJson(json) {
+    return JSON ? JSON.stringify(json, null, '  ') : 'your browser doesnt support JSON so can not pretty print';
+  }
+  return prettyPrintJson;
+});
+
 
 // calls the services to force pre-load
 // this is good for calling services (REST data fetches) during web app bootup
@@ -46,7 +54,6 @@ meanstacktutorials.filter('defaultDateTimeFormat', function ($filter) {
 
 // The following ensures that a user is logged in prior to any view being loaded.
 // Restricted pages get re-routed back to the login view.
-
 meanstacktutorials.run(function ($rootScope, $location, $route, AuthenticationService) {
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
     // -- preempt if restricted is undefined. This will be redefined if you have services or

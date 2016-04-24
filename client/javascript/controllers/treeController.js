@@ -123,8 +123,34 @@ angular.module('meanstacktutorials').controller('TreeController', [
               {
                 label: 'Angular UI',
                 data: {
-                  url: 'templates/tutorials/toc/clientSideOverview/angularUI.html'
-                }
+                  url: 'templates/tutorials/toc/clientSideOverview/angularUI/angularUI.html'
+                },
+                children: [
+                  {
+                    label: 'Tree Table of Contents',
+                    data: {
+                      url: 'templates/tutorials/toc/clientSideOverview/angularUI/angularUITreeToC.html'
+                    }
+                  },
+                  {
+                    label: 'Inline Table of Contents',
+                    data: {
+                      url: 'templates/tutorials/toc/clientSideOverview/angularUI/angularUIInToC.html'
+                    }
+                  },
+                  {
+                    label: 'Modals (Dialogs)',
+                    data: {
+                      url: 'templates/tutorials/toc/clientSideOverview/angularUI/angularUIModals.html'
+                    }
+                  },
+                  {
+                    label: 'Calendar',
+                    data: {
+                      url: 'templates/tutorials/toc/clientSideOverview/angularUI/angularUICalendar.html'
+                    }
+                  }
+                ]
               }
             ]
           }

@@ -10,6 +10,12 @@ var istanbul = require('gulp-istanbul');
 var karma = require('karma').Server;
 var minifyCSS = require('gulp-minify-css');
 var merge = require('merge-stream');
+var del = require('del');
+
+// Remove any cached distribution files
+gulp.task('clean', function () {
+   del(['client/javascript/dist/**/*', 'client/stylesheets/dist/**/*']);
+});
 
 // Lint (JSHint) Task
 gulp.task('lint', function () {
@@ -160,7 +166,7 @@ gulp.task('watch', ['dev'], function () {
 });
 
 // Used for development 'gulp dev'
-gulp.task('dev', ['style', 'concat']);
+gulp.task('dev', ['clean', 'style', 'concat']);
 
 // Runs unit tests
 gulp.task('test', ['karma', 'jasmine']);

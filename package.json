@@ -5,7 +5,12 @@
   "description": "Having fun with MEAN stack.",
   "repository": "https://github.com/jasonwr/CleaningSchedule",
   "license": "MIT",
-  "devDependencies": {},
+  "devDependencies": {
+    "del": "^2.2.0",
+    "kerberos": "0.0.19",
+    "prettify": "^0.1.7",
+    "tidy-html5": "^0.1.1"
+  },
   "scripts": {
     "preinstall": "npm install bower",
     "postinstall": "node_modules/bower/bin/bower install || bower install",

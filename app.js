@@ -16,7 +16,6 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 
-
 // app object handle
 var app = express();
 
@@ -186,5 +185,4 @@ function onListening() {
   var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   // loadDefaultPage('./client/templates/index.html');
   console.log("NOTE: if you haven't already done so restart the web app with 'nodemon' instead of using 'node' and any code changes will cause NodeJS to restart.");
-}
-;
+};
