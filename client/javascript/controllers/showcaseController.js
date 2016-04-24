@@ -3,29 +3,6 @@ angular.module('meanstacktutorials').controller('ShowcaseController', [
   '$timeout',
   'AjaxService',
   function ($scope, $timeout, ajax) {
-    // forces synchronous request for file text
-    $scope.getFileContent = function (uri) {
-      console.log('Initiating HTTP GET: ' + uri);
-      var request = new XMLHttpRequest();
-
-      try {
-        request.open('GET', uri, false);  // `false` makes the request synchronous
-        request.send(null);
-
-        if (request.status !== 200) {
-          throw 'file not found or server error.';
-        }
-      } catch (err) {
-        console.log('Caught network exception: ' + err);
-        return 'Failed to GET: ' + uri + '\n\nInvestigate the console logs.\n';
-      }
-
-      // Success
-      var responseText = request.responseText;
-      return request.responseText;
-    };
-
-
     $scope.widgets = [
       {
         id: 'treetoc',
@@ -35,20 +12,17 @@ angular.module('meanstacktutorials').controller('ShowcaseController', [
           {
             uri: 'https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/javascript/controllers/treeController.js',
             title: 'Tree Controller',
-            id: 'treecontroller'// ,
-                    // content: getFileContent('https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/javascript/controllers/treeController.js')
+            id: 'treecontroller'
           },
           {
             uri: 'https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/javascript/directives/tree.js',
             title: 'Tree Directive',
-            id: 'treedirective'// ,
-                    // content: getFileContent('https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/javascript/directives/tree.js')
+            id: 'treedirective'
           },
           {
             uri: 'https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/templates/widgets/tree.html',
             title: 'Tree Template',
-            id: 'treetemplate'// ,
-                    // content: getFileContent('https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/templates/widgets/tree.html')
+            id: 'treetemplate'
           }
         ]
       }
