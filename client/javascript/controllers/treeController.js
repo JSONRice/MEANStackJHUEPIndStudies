@@ -246,7 +246,6 @@ angular.module('meanstacktutorials').controller('TreeController', [
     $scope.my_data = treedata_mean;
 
     $scope.my_tree = tree = {};
-    /* Optional showcase additional functionality
     $scope.try_changing_the_tree_data = function () {
       if ($scope.my_data === treedata_avm) {
         return $scope.my_data = treedata_geography;
@@ -278,6 +277,6 @@ angular.module('meanstacktutorials').controller('TreeController', [
           "else": 43
         }
       });      
-    };*/
+    };
   }
 ]);
