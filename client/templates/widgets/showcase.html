@@ -1,10 +1,11 @@
 <div id="showcaseUI" ng-controller="ShowcaseController">
   <section id="showcaseUIViewable">
-    <span id="markup" bind-html-compile="widget.markup"></span>
+    <p id="description" ng-bind="widget.description"></p>
+    <span id="markup" bind-html-compile="getFileContent(widget.templateuri)"></span>
     <br/>
     <p ng-if="lastFileFetched === ''">Select a tab below to display a file used in the widget:</p>
     <uib-tabset active="-1">
-      <uib-tab ng-repeat="file in widget.files" heading="{{file.title}}" active="tab.active" disable="tab.disabled" ng-click="getFileContent(file.uri)">
+      <uib-tab ng-repeat="file in widget.files" heading="{{file.title}}" active="tab.active" disable="tab.disabled" ng-click="getFileContent(file.uri, lastFileFetched)">
         <button type="button" class="btn btn-default btn-sm" ngclipboard data-clipboard-text="{{lastFileFetched}}">
           <span class="glyphicon glyphicon-copy"></span> Copy Code to Clipboard
         </button>

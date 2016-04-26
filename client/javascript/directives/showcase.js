@@ -48,16 +48,12 @@ meanstacktutorials.directive('showcase', [
       link: function (scope) {
         // since the requests are synchronous this variable is guaranteed to contain the last file fetched
         scope.lastFileFetched = "";
-
-        scope.echo = function (name) {
-          scope.lastFileFetched = name;
-        };
-
+        
         // Synchronous request for a file.
         // Since the source files are so small and order is necessary just pull them in synchronously.
         // Note: do not pull in larger files (e.g. 5Mb or higher) with this function. If you have
         // a large file then you'll need to write up a new AJAX function with some order logic.
-        scope.getFileContent = function (uri) {
+        scope.getFileContent = function (uri, setvar) {
           var request = new XMLHttpRequest();
 
           try {
@@ -73,8 +69,8 @@ meanstacktutorials.directive('showcase', [
           }
 
           // Success
-          var responseText = request.responseText;
           scope.lastFileFetched = request.responseText;
+          return scope.lastFileFetched
         };
       }
     };
