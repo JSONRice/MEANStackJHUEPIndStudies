@@ -7,22 +7,21 @@ angular.module('meanstacktutorials').controller('ShowcaseController', [
       {
         id: 'treetoc',
         title: 'Tree [Table of Contents]',        
-        // ideally this should be one of the file (i.e. main template) uri's from raw.githubusercontent.com
-        templateuri: 'https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/templates/widgets/treeTest.html',
+        templateuri: '../../templates/showcase/treeShowcase.html',
         description: "Welcome to the showcase page for the tree based ToC (Table of Contents) used within the web app. Try the tree API and view the source files (at the bottom). If you click on \"Change the Tree Definition\" you'll get some different data sets to play with otherwise you'll just see the default MEAN stack data set already used in the main tree ToC. Have fun exploring.",
         files: [
           {
-            uri: 'https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/javascript/controllers/treeController.js',
+            fileuri: 'https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/javascript/controllers/treeController.js',
             title: 'Tree Controller',
             id: 'treecontroller'
           },
           {
-            uri: 'https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/javascript/directives/tree.js',
+            fileuri: 'https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/javascript/directives/tree.js',
             title: 'Tree Directive',
             id: 'treedirective'
           },
           {
-            uri: 'https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/templates/widgets/treeTest.html',
+            fileuri: 'https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/templates/widgets/tree.html',
             title: 'Tree Template',
             id: 'treetemplate'
           }
@@ -46,6 +45,6 @@ angular.module('meanstacktutorials').controller('ShowcaseController', [
       }
       console.error('no widget found returning null');
       return null;
-    };
+    };    
   }
 ]);

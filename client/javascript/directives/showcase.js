@@ -43,17 +43,43 @@ meanstacktutorials.directive('showcase', [
        * Note: the showcase controller contains a list of widget objects for showcasing.
        */
       scope: {
-        widget: '='
+        widget: '=',
+        templateuri: '='
       },
       link: function (scope) {
+        // destructor
+        scope.$on(
+                "$destroy",
+                function destroy() {
+                  scope.lastFileFetched = scope.templateCached = "";
+                });
+                
+        var request = new XMLHttpRequest();
+        /* Fetch just the template content on load: */
+        try {
+          request.open('GET', scope.templateuri, false);  // `false` makes the request synchronous
+          request.send(null);
+
+          if (request.status !== 200) {
+            throw 'file not found or server error.';
+          }
+        } catch (err) {
+          console.error('Caught network exception: ' + err);
+          return 'Failed to GET: ' + scope.templateuri + '\n\nInvestigate the console logs.\n';
+        }
+        scope.templateCached = request.responseText;
+
         // since the requests are synchronous this variable is guaranteed to contain the last file fetched
         scope.lastFileFetched = "";
-        
+
         // Synchronous request for a file.
         // Since the source files are so small and order is necessary just pull them in synchronously.
         // Note: do not pull in larger files (e.g. 5Mb or higher) with this function. If you have
         // a large file then you'll need to write up a new AJAX function with some order logic.
-        scope.getFileContent = function (uri, setvar) {
+        scope.getFileContent = function (uri) {
+          scope.lastFileFetched = "";
+
+          console.log('fetching file from: ' + uri);
           var request = new XMLHttpRequest();
 
           try {
@@ -68,9 +94,8 @@ meanstacktutorials.directive('showcase', [
             return 'Failed to GET: ' + uri + '\n\nInvestigate the console logs.\n';
           }
 
-          // Success
           scope.lastFileFetched = request.responseText;
-          return scope.lastFileFetched
+          return request.responseText;
         };
       }
     };
