@@ -42,12 +42,7 @@ angular.module('meanstacktutorials').controller('ShowcaseController', [
             fileuri: 'https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/javascript/directives/toc.js',
             title: 'Inline ToC Directive',
             id: 'inlinetocdirective'
-          },
-          {
-            fileuri: 'https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/templates/widgets/tree.js',
-            title: 'Inline ToC Template',
-            id: 'inlinetoctemplate'
-          }          
+          }         
         ]
       }
     ];
