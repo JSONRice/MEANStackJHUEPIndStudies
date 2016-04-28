@@ -30,7 +30,7 @@ angular.module('meanstacktutorials').controller('ShowcaseController', [
       {
         id: 'intoc',
         title: 'Inline Table of Contents',
-        templateuri: '../../templates/showcase/testInToCShowcase.html',
+        templateuri: '../../templates/showcase/inToCShowcase.html',
         description: "Welcome to the showcase page for the inline ToC (Table of Contents) used within the web app. This simple inline directive-based ToC was originally developed by Michal Malik of Warsaw, Poland. His username on Github is MMMalik. Michal agreed to allowing this directive to be used and extended under the MIT Free Open Source Software License. What's neat about this inline ToC component is that it is combined with the scrollTo directive if links are local (inline) to the page. Have fun exploring and using this component.", 
         files: [
           {
@@ -43,6 +43,23 @@ angular.module('meanstacktutorials').controller('ShowcaseController', [
             title: 'Inline ToC Directive',
             id: 'inlinetocdirective'
           }         
+        ]
+      },
+      {
+        id: 'calendar',
+        title: 'Calendar',
+        templateuri: '../../templates/showcase/calendarShowcase.html',
+        description: 'Simple calendar directive similar to the jQuery UI calendar. The UI Calendar is flexible and has an assortment of functionality. The one drawback of this calendar directive is that you must install a bunch of dependencies based off of the fullcalendar.js (open source JavaScript calendar) along with the custom CSS. Check out the main index.ejs view in the server directory for a list of dependencies. These should be updated from time-to-time.<p>The following Angular Calendar component is based off of the JS Arshaw Full Calendar located here: <a href="http://arshaw.com/fullcalendar/">Arshaw FullCalendar</a>.</p>',
+        files: [
+          {
+            
+          },
+          {
+            
+          },
+          {
+            
+          }
         ]
       }
     ];

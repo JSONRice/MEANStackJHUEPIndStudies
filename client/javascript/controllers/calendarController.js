@@ -1,25 +1,25 @@
+/**
+ * Custome calendar controller based off of the Calendar UI demo controller.
+ * Sources: https://angular-ui.github.io/ui-calendar/
+ */
 angular.module('meanstacktutorials').controller('CalendarController', [
-  'ui.calendar',
-  'ui.bootstrap',
   '$scope',
   '$compile',
-  function (cal, bootstrap, $scope, $compile) {
+  'uiCalendarConfig',
+  function ($scope, $compile, uiCalendarConfig) {
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
 
     $scope.changeTo = 'Hungarian';
-
     /* event source that pulls from google.com */
     $scope.eventSource = {
-      url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
+      // %40 is just the '@' symbol
       className: 'gcal-event', // an option!
-      currentTimezone: 'America/Chicago' // an option!
+      currentTimezone: 'America/New York' // an option!
     };
-
     /* event source that contains custom events on the scope */
-    /* TODO: abstract this out into a Model entitled 'Event' */
     $scope.events = [
       {title: 'All Day Event', start: new Date(y, m, 1)},
       {title: 'Long Event', start: new Date(y, m, d - 5), end: new Date(y, m, d - 2)},
@@ -28,7 +28,6 @@ angular.module('meanstacktutorials').controller('CalendarController', [
       {title: 'Birthday Party', start: new Date(y, m, d + 1, 19, 0), end: new Date(y, m, d + 1, 22, 30), allDay: false},
       {title: 'Click for Google', start: new Date(y, m, 28), end: new Date(y, m, 29), url: 'http://google.com/'}
     ];
-
     /* event source that calls a function on every view switch */
     $scope.eventsF = function (start, end, timezone, callback) {
       var s = new Date(start).getTime() / 1000;
@@ -87,12 +86,12 @@ angular.module('meanstacktutorials').controller('CalendarController', [
     };
     /* Change View */
     $scope.changeView = function (view, calendar) {
-      cal.calendars[calendar].fullCalendar('changeView', view);
+      uiCalendarConfig.calendars[calendar].fullCalendar('changeView', view);
     };
     /* Change View */
     $scope.renderCalender = function (calendar) {
-      if (cal.calendars[calendar]) {
-        cal.calendars[calendar].fullCalendar('render');
+      if (uiCalendarConfig.calendars[calendar]) {
+        uiCalendarConfig.calendars[calendar].fullCalendar('render');
       }
     };
     /* Render Tooltip */
@@ -132,6 +131,5 @@ angular.module('meanstacktutorials').controller('CalendarController', [
     /* event sources array*/
     $scope.eventSources = [$scope.events, $scope.eventSource, $scope.eventsF];
     $scope.eventSources2 = [$scope.calEventsExt, $scope.eventsF, $scope.events];
-
   }
 ]);

@@ -37,6 +37,7 @@
     "angular-spinner": "~0.7.0",
     "angular-toc": "^1.0.0",
     "angular-ui-bootstrap": "~1.2.5",
+    "angular-ui-calendar": "^1.0.2",
     "angular-ui-router": "~0.2.15",
     "angular-ui-select": "~0.12.100",
     "angular-ui-utils": "~0.1.1",

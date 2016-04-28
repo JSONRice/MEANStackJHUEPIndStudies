@@ -1,6 +1,6 @@
 <div id="showcaseUI" ng-controller="ShowcaseController">
   <section id="showcaseUIViewable">
-    <p id="description" ng-bind="widget.description"></p>
+    <p id="description" bind-html-compile="widget.description"></p>
     <span id="markup" bind-html-compile="templateCached"></span>
     <br/>
     <p>Select a tab below to display a file used in the widget (files from Master repository):</p>
