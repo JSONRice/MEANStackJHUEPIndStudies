@@ -70,7 +70,7 @@ angular.module('meanstacktutorials').controller('ShowcaseController', [
             id: 'showcasedinomodal'
           },
           {
-            fileuri: 'https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/controllers/showcaseModalController.js',
+            fileuri: 'https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/javascript/controllers/showcaseModalController.js',
             title: 'Showcase Modal Controller',
             id: 'showcasemodaltemplate'
           }
