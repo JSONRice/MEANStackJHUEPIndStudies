@@ -52,14 +52,21 @@ angular.module('meanstacktutorials').controller('ShowcaseController', [
         description: 'Simple calendar directive similar to the jQuery UI calendar. The UI Calendar is flexible and has an assortment of functionality. The one drawback of this calendar directive is that you must install a bunch of dependencies based off of the fullcalendar.js (open source JavaScript calendar) along with the custom CSS. Check out the main index.ejs view in the server directory for a list of dependencies. These should be updated from time-to-time.<p>The following Angular Calendar component is based off of the JS Arshaw Full Calendar located here: <a href="http://arshaw.com/fullcalendar/">Arshaw FullCalendar</a>.</p>',
         files: [
           {
-            
-          },
-          {
-            
-          },
-          {
-            
+            fileuri: 'https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/javascript/controllers/calendarController.js',
+            title: 'Calendar Controller',
+            id: 'calendarcontroller'
           }
+        ]
+      },
+      {
+        id: 'modalsshowcase',
+        title: 'Modals',
+        templateuri: '../../templates/showcase/modalsShowcase.html',
+        description: 'Demonstration of the Angular UI Bootstrap modals using the <b>uib-modal</b> directive. Modals, also known as dialogs (that is how they are spelled), are capable of receiving and processing user input much like an HTML form is (think J2EE). Modals are used throughout this web app to bring attention to items such as Frequently Asked Questions and Versioning Info. Have fun exploring modals.',
+        files: [
+            // fileuri: 'https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/templates/modals/showcase.html',
+            // title: 'Showcase Modal Template',
+            // id: 'showcasemodaltemplate'
         ]
       }
     ];

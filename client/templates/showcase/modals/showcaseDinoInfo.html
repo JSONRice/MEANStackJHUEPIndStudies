@@ -1,0 +1,45 @@
+<div id="dinoinfomodal">
+  <div class="modal-header">
+    <h3 class="modal-title">Dinosaur Information</h3>
+    <p>Dinosaurs roamed the earth millions of years ago, but their bones have been discovered through paleontology and their bones contain a carbon footprint that allows scientists to estimate their existence. This combined with surrounding evidence allows scientists to piece together the dinosaurs natural habitat both on land and in the sea.</p>
+  </div>
+  <div class="modal-body">  
+    <div class="row">
+      <div id="images" class="col-lg-4 col-md-4">        
+        <h5>Click on one of the dinosaurs below to learn more about their prehistoric origins</h5>
+        <ul>
+          <li ng-repeat="item in dinoItems">
+            <a scroll-to="#" ng-click="$event.preventDefault();
+                selectedDino.item = item">{{item.name}}</a>
+          </li>
+        </ul>
+      </div>
+      <div id="info" class="well col-lg-6 col-md-6">
+        <span class="glyphicon glyphicon-info" aria-hidden="true"></span><h4>Info:</h4> 
+        <div id="image">
+          <img ng-src="{{selectedDino.item.imageuri}}" alt="Dinosaur Image" style="width:300px;height:200px;"/>        
+        </div>
+        <br/>
+        <div id="description">
+          <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Description: {{selectedDino.item.description}}        
+        </div>
+        <br/>
+        <div id="age">
+          <span class="glyphicon glyphicon-heart" aria-hidden="true"></span> Age: {{selectedDino.item.age}}
+        </div>
+        <br/>        
+        <div id="location">          
+          <span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Location: {{selectedDino.item.location}}
+        </div>        
+        <br/>        
+        <div id="sources">
+          <span class="glyphicon glyphicon-link" aria-hidden="true"></span> Cited Sources: <a ng-href="{{selectedDino.item.source}}">{{selectedDino.item.source}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+  </div>
+</div>
