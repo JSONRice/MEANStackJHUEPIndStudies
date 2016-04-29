@@ -1,24 +1,11 @@
 angular.module('meanstacktutorials').controller('ShowcaseModalController', [
   '$scope',
-  '$location',
   '$uibModal',
-  function ($scope, $location, $uibModal) {
-
-    $scope.openAnchor = function (size) {
-      $scope.modalInstance('../../templates/showcase/modals/showcaseAnchor.html',
-              'GenericModalController', size);
-    };
+  function ($scope, $uibModal) {
 
     $scope.openDinoInfo = function (size) {
-      $scope.modalInstance('../../templates/showcase/modals/showcaseDinoInfo.html',
-              'GenericModalController', size);
+      $scope.modalInstance('../../templates/showcase/modals/showcaseDinoInfo.html', size);
     };
-
-    $scope.openMe = function (size) {
-      $scope.modalInstance('../../templates/showcase/modals/showcaseMe.html',
-              'GenericModalController', size);
-    };
-
     $scope.dinoItems = [
       {
         name: 'Velociraptor',
@@ -33,7 +20,7 @@ angular.module('meanstacktutorials').controller('ShowcaseModalController', [
         description: 'Stegosaurus was a large, plant-eating dinosaur that lived during the late Jurassic Period, about 150.8 million to 155.7 million years ago, primarily in western North America. It was about the size of a bus and carried around two rows of bony plates along its back that made it appear even bigger. Stegosaurus is a bit of media darling because there is so much material to help scientists reconstruct its distinctive appearance. It has been depicted on television and in movies, most notably chasing Faye Wray in "King Kong" and appearing in the second and third installments of the \"Jurassic Park" films. A newspaper cartoon even helped name one of its body parts. Stegosaurus has a reputation for having a small brain and one of the lowest-brain-to-body ratios among dinosaurs. "The brain of Stegosaurus was long thought to be the size of a walnut," said armored dinosaur expert Kenneth Carpenter, director of the USU Eastern Prehistoric Museum in Utah. "But actually, its brain had the size and shape of a bent hotdog."',
         imageuri: '../../images/dinosaurs/stegosaurus.jpg',
         age: 'Jurassic Period',
-        location: 'North America',   
+        location: 'North America',
         source: 'http://www.livescience.com/24184-stegosaurus-facts.html'
       },
       {
@@ -58,7 +45,7 @@ angular.module('meanstacktutorials').controller('ShowcaseModalController', [
         imageuri: '../../images/dinosaurs/triceratops.jpg',
         age: 'Late Cretaceous',
         location: 'North America and Asia',
-        source: 'http://www.livescience.com/24011-triceratops-facts.html'        
+        source: 'http://www.livescience.com/24011-triceratops-facts.html'
       },
       {
         name: 'Troodon',
@@ -68,16 +55,27 @@ angular.module('meanstacktutorials').controller('ShowcaseModalController', [
         location: 'Subtropical Europe'
       }
     ];
-
     $scope.selectedDino = {
       item: $scope.dinoItems[0]
     };
 
-    $scope.modalInstance = function (templateUrl, controller, size) {
+    // indicates that user selected an item from the modal
+    $scope.madeSelection = false;
+
+    $scope.modalInstance = function (templateUrl, size) {
       var modalInstance = $uibModal.open({
         animation: true,
         templateUrl: templateUrl,
-        controller: controller,
+        controller: function ($uibModalInstance, $scope) {
+          $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+          };
+
+          $scope.ok = function () {
+            // Note pass any data you wish back to the client from the modal here:      
+            $uibModalInstance.close($scope.selectedDino);
+          };
+        },
         size: size,
         // Don't use 'this' here just use the controller $scope with all the properties
         scope: $scope,
@@ -89,12 +87,19 @@ angular.module('meanstacktutorials').controller('ShowcaseModalController', [
         }
       });
       // Optional: can use this to select an item bound to the modal
-      modalInstance.result.then(function (selectedItem) {
-        $scope.selected = selectedItem;
-      }, function () {
-        console.info('Modal dismissed at: ' + new Date());
-      });
-    };
+      modalInstance.result.then(
+              // user clicked Ok
+              function (selectedItem) {
+                if (selectedItem) {
+                  $scope.selected = selectedItem;
+                  $scope.madeSelection = true;
+                }
+              },
+              // user clicked Cancel
+                      function () {
+                        $scope.madeSelection = false;
+                      });
+            };
   }
 ]);
 

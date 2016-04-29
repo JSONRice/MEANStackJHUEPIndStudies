@@ -6,7 +6,7 @@ angular.module('meanstacktutorials').controller('ShowcaseController', [
     $scope.widgets = [
       {
         id: 'treetoc',
-        title: 'Tree [Table of Contents]',        
+        title: 'Tree [Table of Contents]',
         templateuri: '../../templates/showcase/treeShowcase.html',
         description: "Welcome to the showcase page for the tree based ToC (Table of Contents) used within the web app. Try the tree API and view the source files (at the bottom). If you click on \"Change the Tree Definition\" you'll get some different data sets to play with otherwise you'll just see the default MEAN stack data set already used in the main tree ToC. Have fun exploring.",
         files: [
@@ -31,7 +31,7 @@ angular.module('meanstacktutorials').controller('ShowcaseController', [
         id: 'intoc',
         title: 'Inline Table of Contents',
         templateuri: '../../templates/showcase/inToCShowcase.html',
-        description: "Welcome to the showcase page for the inline ToC (Table of Contents) used within the web app. This simple inline directive-based ToC was originally developed by Michal Malik of Warsaw, Poland. His username on Github is MMMalik. Michal agreed to allowing this directive to be used and extended under the MIT Free Open Source Software License. What's neat about this inline ToC component is that it is combined with the scrollTo directive if links are local (inline) to the page. Have fun exploring and using this component.", 
+        description: "Welcome to the showcase page for the inline ToC (Table of Contents) used within the web app. This simple inline directive-based ToC was originally developed by Michal Malik of Warsaw, Poland. His username on Github is MMMalik. Michal agreed to allowing this directive to be used and extended under the MIT Free Open Source Software License. What's neat about this inline ToC component is that it is combined with the scrollTo directive if links are local (inline) to the page. Have fun exploring and using this component.",
         files: [
           {
             fileuri: 'https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/javascript/controllers/inlineToCController.js',
@@ -42,7 +42,7 @@ angular.module('meanstacktutorials').controller('ShowcaseController', [
             fileuri: 'https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/javascript/directives/toc.js',
             title: 'Inline ToC Directive',
             id: 'inlinetocdirective'
-          }         
+          }
         ]
       },
       {
@@ -62,11 +62,18 @@ angular.module('meanstacktutorials').controller('ShowcaseController', [
         id: 'modalsshowcase',
         title: 'Modals',
         templateuri: '../../templates/showcase/modalsShowcase.html',
-        description: 'Demonstration of the Angular UI Bootstrap modals using the <b>uib-modal</b> directive. Modals, also known as dialogs (that is how they are spelled), are capable of receiving and processing user input much like an HTML form is (think J2EE). Modals are used throughout this web app to bring attention to items such as Frequently Asked Questions and Versioning Info. Have fun exploring modals.',
+        description: 'Demonstration of the Angular UI Bootstrap modals using the <b>uib-modal</b> directive. Modals, also known as dialogs (that is how they are spelled), are capable of receiving and processing user input much like an HTML form is (think J2EE). Modals are used throughout this web app to bring attention to items such as Frequently Asked Questions and Versioning Info. Click on the button below to activate a dynamic modal with user input feedback.',
         files: [
-            // fileuri: 'https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/templates/modals/showcase.html',
-            // title: 'Showcase Modal Template',
-            // id: 'showcasemodaltemplate'
+          {
+            fileuri: 'https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/templates/showcase/modals/showcaseDinoInfo.html',
+            title: 'Showcase Dino Modal',
+            id: 'showcasedinomodal'
+          },
+          {
+            fileuri: 'https://raw.githubusercontent.com/jasonwr/MEANStackJHUEPIndStudies/master/client/controllers/showcaseModalController.js',
+            title: 'Showcase Modal Controller',
+            id: 'showcasemodaltemplate'
+          }
         ]
       }
     ];
@@ -87,6 +94,6 @@ angular.module('meanstacktutorials').controller('ShowcaseController', [
       }
       console.error('no widget found returning null');
       return null;
-    };    
+    };
   }
 ]);

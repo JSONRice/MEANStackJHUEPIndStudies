@@ -6,7 +6,7 @@
   <div class="modal-body">  
     <div class="row">
       <div id="images" class="col-lg-4 col-md-4">        
-        <h5>Click on one of the dinosaurs below to learn more about their prehistoric origins</h5>
+        <h5>Click on one of the dinosaurs below to learn more about their prehistoric origins:</h5>
         <ul>
           <li ng-repeat="item in dinoItems">
             <a scroll-to="#" ng-click="$event.preventDefault();
@@ -15,7 +15,7 @@
         </ul>
       </div>
       <div id="info" class="well col-lg-6 col-md-6">
-        <span class="glyphicon glyphicon-info" aria-hidden="true"></span><h4>Info:</h4> 
+        <span class="glyphicon glyphicon-info" aria-hidden="true"></span><h4>{{selectedDino.item.name}}</h4> 
         <div id="image">
           <img ng-src="{{selectedDino.item.imageuri}}" alt="Dinosaur Image" style="width:300px;height:200px;"/>        
         </div>
@@ -40,6 +40,6 @@
   </div>
   <div class="modal-footer">
     <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>    
   </div>
 </div>

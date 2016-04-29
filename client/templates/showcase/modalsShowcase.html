@@ -1,27 +1,11 @@
 <div id="showcasemodal" ng-controller="ShowcaseModalController">
-<!--
-  <script type="text/ng-template" id="myModalContent.html">
-        <div class="modal-header">
-            <h3 class="modal-title">I'm a modal!</h3>
-        </div>
-        <div class="modal-body">
-            <ul>
-                <li ng-repeat="item in items">
-                    <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
-                </li>
-            </ul>
-            Selected: <b>{{ selected.item }}</b>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
-        </div>
-    </script>
-    -->
-    <button type="button" class="btn btn-default" ng-click="openMe('sm')">Open me!</button>
-    <button type="button" class="btn btn-default" ng-click="openDinoInfo('lg')">Learn More About Dinosaurs</button>
-    <br/>
-    <br/>
-    <a href="" ng-click="openAnchor()">Open Showcase Modal in Anchor Tag</a>        
-    <div ng-show="selected">Selection from a modal: {{selected}}</div>
+  <button type="button" class="btn btn-default" ng-click="openDinoInfo('lg')">Learn More About Dinosaurs</button>
+  <br/>
+  <br/>
+  <div ng-show="madeSelection">
+    <span class="alert-warning">Looks like your last selected dinosaur was the <b>{{selected.item.name}}.</b> That's a great selection!</span>
+  </div>
+  <div ng-show="!madeSelection">
+    <span class="alert-warning">Try clicking on the dinosaur modal button <i>and</i> then click on the Ok button.</span>
+  </div>  
 </div>
