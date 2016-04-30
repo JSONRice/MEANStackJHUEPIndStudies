@@ -17,25 +17,31 @@ module.exports = function (config) {
     ],
     // list of files / patterns to load in the browser
     files: [
-      // Vendor sources:
+      // Vendor sources should match what is in index.ejs:
       'client/vendor/jquery/jquery.js',
       'client/vendor/angular/angular.js',
       'client/vendor/angular-mocks/angular-mocks.js',
+      'client/vendor/angular-animate/angular-animate.js',
       'client/vendor/angular-sanitize/angular-sanitize.js',
       'client/vendor/angular-resource/angular-resource.js',
-      'client/vendor/angular-ui-router/angular-ui-router.js',      
-      'client/vendor/angular-animate/angular-animate.js',
       'client/vendor/angular-route/angular-route.js',
+      'client/vendor/angular-ui-router/angular-ui-router.js',
       'client/vendor/angular-ui-select/select.js',
       'client/vendor/angular-ui-utils/ui-utils.js',
       'client/vendor/angular-nvd3/angular-nvd3.js',
       'client/vendor/ng-lodash/ng-lodash.js',
       'client/vendor/angular-spinner/angular-spinner.js',
       'client/vendor/angular-ui-bootstrap/dist/ui-bootstrap.js',
-      'client/vendor/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',      
+      'client/vendor/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
+      'client/vendor/clipboard/clipboard.min.js',
+      'client/vendor/ngclipboard/ngclipboard.min.js',
+      'client/vendor/moment/moment-with-locales.min.js',
+      'client/vendor/fullcalendar/fullcalendar.min.js',
+      'client/vendor/fullcalendar/gcal.js',
+      'client/vendor/angular-ui-calendar/calendar.min.js',
       // User defined sources:
       'client/javascript/app.js',
-      'client/javascript/**/*.js',      
+      'client/javascript/**/*.js',
       'client/javascript/dist/templates.js',
       'tests/frontend/*Spec.js',
       'tests/frontend/**/*Spec.js'
@@ -64,9 +70,9 @@ module.exports = function (config) {
     // configure the coverage checker
     coverageReporter: {
       // includeAllSources: true,
-      type : 'html',
-      dir : 'code_coverage/'      
-    },    
+      type: 'html',
+      dir: 'code_coverage/'
+    },
     // web server port
     port: 9876,
     // enable / disable colors in the output (reporters and logs)
