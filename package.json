@@ -1,11 +1,12 @@
 {
   "name": "MEANStackJHUEPIndStudies",
   "private": true,
-  "version": "0.0.4",
+  "version": "1.0.14",
   "description": "Having fun with MEAN stack.",
-  "repository": "https://github.com/jasonwr/CleaningSchedule",
+  "repository": "https://github.com/jasonwr/MEANStackJHUEPIndStudies",
   "license": "MIT",
   "devDependencies": {
+    "bower": "^1.7.9",
     "del": "^2.2.0",
     "kerberos": "0.0.19",
     "prettify": "^0.1.7",

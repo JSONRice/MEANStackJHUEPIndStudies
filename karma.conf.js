@@ -46,10 +46,8 @@ module.exports = function (config) {
     reporters: ['progress', 'coverage'],
     // list of files to exclude
     exclude: [
-      // Custom code that doesn't exactly conform to JSLint. Someday I may fix the lints (warnings) 
-      // but I don't have the time to fix all the issues now.
+      // Custom code that doesn't exactly conform to JSLint. Need to fix.
       'client/javascript/directives/tree.js',
-      // TODO: apply calendar to showcase then test
       'client/javascript/controllers/calendarController.js',
       'client/javascript/directives/calendar.js',
       // don't test the minified distribution code as the code should already be tested as-is
