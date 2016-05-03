@@ -105,6 +105,12 @@ angular.module('meanstacktutorials').controller('TreeController', [
                     }
                   }
                 ]
+              },
+              {
+                label: 'Gulp and Test Setup',
+                data: {
+                  url: "templates/tutorials/toc/serverSideOverview/gulpSetup.html"
+                }
               }
             ]
           },

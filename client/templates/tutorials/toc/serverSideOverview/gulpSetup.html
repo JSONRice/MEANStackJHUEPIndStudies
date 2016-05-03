@@ -1,0 +1,68 @@
+<div id="gulpSetup">
+  <section>
+    <p>GulpJS is a JS NPM package for automating MEAN tasks such as code minification, JS Linting (error detection), template compiling, style compiling, and testing. Gulp is similar to the functions that Maven (mvn) performs for Java based applications. GruntJS is similar to GulpJS and fulfills task automation and is certainly worth looking at. For simplicity this tutorial will cover GulpJS</p>
+  </section>
+  <h4>Overview</h4>
+  <p>The Gulp NPM package is included in the package.json dependencies file. Checkout the gulpfile.js at the root level of the web app. This file contains all the Gulp tasks (goals). As previously mentioned Gulp tasks can perform a myriad of goals. One task can trigger multiple goals. Each goal is a JavaScript function that gets called and these functions utilize Gulp API libraries. There are a bunch of Gulp libraries available, such as <b>gulp-rename</b> and <b>gulp-jshint</b></p>
+  <section>
+    <h4>Example Gulp Test Task</h4>
+    <p>The Gulp test is a wrapper around Karma. To run Karma ad-hoc simply type:</p>
+    <pre>karma start karma.conf.js</pre>
+    <p>UI Testing is not covered in this tutorials series as that should involve an entire new series of tutorials and lectures but the Karma test configuration file is in karma.conf.js at the root level of the web application. The tests are all under the <b>tests</b> directory at the root level. Each test is of the format <b>*Spec.js</b> where the asterisk is the name of the test. The <b>Spec</b> stands for specification and is a hint at TDD (Test Driven Development) as TDD encourages developers to right requirements specifications manifest through tests that are then developed to.</p>
+    <p>To run Karma via Gulp simply type:</p>
+    <pre>
+      gulp karma
+    </pre>
+    <p>
+      Since Karma is a part of the test task it's desirable to have Karma wrapped in a Gulp task. The Gulp-Karma test task is defined as:</p>
+    <pre>
+// Karma
+gulp.task('karma', function (done) {
+  return karma.start({
+    configFile: __dirname + '/karma.conf.js'
+  }, done);
+});      
+    </pre>
+    <p>
+      Traditionally there was a <b>gulp-karma</b> library, but the Gulp developers removed this package as Karma is trivial to extend and use. In the previous code snippet the <b>karma</b> variable is declared at the top of the Gulp file as:      
+    </p>
+    <pre>
+var karma = require('karma').Server;
+    </pre>
+    <p>This implies the <b>karma</b> module is loaded first then the <b>Server</b> prototype (object) is loaded as a new instance of a Karma Server object into the <b>karma</b> variable.</p>
+    <h4>Example Gulp JSLint (Hint)</h4>
+    <p>The Lint task is a bit more involved:</p>
+    <pre>
+// Lint (JSHint) Task
+gulp.task('lint', function () {
+  return gulp.src([
+    './server/controllers/**/*.js',
+    './server/models/**/*.js',
+    './server/routes/**/*.js',
+    './server/services/**/*.js',
+    './server/utils/**/*.js',
+    './app.js',
+    './client/javascript/**/*.js',
+    // don't lint packaged or minified code
+    // 9 out of 10 times this is optimized (e.g. no semicolons)
+    '!./client/javascript/dist/*'
+  ]).pipe(jshint()).pipe(jshint.reporter('default'));
+});      
+    </pre>
+    <p>Above the <b>jshint</b> is in the pipe function at the end of the return call. The <b>gulp.src</b> allows the files in the array to be linted (JSHint). As the comments describe adding a path that is prepended with <b>!</b> will cause the task to skip past that source. The <b>gulp.src</b> combined with <b>pipe</b> is a clever approach that Gulp employs to carry out tasks upon a set (array or list) of files. Any function that is predefined can go into the pipe and then multiple pipes can be chained together to create a sequence of events. The JSHint reporter by default will print any Lints (errors or warnings) to standard output (STDOUT).</p>
+    <h4>Chaining Tasks</h4>
+    <p>It's possible to chain tasks. For example:</p>
+    <pre>
+// Used for development 'gulp dev'
+gulp.task('dev', ['clean', 'style', 'concat']);      
+    </pre>
+    <p>Will invoke each of the tasks <b>clean</b>, <b>style</b>, and <b>concat</b> whenever <b>dev</b> is invoked. To invoke <b>dev</b> from the command line simply type:</p>
+    <pre>
+gulp dev      
+    </pre>
+    <p>Check out the Gulp file (gulpfile.js) to see what each of the chained tasks is doing. Order is important and each task gets executed from left to right in the order it's placed in the parameter array (list).</p>
+    <h4>Developing with Gulp</h4>
+    <p>The main development task worth mentioning is <b>gulp watch</b> This task is invaluable during development as it constantly listens for file changes and performs continuous minification (concatenation of JS files). Prior to this task running, the <b>gulp dev</b> is invoked so if you are currently developing you don't even need to run <b>gulp dev</b> but rather <b>gulp watch</b>. The watch will output to the shell (terminal) it's launched from so don't close that terminal or run other commands in that terminal, unless you tee the standard output to a log file.</p>
+  </section>
+</div>
+
