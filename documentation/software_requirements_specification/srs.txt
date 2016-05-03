@@ -1,0 +1,39 @@
+Title: MEAN Stack Tutorials SRS and Retrospective
+Date: May 3, 2016
+Author: Jason Rice
+Version: 1.0
+
+* Requirements Overview *
+The following is a list of functional requirements fulfilled within the proposal documents (see revisions):
+
+1. Code coverage over 50% demonstrated throughout controllers and services.
+2. User credentials protected and securely stored.
+3. User registration capability where users must first register before logging in.
+4. User login capability availabe to registered users.
+5. Angular UI and directives tutorials provided with live demonstrations for Angular UI with Bootstrap.
+6. MEAN server side overview setup provided.
+6. MEAN client side and testing overview setup provided.
+7. MEAN source code task automation tutorial and files provided.
+8. MEAN tests provided and enforced via build tasks.
+9. Versioning information provided within the web application history modal.
+10. FAQ modal provided.
+11. Bootstrap enhanced UI including tooltips, modals, alerts, and wells.
+12. Web security enforced through self signed certificates. App capable of loading through HTTP and HTTPS (SSL).
+13. Sources to external directives and components cited.
+14. Thoroughly documented modules for developers to read from.
+15. Angular routing file setup and thoroughly documented. Enforces security by ensuring users must first log in
+    to view any of the pages.
+
+Retrospective:
+   This Independent Studies course provided me with a first-hand opportunity to learn more about MEAN web development.
+MEAN is a very attractive set of technologies for web implementation, and understanding the intricies of MEAN is in
+high demand in the software development industry and at my work location (US Gov). I was able to take real world problems
+such as UI component testing, and learn more about that through independent research. I will now be able to continually
+refer to this project and enhance it to further understand MEAN and Angular. Learning MEAN and Angular have set me
+apart in my work office, as an individual who possesses highly valuable skills in web development. MEAN is setup for
+rapid prototyping and rapid web development. Knowing what I know now I can quickly setup web components by leveraging
+MEAN. In the coming weeks and months the team I'm working with will benefit from my recent discoveries as I will be
+updating their version of Angular from 1.2.x to 1.5.x and will be implementing Karma-Jasmine based tests. I will also
+be applying Express and Electrolyte Inversion of Control and possibly Mongoose schema-oriented models. Having undertaken
+this independent study I'm now confident enough to engage this work with little to no help at work. I am currently
+the leading UI engineer on my team and my team has high expectations for my recent discoveries that I will shortly apply.
