@@ -21,20 +21,14 @@ var app = express();
 
 // Setup dependency injection and list paths with ElectrolyteJS (Inversion of Control)
 var ioc = require('electrolyte');
-ioc.use(ioc.node('./server/models'));
-ioc.use(ioc.node('./server/services'));
-ioc.use(ioc.node('./server/controllers'));
-ioc.use(ioc.node('./server/utils'));
+ioc.use(ioc.dir('./server/models'));
+ioc.use(ioc.dir('./server/services'));
+ioc.use(ioc.dir('./server/controllers'));
+ioc.use(ioc.dir('./server/utils'));
 ioc.use(ioc.node_modules());
 
 // create objects from IoC here:
 var database = ioc.create('database');
-
-/* TODO: setup user authentication (login) services over HTTPS
- var ssl = ioc.create('ssl');
- var authService = ioc.create('authService');
- var userService = ioc.create('userService');
- */
 
 // connect to the database:
 database.connect(function (err) {
@@ -121,18 +115,21 @@ if (app.get('env') === 'development') {
 var port = normalizePort(process.env.PORT || '8000');
 app.set('port', port);
 
-// Create HTTP server. When web site is visited load app object.
-var server = http.createServer(app);
+// Create a basic unsecure HTTP server. When web site is visited load app object.
+// var server = http.createServer(app);
+
+// Server options for security (note keys should only be readable to the user running the app):
+var options = {
+  key: fs.readFileSync('keys/key.pem'),
+  cert: fs.readFileSync('keys/cert.pem'),
+  ca: fs.readFileSync('keys/ca-cert.pem')
+};
 
 // listen on provided port, on all network interfaces.
+var server = https.createServer(options, app).listen(app.get('port'));
 
-server.listen(port, function () {
-  // callback:
-  console.log("Server listening on: http://localhost:%s", port);
-});
 server.on('error', onError);
 server.on('listening', onListening);
-
 
 // normalize a port into a number, string, or false:
 function normalizePort(val) {
@@ -184,5 +181,6 @@ function onListening() {
   // unix (file) pipe (IPC) or network port:
   var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   // loadDefaultPage('./client/templates/index.html');
+  console.log('Node is now listening for app requests.\nNavigate to https://localhost:' + app.get('port') + ' or http://localhost:' + app.get('port') + ' depending on your app.js setup');
   console.log("NOTE: if you haven't already done so restart the web app with 'nodemon' instead of using 'node' and any code changes will cause NodeJS to restart.");
 };
