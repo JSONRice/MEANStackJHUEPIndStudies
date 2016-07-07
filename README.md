@@ -1,6 +1,9 @@
 Last Updated Date: Sun May 1
+
 Last Updated Time: 4:42 pm
+
 Author: Jason Rice
+
 Affiliation: JHU EP Independent Studies Spring 2016
 
 Overview:
