@@ -1,6 +1,6 @@
 Last Updated Date: Thu July 7, 2016
 
-Last Updated Time: 4:42 pm
+Last Updated Time: 11:00 am EST USA
 
 Author: Jason Rice
 
