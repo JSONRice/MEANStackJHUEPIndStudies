@@ -2,6 +2,9 @@
   "name": "MEANStackJHUEPIndStudies",
   "private": true,
   "version": "1.0.14",
+  "engines": {
+    "node": "4.2.6"
+  },
   "description": "Having fun with MEAN stack.",
   "repository": "https://github.com/jasonwr/MEANStackJHUEPIndStudies",
   "license": "MIT",
