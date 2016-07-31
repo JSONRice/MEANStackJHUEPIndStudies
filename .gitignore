@@ -6,5 +6,6 @@ templates.js
 all.css
 port*
 coverage
+testing
 code_coverage
 .DS_Store

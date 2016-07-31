@@ -43,8 +43,8 @@ module.exports = function (config) {
       'client/javascript/app.js',
       'client/javascript/**/*.js',
       'client/javascript/dist/templates.js',
-      'tests/frontend/*Spec.js',
-      'tests/frontend/**/*Spec.js'
+      'specs/frontend/*Spec.js',
+      'specs/frontend/**/*Spec.js'
     ],
     // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -63,9 +63,9 @@ module.exports = function (config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       'client/javascript/**/*.js': ['coverage'],
-      'tests/frontend/**/*Spec.js': ['browserify'],
+      'specs/frontend/**/*Spec.js': ['browserify'],
       // browserify framework allows requires in the specs
-      'tests/frontend/*Spec.js': ['browserify']
+      'specs/frontend/*Spec.js': ['browserify']
     },
     // configure the coverage checker
     coverageReporter: {
