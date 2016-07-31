@@ -1,10 +1,10 @@
-Last Updated Date: Thu July 7, 2016
+Last Updated Date: Sat July 30, 2016
 
 Last Updated Time: 11:00 am EST USA
 
 Author: Jason Rice
 
-Affiliation: JHU EP Independent Studies Spring 2016
+Affiliation: JHU-EP Independent Studies Spring 2016
 
 Overview:
 app.js is the main MEAN web stack application
@@ -12,10 +12,6 @@ app.js is the main MEAN web stack application
 The 'documentation' directory contains the mockups and installation notes for Linux, Mac, and Windows.
 See windows_notes.txt (Windows 7) and unix_notes.txt (Mac OS X and CentOS/RHEL Linux)
 for specific installation instructions.
-
-All the source for the Pro AngularJS book is under proangularjs
-The production code for the MEAN tutorials is under client/
-This is a work in progress.
 
 Licensing:
 Copyright (c) 2015-2016 Jason Rice

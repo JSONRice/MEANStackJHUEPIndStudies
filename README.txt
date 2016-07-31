@@ -1,7 +1,10 @@
-Last Updated Date: Mon Feb 15
-Last Updated Time: 1:34 pm
+Last Updated Date: Sat July 30, 2016
+
+Last Updated Time: 11:00 am EST USA
+
 Author: Jason Rice
-Affiliation: JHU EP Independent Studies Spring 2016
+
+Affiliation: JHU-EP Independent Studies Spring 2016
 
 Overview:
 app.js is the main MEAN web stack application
@@ -10,12 +13,8 @@ The 'documentation' directory contains the mockups and installation notes for Li
 See windows_notes.txt (Windows 7) and unix_notes.txt (Mac OS X and CentOS/RHEL Linux)
 for specific installation instructions.
 
-All the source for the Pro AngularJS book is under proangularjs
-The production code for the MEAN tutorials is under public/src/
-This is a work in progress.
-
 Licensing:
-Copyright (c) 2015 Jason Rice
+Copyright (c) 2015-2016 Jason Rice
 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
