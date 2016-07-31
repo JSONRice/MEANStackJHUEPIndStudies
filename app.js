@@ -112,6 +112,7 @@ if (app.get('env') === 'development') {
 }
 
 // Get port from environment and store in Express:
+// The port here should be 443 if you want to go over HTTPS
 var port = normalizePort(process.env.PORT || '8000');
 app.set('port', port);
 
@@ -125,8 +126,10 @@ var options = {
   ca: fs.readFileSync('keys/ca-cert.pem')
 };
 
-// listen on provided port, on all network interfaces.
-var server = https.createServer(options, app).listen(app.get('port'));
+// For a secure server use the following:
+// var server = https.createServer(options, app).listen(app.get('port'));
+// Unsecure server:
+var server = http.createServer(app).listen(app.get('port'));
 
 server.on('error', onError);
 server.on('listening', onListening);
